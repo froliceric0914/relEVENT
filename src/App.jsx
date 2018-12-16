@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import EventList from './EventList.jsx';
-
+import MessageList from './MessageList.jsx';
+import ChatBar from './ChatBar.jsx';
 
 class App extends Component {
   constructor(){
@@ -8,6 +9,7 @@ class App extends Component {
     this.state = {
       'events': [],
       'conditions': [],
+      'messages': ['test','test1','test3'],
      // 'currentUser': {name: ''},
 
     }
@@ -41,7 +43,17 @@ class App extends Component {
         <a href='/' className='navbar-brand'></a>
         nav 
       </nav>
-     <EventList events= {serchResult}/>
+
+      <main>
+        <div className='eventList'>
+            <EventList events= {serchResult}/>
+        </div>
+        <div className='chatSpace'>
+            <MessageList />
+            <ChatBar />
+        </div>
+      </main>
+
      {/* <ChatBar addMessage={this.addMessage} changeName={this.changeName} currentUser = {this.state.currentUser}/> */}
      </div>
     );
