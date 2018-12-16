@@ -14,7 +14,7 @@ class App extends Component {
     this.state = {
       'events': [],
       'conditions': [], //maybe no need
-      'messages': ['test','test1','test3'],
+      'messages': [], //will be array of object
     }
    this.searchEvent = this.searchEvent.bind(this);
    this.addEventToMyList = this.addEventToMyList.bind(this);
@@ -31,7 +31,7 @@ class App extends Component {
 
       }).then(data=>{
         const temp = data.events;
-        //set updated events
+        //set retrieved events
         this.setState({events: temp.slice(0)})
       });
 
@@ -43,15 +43,16 @@ class App extends Component {
  
   searchEvent(e){
     e.preventDefault() 
-    // extrach each form values and assign to fetch query
+    // extract each form values and assign to fetch query
 
-    // ↓need to replace with passed query. empty value will be ignored
+    // ↓need to add place holder to use passed param. empty value will be ignored
 
     // fetch(`//https://www.eventbriteapi.com/v3/events/search/?q=&sort_by=date&location.address=&location.within=&location.latitude=&location.longitude=&location.viewport.northeast.latitude=&location.viewport.northeast.longitude=&location.viewport.southwest.latitude=&location.viewport.southwest.longitude=&organizer.id=&user.id=&categories=&subcategories=&formats=&price=free&start_date.range_start=&start_date.range_end=&start_date.keyword=today&date_modified.range_start=&date_modified.range_end=&date_modified.keyword=today&search_type=promoted&include_all_series_instances=&include_unavailable_events=&include_adult_events=&incorporate_user_affinities=&high_affinity_categories=&token=${process.env.TOKEN}`)
     // .then(res=> {
     //   return res.json();
 
     // }).then(data=>{
+    //  may need extra filtering depends on condition?
     //   const temp = data.events;
          //set updated events
     //   this.setState({events: temp.slice(0)})
@@ -72,7 +73,7 @@ class App extends Component {
   render() {
     // maybe no need 
     // const { events, conditions } = this.state;
-    // const serchResult = events.filter(event =>{
+    // const searchResult = events.filter(event =>{
     //   return event;
     // })
 
