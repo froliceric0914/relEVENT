@@ -1,5 +1,6 @@
-
 import React, {Component} from 'react';
+
+//TODO: styling, set at a proper position
 
 class ChatBar extends Component{
   render() {

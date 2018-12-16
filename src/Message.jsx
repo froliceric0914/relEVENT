@@ -1,3 +1,5 @@
+//TODO: set message to list component
+
 
 import React, {Component} from 'react';
 

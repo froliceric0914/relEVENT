@@ -3,6 +3,7 @@
 @import url("https://cdnjs.cloudflare.com/ajax/libs/normalize/4.2.0/normalize.min.css");
 
 
+/////////////////// universal ///////////////////
 body {
   background: white;
   color: black;
@@ -12,37 +13,94 @@ body {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-
 }
 
+/////////////////// navbar ///////////////////
+
+.navbar {
+  background: rgb(49, 54, 216);
+  height: 60px;
+  left: 0;
+  padding: 0 10px;
+  position: fixed;
+  right: 0;
+  top: 0;
+  overflow: hidden;
+  color: white;
+
+  a{
+    color: #fff;
+    font-weight: 400;
+  }
+
+  p{
+    float: right;
+    line-height: 60px;
+    margin: auto 10px;
+  }
+}
+
+.navbar-brand {
+  font-family: 'Ubuntu', sans-serif;
+  color: inherit;
+  display: block;
+  float: left;
+  font-weight: 700;
+  font-size: 28px;
+  height: 60px;
+  line-height: 60px;
+  padding: 0 10px;
+  text-decoration: none;
+}
+
+/////////////////// main ///////////////////
 main{
-  margin-top: 30px;
+  margin-top: 60px;
   background: tomato;
   display: flex;
   height: 100%;
+  display: flex;
+  flex-direction: column;
 }
+
+//***************** search *****************//
+.searchPanel{
+  background-color: yellowgreen;
+  display: block;  
+}
+
+.mainContent{
+  display: flex;
+}
+
+//***************** event *****************//
 
 .eventList{
   background: grey;
 }
 
+
+//***************** chat *****************//
 .chatSpace{
   background: green;
   width: 100%;
   height: 100%;
+  margin:0 auto;
 
-
+  .messageList{
+    height: 100%;
+  }
 }
 
+//**** chatbar ****//
 .chatbar {
   background: gold;
-  position: absolute;
-  bottom: 0;
+  position: fixed;
   display: flex;
-  padding: 5px;
-
-  right: 0;
-  width: 100%;
+  right: auto;
+  left: auto;
+  bottom: 0;
+  margin:0 0 0 0;
 }
 
 .chatbar-message,
@@ -62,10 +120,7 @@ main{
   flex: 2;
 }
 
-.messages{
-  height: 100%;
-}
-
+//**** message ****//
 .message {
   display: flex;
   padding: 0 5px;
@@ -108,38 +163,3 @@ main{
   padding: 10px;
 }
 
-.navbar {
-  background: rgb(49, 54, 216);
-  height: 60px;
-  left: 0;
-  padding: 0 10px;
-  position: fixed;
-  right: 0;
-  top: 0;
-  overflow: hidden;
-  color: white;
-
-  a{
-    color: #fff;
-    font-weight: 400;
-  }
-
-  p{
-    float: right;
-    line-height: 60px;
-    margin: auto 10px;
-  }
-}
-
-.navbar-brand {
-  font-family: 'Ubuntu', sans-serif;
-  color: inherit;
-  display: block;
-  float: left;
-  font-weight: 700;
-  font-size: 28px;
-  height: 60px;
-  line-height: 60px;
-  padding: 0 10px;
-  text-decoration: none;
-}
