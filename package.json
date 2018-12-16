@@ -45,6 +45,9 @@
     "webpack-dev-server": "2.3.0"
   },
   "dependencies": {
+    "dotenv": "^6.2.0",
+    "dotenv-webpack": "^1.5.7",
+    "fs": "0.0.1-security",
     "react": "15.4.2",
     "react-dom": "15.4.2"
   }

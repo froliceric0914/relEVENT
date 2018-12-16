@@ -1,8 +1,12 @@
 var path = require('path');
 var webpack = require('webpack');
+const Dotenv = require('dotenv-webpack');
 
 module.exports = {
   devtool: 'eval',
+  plugins: [
+    new Dotenv()
+  ],
   entry: [
     'webpack-dev-server/client?http://localhost:3000',
     './src/index.jsx'
@@ -28,5 +32,8 @@ module.exports = {
         ]
       }
     ]
+  },
+  node: {
+    fs: "empty"
   }
 };
