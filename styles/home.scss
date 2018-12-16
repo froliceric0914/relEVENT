@@ -1,3 +1,165 @@
-h1 {
-  color: tomato;
+@import url("https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,700");
+@import url('https://fonts.googleapis.com/css?family=Ubuntu');
+@import url("https://cdnjs.cloudflare.com/ajax/libs/normalize/4.2.0/normalize.min.css");
+
+
+/////////////////// universal ///////////////////
+body {
+  background: white;
+  color: black;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 14px;
+  margin: 70px 0;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
+
+/////////////////// navbar ///////////////////
+
+.navbar {
+  background: rgb(49, 54, 216);
+  height: 60px;
+  left: 0;
+  padding: 0 10px;
+  position: fixed;
+  right: 0;
+  top: 0;
+  overflow: hidden;
+  color: white;
+
+  a{
+    color: #fff;
+    font-weight: 400;
+  }
+
+  p{
+    float: right;
+    line-height: 60px;
+    margin: auto 10px;
+  }
+}
+
+.navbar-brand {
+  font-family: 'Ubuntu', sans-serif;
+  color: inherit;
+  display: block;
+  float: left;
+  font-weight: 700;
+  font-size: 28px;
+  height: 60px;
+  line-height: 60px;
+  padding: 0 10px;
+  text-decoration: none;
+}
+
+/////////////////// main ///////////////////
+main{
+  margin-top: 60px;
+  background: tomato;
+  display: flex;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+//***************** search *****************//
+.searchPanel{
+  background-color: yellowgreen;
+  display: block;  
+}
+
+.mainContent{
+  display: flex;
+}
+
+//***************** event *****************//
+
+.eventList{
+  background: grey;
+}
+
+
+//***************** chat *****************//
+.chatSpace{
+  background: green;
+  width: 100%;
+  height: 100%;
+  margin:0 auto;
+
+  .messageList{
+    height: 100%;
+  }
+}
+
+//**** chatbar ****//
+.chatbar {
+  background: gold;
+  position: fixed;
+  display: flex;
+  right: auto;
+  left: auto;
+  bottom: 0;
+  margin:0 0 0 0;
+}
+
+.chatbar-message,
+.chatbar-username {
+  display: block;
+  height: 40px;
+  line-height: 40px;
+  margin: 5px;
+  padding: 0 9px;
+}
+
+.chatbar-message {
+  flex: 8;
+}
+
+.chatbar-username {
+  flex: 2;
+}
+
+//**** message ****//
+.message {
+  display: flex;
+  padding: 0 5px;
+}
+
+.notification {
+  font-style: italic;
+  padding: 5px 20px;
+}
+
+.message-content,
+.message-username {
+
+  margin: 5px;
+  padding: 0 10px;
+  word-wrap: break-word;
+}
+
+.message-content {
+   max-width: 80%;
+
+  .content-wrapper{
+    overflow: hidden;
+    border-radius: 20px;
+    padding: 10px 14px;
+    max-width: 80%;
+  }
+
+  img{
+    max-width: 100%;
+    margin: 0;
+    vertical-align: bottom;
+  }
+}
+
+.message-username {
+  min-width: 20%;
+  max-width:300px;
+  font-weight: 700;
+  padding: 10px;
+}
+
