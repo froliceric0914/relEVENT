@@ -13,7 +13,7 @@ class App extends Component {
     super();
     this.state = {
       'events': [],
-      'conditions': [],
+      'conditions': [], //maybe no need
       'messages': ['test','test1','test3'],
     }
    this.searchEvent = this.searchEvent.bind(this);
@@ -21,11 +21,9 @@ class App extends Component {
    this.openChat = this.openChat.bind(this);
  } 
 
-  componentDidMount() {
+  componentWillMount() {
 
-  
     //retrieve initial events 
-    //this may be fired each message post. will need to change the position
     fetch(`https://www.eventbriteapi.com/v3/events/search/?q=&sort_by=date&location.address=toronto&start_date.keyword=today&token=${process.env.TOKEN}`)
 
       .then(res=> {
@@ -37,10 +35,12 @@ class App extends Component {
         this.setState({events: temp.slice(0)})
       });
 
-      //socket will come here
   }
-  
 
+  componentDidMount(){
+    //socket will come here
+  }
+ 
   searchEvent(e){
     e.preventDefault() 
     // extrach each form values and assign to fetch query
