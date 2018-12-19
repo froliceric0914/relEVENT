@@ -1,0 +1,44 @@
+ id | username |      email      |                       password_digest                        | location | color | avatar 
+----+----------+-----------------+--------------------------------------------------------------+----------+-------+--------
+  1 | Eric     | eric@eric.com   | $2a$10$57ecDNES5I4hXGaEXnXIsePoXCwJ8JbWsNtm/OkzxHgPGufJIe4oy |          |       | 
+  2 | Ryan     | ryan@ryan.com   | $2a$10$62IEv.qr22vUrVl4IA02F..A8NXlI94IO10UQyoZPRUtxK1v3YVdu |          |       | 
+  3 | Azusa    | azusa@azusa.com | $2a$10$wZIT7uk6T03eDKbSX1yNguVHtVwx8HPWtUkAF3hzzI6hHXo4H/Any |          |       | 
+  4 | Erik     | erik@erik.com   | $2a$10$UtZ.9V7skkdpm.UtSb64b.T0Fp7EZCYOGnnTaq6BZIupiQWrMlRuy |          |       | 
+  5 | Eric     | eric@eric.com   | $2a$10$svi3n4DCivyzfp8cmpphcurf90ChfjxLjPDJcWohcslEYzTTnyMd. |          |       | 
+  6 | Ryan     | ryan@ryan.com   | $2a$10$7z4ADUqRkp1fQeH74ANV6u06ZxV5HJC8tptPhD4Rxil6FNVqwbM3q |          |       | 
+  7 | Azusa    | azusa@azusa.com | $2a$10$b90g3jIIF2RlILT.kXxdAu4dfHr/wNRuBHuZElxzahFD6wYxhy3se |          |       | 
+  8 | Erik     | erik@erik.com   | $2a$10$lILwJdOaRMCDRrlozkmSjOOefPVFHfxeRirXYdKVpDQWY2ZiiU5v. |          |       | 
+  9 | Eric     | eric@eric.com   | $2a$10$rdIFrvURjCwDtNN5JpxCXeakrVHCXFmTZgf8xE1gtFi/8aQcjBmlO |          |       | 
+ 10 | Ryan     | ryan@ryan.com   | $2a$10$/zGKMm3v9wUSKwOIvU2A8u3pGi3yBESMu/siJe1Y6.8PCCWYfdSzi |          |       | 
+ 11 | Azusa    | azusa@azusa.com | $2a$10$.4hz3kt.gnDUZdIOzJxMoOKEGqpOF4b4anv2X5ECua6zcWht2mDqW |          |       | 
+ 12 | Erik     | erik@erik.com   | $2a$10$8vaWFcOUH4XqejdGggvDku2QE4.LfP5allfGdDPNH5b914.uJ0MGa |          |       | 
+ 13 | Eric     | eric@eric.com   | $2a$10$cyf0lFIIakjBK44RG5MMLOLmeBBIsHkGuUyFmyuib0QsiBKMhjjQy |          |       | 
+ 14 | Ryan     | ryan@ryan.com   | $2a$10$BA8gHAI169Pd8sLCYbFhtu8iFu7BaICfA5Eb1RgJ2fPl4eECDNdVm |          |       | 
+ 15 | Azusa    | azusa@azusa.com | $2a$10$GmVZGx1nIbWgowjQfsL4t.CbTP/YE5Qi0/owbwJhOYZ2EjFGhFx3i |          |       | 
+ 16 | Erik     | erik@erik.com   | $2a$10$rMb31kl.opGYMcUTRVG8COOStFm9x3JYvE9n9V.vw2ltYZucWT1fu |          |       | 
+ 17 | Eric     | eric@eric.com   | $2a$10$FASTXGYSQmoaDc6WTBwWBOvGdMyhP6sdRPn12G9BEhL9TqC/hiVJm |          |       | 
+ 18 | Ryan     | ryan@ryan.com   | $2a$10$83.PklCBwfhgIBYagJkDdeIxGIR0jVEHMWZOW8auSsLH97y5mQOV6 |          |       | 
+ 19 | Azusa    | azusa@azusa.com | $2a$10$bO8NNEFKyADZqFj3bgICEugTMaih97iSdMnDsNGcwuhSZ/PYa.uLq |          |       | 
+ 20 | Erik     | erik@erik.com   | $2a$10$0tEL2snPPF8nHGDADBhArO68325gmlC0bJVJY.L/QZo/g.p0pHdLq |          |       | 
+ 21 | Eric     | eric@eric.com   | $2a$10$J45sjnjDEdtXrTVV8NR.kexopJkYlbrz8yBpyhEiNTzhFKNLomSEG |          |       | 
+ 22 | Ryan     | ryan@ryan.com   | $2a$10$P/YqSETJNg/Z2pd6MqSPeef5M3RIl4BIPO7cIVh2VmqX35Nuvh0UW |          |       | 
+ 23 | Azusa    | azusa@azusa.com | $2a$10$3qQafme/A5H7bjv9Mg2hQ.mRTd7DbLwNd5e1HK5nmdmqIbwhB68C6 |          |       | 
+ 24 | Erik     | erik@erik.com   | $2a$10$p3t.qfMv6Ws5rN.rU7jPP.Nw8R.qLIklxY8dB.tvOjyPfrtDTJqhC |          |       | 
+ 25 | Eric     | eric@eric.com   | $2a$10$AVA128yT32g7b2S0DJVUrOXOqN5inkIw6lTarUsb2jkAm6N5U7rWe |          |       | 
+ 26 | Ryan     | ryan@ryan.com   | $2a$10$woBb1J5AMHv5ktT3N7THFOtZCyfCWAzIstyN1CVy1Ba5cgxE0B7uG |          |       | 
+ 27 | Azusa    | azusa@azusa.com | $2a$10$Ff2Ic2yEGuc56YmufHNtgeV1B1BB7Yvrf40douyCd8el2mio9uiKa |          |       | 
+ 28 | Erik     | erik@erik.com   | $2a$10$3ttelb7DfkDVVnk6xnTIBOS3Gq137aVnz4TAVem5sUDe/9Vu/i95C |          |       | 
+ 29 | Eric     | eric@eric.com   | $2a$10$kffvAniVfXvVhTZ4K7JXt.Vv6Iyykp.2PxAiuj1DH6edTyHZpTH.y |          |       | 
+ 30 | Ryan     | ryan@ryan.com   | $2a$10$ctCudzvXFzruXy1co8.8nuJEbzLwUTwBVOk0pYh5GJmL/B3cwsLLy |          |       | 
+ 31 | Azusa    | azusa@azusa.com | $2a$10$8BVK1As6QfJ3sNOaNo5Zo.Rnk6DqYJ1YL./Gumvr4VqfSaZ4EH6Dy |          |       | 
+ 32 | Erik     | erik@erik.com   | $2a$10$11y9GubNfutRKfgFmaL2SOC89X7lR3uKs885NHxt/2eT/52ZxbYHq |          |       | 
+ 33 | Eric     | eric@eric.com   | $2a$10$8zwqc2bAa9rAIbFg0tPNE.ccxvPqcJO5Ld.Ru6.tAHTj16y7iA6.S |          |       | 
+ 34 | Ryan     | ryan@ryan.com   | $2a$10$cD/1GAH/cmhDM0Dfn0mS.O5WgcptaNjPVirrf97GtpxRPDIpyulRy |          |       | 
+ 35 | Azusa    | azusa@azusa.com | $2a$10$qgriZ.mW6FkNnfpABhfyGOjatsuLPpAjQHZzCQydaEVxn2CftYaaS |          |       | 
+ 36 | Erik     | erik@erik.com   | $2a$10$SQ.eZjwdXXrvE./bocVSX.WDtg.g.5DRYFUhzMCoes6dhya7fh6mi |          |       | 
+ 37 | Eric     | eric@eric.com   | $2a$10$Rp2DoU1x1NLkP/UXAHARoevRPozF0Y8rP5fMbl/ZUEE74T9IrZho. |          |       | 
+ 38 | Ryan     | ryan@ryan.com   | $2a$10$/6M2qc.FJuwgCNgjWdrmhu001PAshjwkw34CLuMwmRlMuIFaODdtq |          |       | 
+ 39 | Azusa    | azusa@azusa.com | $2a$10$1/7ZxFqt.CJUcFeCqQbdVeg2L8LEO3cp9MUre0OY8gt.CejBKRz1a |          |       | 
+ 40 | Erik     | erik@erik.com   | $2a$10$wDu38g4hQkC4lmnBOZSg7O.su.gJssQv4JRhit1r63LDWoBj/JWlS |          |       | 
+(40 rows)
+
