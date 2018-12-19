@@ -53,7 +53,6 @@ class App extends Component {
       .then(data => {
         const option = data.categories;
         this.setState({ categories: option });
-        // console.log("categories in state: ", this.state.categories);
       });
   }
 
@@ -64,7 +63,7 @@ class App extends Component {
   searchEvent(eventName, category, location, localWithin) {
     const getURL = `https://www.eventbriteapi.com/v3/events/search/?q=${eventName}&expand=organizer,venue&sort_by=${
       this.state.orderby
-    }&location.address=${location}&location.within=${localWithin}&token=${
+    }&location.address=${location}&categories=${category}&location.within=${localWithin}&token=${
       process.env.TOKEN
     }`;
     const eventsResponse = fetch(getURL)

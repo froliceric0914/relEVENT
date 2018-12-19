@@ -6,8 +6,6 @@ import React from "react";
 //TODO: add styling
 
 const Event = ({ event }) => {
-  // console.log(event);
-  // const url = event.logo.url;
   let img;
   if (event.logo && event.logo.url) {
     img = <img className="img-fluid mb-2" src={event.logo.url} />;

@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 
 //This is an Search window
-//TODO: replace dummy code to form
 //TODO: set onclick to submit button
 //TODO: add styling
 
@@ -15,7 +14,8 @@ class SearchPanel extends Component {
       keyword: "",
       category: "",
       location: "",
-      localWithin: `${this.props.categories}`
+      localWithin: ""
+      // `${this.props.categories}`
     };
 
     this._handleSubmit = this._handleSubmit.bind(this);
@@ -33,7 +33,7 @@ class SearchPanel extends Component {
 
   _handleSubmit(e) {
     const { keyword, category, location, localWithin } = this.state;
-    console.log("options", this.state.categories);
+    console.log("categorty: ", this.state.categories);
     alert("click the search");
     this.props.searchEvent(keyword, category, location, localWithin);
     //call this.props.searchEvent(e)
@@ -60,14 +60,24 @@ class SearchPanel extends Component {
               placeholder="all the fantastic starts from here"
             />
           </div>
-
+          {/* <option value={option.value} 
+selected={optionsState == option.value}>
+{option.label}</option>
+ */}
           <div className="form-group">
             <label for="category">Category</label>
-            <select className="form-control" id="category">
+            <select
+              className="form-control"
+              id="category"
+              onChange={e => {
+                this.setState({ category: e.target.value });
+              }}
+            >
               {this.props.categories.map(categoryOption => {
                 return (
                   <option value={categoryOption.id} key={categoryOption.id}>
                     {categoryOption.name}
+                    {/* selected={} */}
                   </option>
                 );
               })}
