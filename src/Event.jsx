@@ -24,6 +24,7 @@ const Event = ({ event }) => {
     //   <button>chat</button>&nbsp;
     //   <button>add to list</button>
     // </div><div class="col-md-4 mt-4">
+
     <div className="card">
       <div className="card-body">{img}</div>
 

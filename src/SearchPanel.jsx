@@ -5,9 +5,40 @@ import React, { Component } from "react";
 //TODO: set onclick to submit button
 //TODO: add styling
 
-// TODO: make the key words mak first
+// TODO: make the key words first
 
+//listen to the
 class SearchPanel extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      keyword: "",
+      category: "",
+      location: "",
+      localWithin: `${this.props.categories}`
+    };
+
+    this._handleSubmit = this._handleSubmit.bind(this);
+  }
+
+  componetdidMount() {
+    const options = this.prpos.categories.filter(category => {
+      category.name === "Music";
+      console.log("!", category);
+    });
+    console.log("options:", options);
+    //api call to get the catrget
+    //set state of the top
+  }
+
+  _handleSubmit(e) {
+    const { keyword, category, location, localWithin } = this.state;
+    console.log("options", this.state.categories);
+    alert("click the search");
+    this.props.searchEvent(keyword, category, location, localWithin);
+    //call this.props.searchEvent(e)
+  }
+
   render() {
     return (
       <div className="container search-wrapper">
@@ -20,14 +51,27 @@ class SearchPanel extends Component {
               type="text"
               id="event-name"
               className="form-control"
-              value="drake"
+              onChange={e => {
+                this.setState({
+                  keyword: e.target.value
+                });
+              }}
+              value={this.state.keyword}
               placeholder="all the fantastic starts from here"
             />
           </div>
 
           <div className="form-group">
             <label for="category">Category</label>
-            <select className="form-control" id="category" />
+            <select className="form-control" id="category">
+              {this.props.categories.map(categoryOption => {
+                return (
+                  <option value={categoryOption.id} key={categoryOption.id}>
+                    {categoryOption.name}
+                  </option>
+                );
+              })}
+            </select>
           </div>
 
           <div className="form-group">
@@ -36,7 +80,12 @@ class SearchPanel extends Component {
               type="text"
               id="location"
               className="form-control"
-              value="toronto"
+              onChange={e => {
+                this.setState({
+                  location: e.target.value
+                });
+              }}
+              value={this.state.location}
               placeholder="Please select a city"
             />
           </div>
@@ -46,20 +95,29 @@ class SearchPanel extends Component {
             <input
               type="text"
               id="local-within"
+              onChange={e => {
+                this.setState({
+                  localWithin: e.target.value
+                });
+              }}
+              value={this.state.localWithin}
               className="form-control"
               placeholder="Please input km/mile"
             />
           </div>
 
           <div className="form-group">
-            <input
+            <button
+              onClick={this._handleSubmit}
               type="submit"
               className="mt-5 form-control btn btn-success"
               id="submitBtn"
-              value="Search"
-            />
+            >
+              Seach
+            </button>
           </div>
         </div>
+
         <div id="result" className="row mt-5" />
       </div>
     );
