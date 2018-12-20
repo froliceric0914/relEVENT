@@ -2,8 +2,11 @@ Rails.application.routes.draw do
   
   # changed this to add show
   resources :users do 
-    resources :user_events, only: [:index, :show, :create]
+    resources :user_events
+    # , only: [:index, :show, :create, :delete]
   end
+
+  get '/users/:user_id/events' => 'user_events#events'
 
 
   # resources :user_eve
@@ -18,6 +21,7 @@ Rails.application.routes.draw do
   resources :events, only: [:show, :index] do
     resources :messages, only: [:index, :create]
   end
+
 
 
 end
