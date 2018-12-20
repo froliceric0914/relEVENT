@@ -71,17 +71,21 @@ class App extends Component {
     //     // console.log("events of query", data);
     //     this.setState({ events: result.slice(0) });
     //   });
+    // const eventNameLowCase = eventName.toLowCase();
 
     const events = this.state.targetEvents.slice(0);
     const results = events.filter(event => {
-      if (event.description)
-        // console.log(typeof event.description);
-        // console.log(typeof eventName);
-        // console.log("filter event!", event.description.trim().toLowerCase());
-        // console.log("eventname!", eventName);
-        //TODO : add description || name
+      if (event.description) {
+        console.log("input name", eventName);
+        const descriptionLowCase = event.description.toLowerCase();
+        return descriptionLowCase.includes(eventName.toLowerCase());
+      }
 
-        return event.description.includes(eventName);
+      // console.log(typeof event.description);
+      // console.log(typeof eventName);
+      console.log("filter event!", re);
+      // console.log("eventname!", eventName);
+      //TODO : add description || name
     });
     this.setState({ events: results });
   }
