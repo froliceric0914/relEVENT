@@ -2,8 +2,11 @@ Rails.application.routes.draw do
   
   # changed this to add show
   resources :users do 
-    resources :events, only: [:index, :show]
+    resources :user_events, only: [:index, :show, :create]
   end
+
+
+  # resources :user_eve
 
   # resources :events
   # get '/events' => 'events#index'
