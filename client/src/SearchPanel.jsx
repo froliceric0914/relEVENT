@@ -12,9 +12,9 @@ class SearchPanel extends Component {
     super(props);
     this.state = {
       keyword: "",
-      category: "",
-      location: "",
-      localWithin: ""
+      category: "108",
+      location: "toronto",
+      localWithin: "50km"
       // `${this.props.categories}`
     };
 

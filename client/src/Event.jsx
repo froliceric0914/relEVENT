@@ -6,44 +6,35 @@ import React from "react";
 //TODO: add styling
 
 const Event = ({ event }) => {
+  // console.log("events component: ", event.name);
   let img;
-  if (event.logo && event.logo.url) {
-    img = <img className="img-fluid mb-2" src={event.logo.url} />;
+  if (event && event.logo_url) {
+    img = <img className="img-fluid mb-2" src={event.logo_url} />;
   } else {
     img = <div />;
   }
 
   return (
-    // <div className='eventPanel'>
-    //   <div >
-    //   {event.name.text}
-    //   </div>
-
-    //   <button>chat</button>&nbsp;
-    //   <button>add to list</button>
-    // </div><div class="col-md-4 mt-4">
-
     <div className="card">
       <div className="card-body">{img}</div>
 
       <div className="card-body">
         <div className="card-text">
           <h2 className="text-center card-title">
-            ${event.name.text.substring(0, 35)}...
+            {event.name.substring(0, 35)}...
           </h2>
+
           <p className="lead text-info">Event Information:</p>
-          <p>${event.description.text.substring(0, 200)}...</p>
+          <p>{event.description.substring(0, 200)}...</p>
 
           <span className="badge badge-secondary">
-            Date & Time: {event.start.local}
+            Date & Time: {event.start_local}
           </span>
-
           <span className="badge badge-secondary">
-            {/* Location: ${event.venue.address.address_1} */}
+            Location_address: {event.venue_address}
           </span>
-
           <a
-            href={event.url}
+            href={event.event_url}
             target="_blank"
             className="btn btn-primary btn-block mt-4"
           >
