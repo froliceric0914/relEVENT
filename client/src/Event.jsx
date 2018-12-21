@@ -7,6 +7,7 @@ import React from "react";
 
 const Event = ({ event, openChat}) => {
   let img;
+  // console.log("event", event);
   if (event.logo && event.logo.url) {
     img = <img className="img-fluid mb-2" src={event.logo.url} />;
   } else {
@@ -37,11 +38,10 @@ const Event = ({ event, openChat}) => {
           <span className="badge badge-secondary">
             Date & Time: {event.start.local}
           </span>
-
+          <br />
           <span className="badge badge-secondary">
-            {/* Location: ${event.venue.address.address_1} */}
+            Location: ${event.venue.address.address_1}
           </span>
-
           <a
             href={event.url}
             target="_blank"

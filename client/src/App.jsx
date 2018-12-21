@@ -2,12 +2,10 @@ import Cable from 'actioncable';
 import React, { Component } from "react";
 import SearchPanel from "./SearchPanel.jsx";
 import EventList from "./EventList.jsx";
-// import Chat from "./Chat.jsx";
 import Message from "./Message.jsx";
-
-// add another two class ui. and eventbrite
-// const eventbrite = new EventBrite();
-// const ui = new UI();
+// import MessageList from "./MessageList.jsx";
+import ChatBar from "./ChatBar.jsx";
+import UserRegistration from "./UserRegistration.jsx";
 
 //TODO: toggle search panel (jQuery?)
 //TODO: styling
@@ -16,14 +14,24 @@ import Message from "./Message.jsx";
 class App extends Component {
   constructor(props) {
     super(props);
+    //add an option of oderby distance
     this.state = {
       orderby: "date",
       events: [],
+      targetEvents: [],
       conditions: [], //maybe no need
       messages: [], //will be array of object
       categories: [],
+
       currentChatMessage: '',
-      eventId: ''
+      eventId: '',
+
+      user: {
+        status: false,
+        username: null,
+        userID: null
+      }
+
     };
     this.searchEvent = this.searchEvent.bind(this);
     this.addEventToMyList = this.addEventToMyList.bind(this);
@@ -35,22 +43,23 @@ class App extends Component {
     this.createSocket();
     //retrieve initial events before first render(default events)
     const url = fetch(
-      `https://www.eventbriteapi.com/v3/events/search/?q=&sort_by=date&location.address=toronto&start_date.keyword=today&token=${
-        process.env.TOKEN
-      }`
+      `https://www.eventbriteapi.com/v3/events/search/?q=&sort_by=date&location.address=toronto&start_date.keyword=today&expand=organizer,venue&token=25ZVHBJBUGPPTEWGEP5W`
     )
       .then(res => {
         return res.json();
       })
-      .then(data => {
-        const temp = data.events;
-        console.log("FETCHED DATE", temp[0]);
-        this.setState({ events: temp });
+      .then(events => {
+        console.log("APIdata", events.events);
+        let data = events.events.filter(event => {
+          if (event.description.text) return true;
+        });
+        this.setState({ events: data.slice(0) });
       });
+
 
     // Query the API
     const categoriesResponse = fetch(
-      `https://www.eventbriteapi.com/v3/categories/?token=${process.env.TOKEN}`
+      `https://www.eventbriteapi.com/v3/categories/?token=25ZVHBJBUGPPTEWGEP5W`
     )
       .then(res => {
         return res.json();
@@ -65,29 +74,25 @@ class App extends Component {
     //socket will come here
   }
 
-  searchEvent(eventName, category, location, localWithin) {
-    const getURL = `https://www.eventbriteapi.com/v3/events/search/?q=${eventName}&expand=organizer,venue&sort_by=${
+  searchEvent(keyword, category, location, localWithin) {
+    const getURL = `https://www.eventbriteapi.com/v3/events/search/?q=${keyword}&expand=organizer,venue&sort_by=${
       this.state.orderby
-    }&location.address=${location}&categories=${category}&location.within=${localWithin}&token=${
-      process.env.TOKEN
-    }`;
-    const eventsResponse = fetch(getURL)
+    }&categories=${category}&location.address=${location}&location.within=${localWithin}&token=25ZVHBJBUGPPTEWGEP5W`;
+    console.log("url", getURL);
+
+    const url = fetch(getURL)
       .then(res => {
         return res.json();
       })
       .then(data => {
-        const result = data.events;
-        // console.log("events of query", data);
-        this.setState({ events: result.slice(0) });
+        console.log("queryEvents", data.events);
+        const results = data.events;
+        this.setState({ events: results.slice(0) });
+
+        //filter events with valid decription
       });
-    console.log("getURL", getURL);
-    // Wait for response and return as json
-    // const this.setState.events = eventsResponse.json();
-    // console.log("events of query", events);
-    // return {
-    //   events
-    // };
   }
+
   // extract each form values and assign to fetch query
   //search the search based on input form the SeardchPa
   // ↓need to add place holder to use passed param. empty value will be ignored
@@ -160,13 +165,14 @@ class App extends Component {
 
   render() {
     // maybe no need
-    // const { events, conditions } = this.state;
-    // const searchResult = events.filter(event =>{
+    const { events, conditions } = this.state;
+    // const searchResult = events.filter(event => {
     //   return event;
     // })
     let messages = this.state.messages.map((message, i)=>{
     return <Message key = {i} message = {message}/>
 });
+
 
     return (
       <div>
@@ -177,6 +183,13 @@ class App extends Component {
           <button>search</button>&nbsp;
           <button>list</button>
         </nav>
+
+        <div className="userRegistration">
+          <UserRegistration
+            setUser={user => this.setState({ user })}
+            loginUser={this.state.user}
+          />
+        </div>
 
         <main>
           <div className="searchPanel">
