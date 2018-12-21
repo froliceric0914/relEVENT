@@ -1,23 +1,40 @@
 import React, { Component } from "react";
 //submit a form of the user name&password
-
+//TODO: import the api function(route. method,callback)
 class UserRegistration extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      email: "",
-      username: "",
-      password: ""
+      email: "eric1111@eric.com",
+      username: "ericcool",
+      password: "1234567"
     };
     // this._handleSubmit = this._handleSubmit.bind(this);
   }
-
+  //
   _handleSubmit = e => {
     const { email, username, password } = this.state;
     alert("submit the form");
-    //   console.log("userInfo", password);
-    const user = fetch("localhost:8080/user");
+    console.log("userInfo", { email, username, password });
+    const user = fetch("http://localhost:8080/users", {
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json"
+      },
+      method: "POST",
+      body: JSON.stringify({ user: { email, username, password } })
+      //{user:{...}}
+    })
+      .then(res => {
+        // console.log("ress", res);
+        return res.json();
+      })
+      .then(data => {
+        console.log("user data from backend", data);
+        //   this.props.setUser({ ... })
+      });
+    //call the props and change the state of user in app.js
     // this.props.UserRegistration(email, username, password);
   };
 

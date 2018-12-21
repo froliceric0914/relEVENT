@@ -19,7 +19,8 @@ class App extends Component {
       targetEvents: [],
       conditions: [], //maybe no need
       messages: [], //will be array of object
-      categories: []
+      categories: [],
+      user: null
     };
     this.searchEvent = this.searchEvent.bind(this);
     this.addEventToMyList = this.addEventToMyList.bind(this);
@@ -110,7 +111,7 @@ class App extends Component {
         </nav>
 
         <div className="userRegistration">
-          <UserRegistration />
+          <UserRegistration setUser={user => this.setState({ user })} />
         </div>
 
         <main>
