@@ -4,7 +4,6 @@ import SearchPanel from "./SearchPanel.jsx";
 import EventList from "./EventList.jsx";
 import Message from "./Message.jsx";
 // import MessageList from "./MessageList.jsx";
-import ChatBar from "./ChatBar.jsx";
 import UserRegistration from "./UserRegistration.jsx";
 
 //TODO: toggle search panel (jQuery?)
