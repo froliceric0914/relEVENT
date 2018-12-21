@@ -22,7 +22,8 @@ class App extends Component {
       conditions: [], //maybe no need
       messages: [], //will be array of object
       categories: [],
-      currentChatMessage: ''
+      currentChatMessage: '',
+      eventId: ''
     };
     this.searchEvent = this.searchEvent.bind(this);
     this.addEventToMyList = this.addEventToMyList.bind(this);
@@ -137,6 +138,15 @@ class App extends Component {
       $(".chatSpace").animate({
         width: "toggle"
     });
+
+   console.log("target",event.target.name);
+   this.setState({
+     eventId: event.target.name
+   });
+   // console.log("pare",(event.target).parent);
+  //   $(".chatSpace").siblings.animate({
+  //     width: "toggle"
+  // });
 
       // if ($(".chatSpace").is(':visible')) {
       //   $(".chatSpace").slideRight("slow");

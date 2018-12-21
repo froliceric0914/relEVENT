@@ -49,11 +49,12 @@ const Event = ({ event, openChat}) => {
           >
             Get Tickets
           </a>
-          <a
+          <button
+          name={event.id}
             onClick={openChat}
             target="_blank"
             className="btn btn-danger btn-block mt-4"
-          > Chat About It!</a>
+          > Chat About It!</button>
 
         </div>
       </div>
