@@ -3,6 +3,7 @@ import React, { Component } from "react";
 import SearchPanel from "./SearchPanel.jsx";
 import EventList from "./EventList.jsx";
 // import Chat from "./Chat.jsx";
+import Message from "./Message.jsx";
 
 // add another two class ui. and eventbrite
 // const eventbrite = new EventBrite();
@@ -101,6 +102,9 @@ class App extends Component {
       connected: () => {},
       received: (data) => {
         console.log(data);
+        this.setState({ messages: [...this.state.messages, data ] });
+        console.log(this.state.messages);
+        // concat to message list
       },
       create: function(chatContent) {
         this.perform('create', {
@@ -133,6 +137,9 @@ class App extends Component {
     // const searchResult = events.filter(event =>{
     //   return event;
     // })
+    let messages = this.state.messages.map((message, i)=>{
+    return <Message key = {i} message = {message}/>
+});
 
     return (
       <div>
@@ -162,17 +169,18 @@ class App extends Component {
               <div className='stage'>
                 <h1>Chat</h1>
                 <div className='chat-logs'>
+                {messages}
                 </div>
-                <input
-                  value={ this.state.currentChatMessage }
-                  onChange={ (e) => this.updateCurrentChatMessage(e) }
-                  type='text'
-                  placeholder='Enter your message...'
-                  className='chat-input'/>
-                  <button
-                    onClick={ (e) => this.handleSendEvent(e) }
-                    className='send'>
-                    Send
+                  <input
+                    value={ this.state.currentChatMessage }
+                    onChange={ (e) => this.updateCurrentChatMessage(e) }
+                    type='text'
+                    placeholder='Enter your message...'
+                    className='chat-input'/>
+                    <button
+                      onClick={ (e) => this.handleSendEvent(e) }
+                      className='send'>
+                      Send
                   </button>
               </div>
 
