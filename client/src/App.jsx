@@ -27,8 +27,8 @@ class App extends Component {
 
       user: {
         status: false,
-        username: null,
-        userID: null
+        username: "testUser",
+        userID: null,
       }
 
     };
@@ -131,7 +131,13 @@ class App extends Component {
   // function handleSendEvent to handle the onClick event and do the message sending
   handleSendEvent(event) {
     event.preventDefault();
-    this.chats.create(this.state.currentChatMessage);
+    this.chats.create(this.state.currentChatMessage
+
+    );
+    // {message: this.state.currentChatMessage,
+    //   userID: this.state.user.userID,
+    //   eventId: this.state.eventId
+    // }
     this.setState({
       currentChatMessage: ''
     });
@@ -169,7 +175,7 @@ class App extends Component {
     //   return event;
     // })
     let messages = this.state.messages.map((message, i)=>{
-    return <Message key = {i} message = {message}/>
+    return <Message key = {i} message = {message} user= {this.state.user} />
 });
 
 

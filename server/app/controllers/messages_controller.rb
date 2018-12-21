@@ -1,5 +1,5 @@
 class MessagesController < ApplicationController
-  def index 
+  def index
     @event = Event.find params[:event_id]
     @messages = @event.messages
     render json: @messages, status: :ok
@@ -7,14 +7,14 @@ class MessagesController < ApplicationController
 
   def create
     @event = Event.find params[:event_id]
-    @message = @event.messages.create(message_params)
+    @message = @event.messages.create(message_params.content)
     render json: @message, status: :created
   end
 
   private
 
   def message_params
-    params.require(:message).permit(:user_id, :content)
+    params.require(:message).permit(:user_id, :content, :test)
   end
 
 end
