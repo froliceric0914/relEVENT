@@ -45,6 +45,8 @@
     "webpack-dev-server": "2.3.0"
   },
   "dependencies": {
+    "action-cable-react": "^0.1.1",
+    "actioncable": "^5.2.2",
     "dotenv": "^6.2.0",
     "dotenv-webpack": "^1.5.7",
     "fs": "0.0.1-security",

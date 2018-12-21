@@ -32,7 +32,7 @@ const Event = ({ event }) => {
             ${event.name.text.substring(0, 35)}...
           </h2>
           <p className="lead text-info">Event Information:</p>
-          <p>${event.description.text.substring(0, 200)}...</p>
+          <p>${event.description.text ? event.description.text.substring(0, 200) : ""}...</p>
 
           <span className="badge badge-secondary">
             Date & Time: {event.start.local}

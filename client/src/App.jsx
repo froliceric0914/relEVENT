@@ -1,8 +1,8 @@
+import Cable from 'actioncable';
 import React, { Component } from "react";
 import SearchPanel from "./SearchPanel.jsx";
 import EventList from "./EventList.jsx";
-import MessageList from "./MessageList.jsx";
-import ChatBar from "./ChatBar.jsx";
+// import Chat from "./Chat.jsx";
 
 // add another two class ui. and eventbrite
 // const eventbrite = new EventBrite();
@@ -20,14 +20,15 @@ class App extends Component {
       events: [],
       conditions: [], //maybe no need
       messages: [], //will be array of object
-      categories: []
+      categories: [],
+      currentChatMessage: ''
     };
     this.searchEvent = this.searchEvent.bind(this);
     this.addEventToMyList = this.addEventToMyList.bind(this);
-    this.openChat = this.openChat.bind(this);
   }
 
   componentWillMount() {
+    this.createSocket();
     //retrieve initial events before first render(default events)
     const url = fetch(
       `https://www.eventbriteapi.com/v3/events/search/?q=&sort_by=date&location.address=toronto&start_date.keyword=today&token=${
@@ -39,8 +40,8 @@ class App extends Component {
       })
       .then(data => {
         const temp = data.events;
-        console.log("FETCHED DATE", temp);
-        this.setState({ events: temp.slice(0) });
+        console.log("FETCHED DATE", temp[0]);
+        this.setState({ events: temp });
       });
 
     // Query the API
@@ -92,10 +93,39 @@ class App extends Component {
     //update state
   }
 
-  openChat(id) {
-    alert("show chat space and get request with id to express");
-    //update state
+  createSocket() {
+    let cable = Cable.createConsumer('ws://localhost:3001/cable');
+    this.chats = cable.subscriptions.create({
+      channel: 'ChatChannel'
+    }, {
+      connected: () => {},
+      received: (data) => {
+        console.log(data);
+      },
+      create: function(chatContent) {
+        this.perform('create', {
+          content: chatContent
+        });
+      }
+    });
   }
+
+  updateCurrentChatMessage(event) {
+    this.setState({
+      currentChatMessage: event.target.value
+    });
+  }
+
+
+  // function handleSendEvent to handle the onClick event and do the message sending
+  handleSendEvent(event) {
+    event.preventDefault();
+    this.chats.create(this.state.currentChatMessage);
+    this.setState({
+      currentChatMessage: ''
+    });
+  }
+
 
   render() {
     // maybe no need
@@ -129,8 +159,23 @@ class App extends Component {
             />
 
             <div className="chatSpace">
-              <MessageList />
-              <ChatBar />
+              <div className='stage'>
+                <h1>Chat</h1>
+                <div className='chat-logs'>
+                </div>
+                <input
+                  value={ this.state.currentChatMessage }
+                  onChange={ (e) => this.updateCurrentChatMessage(e) }
+                  type='text'
+                  placeholder='Enter your message...'
+                  className='chat-input'/>
+                  <button
+                    onClick={ (e) => this.handleSendEvent(e) }
+                    className='send'>
+                    Send
+                  </button>
+              </div>
+
             </div>
           </div>
         </main>

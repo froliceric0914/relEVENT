@@ -1,10 +1,11 @@
 class UsersController < ApplicationController
   def index
+    puts 'INDEX'
     @users = User.all
     render json: @users, :except => [:events]
   end
 
-  
+
 
 
   def create
