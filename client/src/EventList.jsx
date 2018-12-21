@@ -8,6 +8,9 @@ const EventList = ({ events }) => {
   return (
     <div className="eventList">
       {events.map(event => {
+        {
+          /* console.log("eventlist", event); */
+        }
         return <Event key={event.id} event={event} />;
       })}
     </div>

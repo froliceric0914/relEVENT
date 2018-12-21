@@ -11,8 +11,8 @@ class SearchPanel extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      keyword: "",
-      category: "108",
+      keyword: "drake",
+      category: "103",
       location: "toronto",
       localWithin: "50km"
       // `${this.props.categories}`
@@ -21,19 +21,19 @@ class SearchPanel extends Component {
     this._handleSubmit = this._handleSubmit.bind(this);
   }
 
-  componetdidMount() {
-    const options = this.prpos.categories.filter(category => {
-      category.name === "Music";
-      console.log("!", category);
-    });
-    console.log("options:", options);
-    //api call to get the catrget
-    //set state of the top
-  }
+  // componetdidMount() {
+  //   const options = this.prpos.categories.filter(category => {
+  //     category.name === "Music";
+  //     // console.log("!", category);
+  //   });
+  //   console.log("options:", options);
+  //api call to get the catrget
+  //set state of the top
+  // }
 
   _handleSubmit(e) {
     const { keyword, category, location, localWithin } = this.state;
-    console.log("categorty: ", this.state.categories);
+    console.log("categorty: ", this.state);
     alert("click the search");
     this.props.searchEvent(keyword, category, location, localWithin);
     //call this.props.searchEvent(e)
@@ -60,10 +60,7 @@ class SearchPanel extends Component {
               placeholder="all the fantastic starts from here"
             />
           </div>
-          {/* <option value={option.value} 
-selected={optionsState == option.value}>
-{option.label}</option>
- */}
+
           <div className="form-group">
             <label for="category">Category</label>
             <select

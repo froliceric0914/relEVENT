@@ -11,6 +11,7 @@ import ChatBar from "./ChatBar.jsx";
 class App extends Component {
   constructor(props) {
     super(props);
+    //add an option of oderby distance
     this.state = {
       orderby: "date",
       events: [],
@@ -26,17 +27,18 @@ class App extends Component {
 
   componentWillMount() {
     //retrieve initial events before first render(default events)
-    const url = fetch(`http://localhost:8080/events`)
+    const url = fetch(
+      `https://www.eventbriteapi.com/v3/events/search/?q=&sort_by=date&location.address=toronto&start_date.keyword=today&expand=organizer,venue&token=25ZVHBJBUGPPTEWGEP5W`
+    )
       .then(res => {
         return res.json();
       })
       .then(events => {
-        let data = events.filter(event => {
-          if (event.description) return true;
+        console.log("APIdata", events.events);
+        let data = events.events.filter(event => {
+          if (event.description.text) return true;
         });
-        console.log("filtered data", data);
         this.setState({ events: data.slice(0) });
-        this.setState({ targetEvents: data.slice(0) });
       });
 
     // Query the API
@@ -56,38 +58,23 @@ class App extends Component {
     //socket will come here
   }
 
-  searchEvent(eventName, category, location, localWithin) {
-    // const getURL = `https://www.eventbriteapi.com/v3/events/search/?q=${eventName}&expand=organizer,venue&sort_by=${
-    //   this.state.orderby
-    // }&location.address=${location}&categories=${category}&location.within=${localWithin}&token=${
-    //   process.env.TOKEN
-    // }`;
-    // const eventsResponse = fetch(getURL)
-    //   .then(res => {
-    //     return res.json();
-    //   })
-    //   .then(data => {
-    //     const result = data.events;
-    //     // console.log("events of query", data);
-    //     this.setState({ events: result.slice(0) });
-    //   });
-    // const eventNameLowCase = eventName.toLowCase();
+  searchEvent(keyword, category, location, localWithin) {
+    const getURL = `https://www.eventbriteapi.com/v3/events/search/?q=${keyword}&expand=organizer,venue&sort_by=${
+      this.state.orderby
+    }&categories=${category}&location.address=${location}&location.within=${localWithin}&token=25ZVHBJBUGPPTEWGEP5W`;
+    console.log("url", getURL);
 
-    const events = this.state.targetEvents.slice(0);
-    const results = events.filter(event => {
-      if (event.description) {
-        console.log("input name", eventName);
-        const descriptionLowCase = event.description.toLowerCase();
-        return descriptionLowCase.includes(eventName.toLowerCase());
-      }
+    const url = fetch(getURL)
+      .then(res => {
+        return res.json();
+      })
+      .then(data => {
+        console.log("queryEvents", data.events);
+        const results = data.events;
+        this.setState({ events: results.slice(0) });
 
-      // console.log(typeof event.description);
-      // console.log(typeof eventName);
-      console.log("filter event!", re);
-      // console.log("eventname!", eventName);
-      //TODO : add description || name
-    });
-    this.setState({ events: results });
+        //filter events with valid decription
+      });
   }
 
   // extract each form values and assign to fetch query
@@ -107,9 +94,9 @@ class App extends Component {
   render() {
     // maybe no need
     const { events, conditions } = this.state;
-    const searchResult = events.filter(event => {
-      return event;
-    });
+    // const searchResult = events.filter(event => {
+    //   return event;
+    // });
 
     return (
       <div>
@@ -130,10 +117,7 @@ class App extends Component {
           </div>
 
           <div className="mainContent">
-            <EventList
-              events={this.state.events}
-              searchEvent={this.searchEvent}
-            />
+            <EventList events={this.state.events} />
 
             <div className="chatSpace">
               <MessageList />
