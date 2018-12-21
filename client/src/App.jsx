@@ -3,6 +3,7 @@ import SearchPanel from "./SearchPanel.jsx";
 import EventList from "./EventList.jsx";
 import MessageList from "./MessageList.jsx";
 import ChatBar from "./ChatBar.jsx";
+import UserRegistration from "./UserRegistration.jsx";
 
 //TODO: toggle search panel (jQuery?)
 //TODO: styling
@@ -104,9 +105,12 @@ class App extends Component {
           <a href="/" className="navbar-brand">
             eventoooo
           </a>
+          <UserRegistration />
           <button>search</button>&nbsp;
           <button>list</button>
         </nav>
+
+        <div />
 
         <main>
           <div className="searchPanel">
