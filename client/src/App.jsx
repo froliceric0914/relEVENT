@@ -26,6 +26,8 @@ class App extends Component {
     };
     this.searchEvent = this.searchEvent.bind(this);
     this.addEventToMyList = this.addEventToMyList.bind(this);
+    this.openChat = this.openChat.bind(this);
+
   }
 
   componentWillMount() {
@@ -130,6 +132,21 @@ class App extends Component {
     });
   }
 
+  openChat(event) {
+    console.log("aaa");
+      $(".chatSpace").animate({
+        width: "toggle"
+    });
+
+      // if ($(".chatSpace").is(':visible')) {
+      //   $(".chatSpace").slideRight("slow");
+      // } else {
+      //   $(".chatSpace").slideLeft("slow");
+      //   // $(".chatSpace textarea").focus();
+      // }
+
+  }
+
 
   render() {
     // maybe no need
@@ -163,6 +180,7 @@ class App extends Component {
             <EventList
               events={this.state.events}
               searchEvent={this.searchEvent}
+              openChat={this.openChat}
             />
 
             <div className="chatSpace">

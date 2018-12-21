@@ -5,7 +5,7 @@ import React from "react";
 //TODO: add onclick to chat button. show chat component
 //TODO: add styling
 
-const Event = ({ event }) => {
+const Event = ({ event, openChat}) => {
   let img;
   if (event.logo && event.logo.url) {
     img = <img className="img-fluid mb-2" src={event.logo.url} />;
@@ -49,6 +49,12 @@ const Event = ({ event }) => {
           >
             Get Tickets
           </a>
+          <a
+            onClick={openChat}
+            target="_blank"
+            className="btn btn-danger btn-block mt-4"
+          > Chat About It!</a>
+
         </div>
       </div>
     </div>
