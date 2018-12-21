@@ -10,8 +10,16 @@ class UserRegistration extends Component {
       username: "",
       password: ""
     };
-    this._handleSubmit = this._handleSubmit.bind(this);
+    // this._handleSubmit = this._handleSubmit.bind(this);
   }
+
+  _handleSubmit = e => {
+    const { email, username, password } = this.state;
+    alert("submit the form");
+    //   console.log("userInfo", password);
+    const user = fetch("localhost:8080/user");
+    // this.props.UserRegistration(email, username, password);
+  };
 
   render() {
     return (
@@ -24,7 +32,7 @@ class UserRegistration extends Component {
             className="form-user"
             onChange={e => {
               this.setState({
-                username: e.target.keyword
+                username: e.target.value
               });
             }}
             value={this.state.username}
@@ -39,7 +47,7 @@ class UserRegistration extends Component {
             className="form-user"
             onChange={e => {
               this.setState({
-                email: e.target.keyword
+                email: e.target.value
               });
             }}
             value={this.state.email}
@@ -54,7 +62,7 @@ class UserRegistration extends Component {
             className="form-user"
             onChange={e => {
               this.setState({
-                password: e.target.keyword
+                password: e.target.value
               });
             }}
             value={this.state.password}

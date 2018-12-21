@@ -105,12 +105,13 @@ class App extends Component {
           <a href="/" className="navbar-brand">
             eventoooo
           </a>
-          <UserRegistration />
           <button>search</button>&nbsp;
           <button>list</button>
         </nav>
 
-        <div />
+        <div className="userRegistration">
+          <UserRegistration />
+        </div>
 
         <main>
           <div className="searchPanel">

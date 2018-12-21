@@ -7,7 +7,7 @@ import React from "react";
 
 const Event = ({ event }) => {
   let img;
-  console.log("event", event);
+  // console.log("event", event);
   if (event.logo && event.logo.url) {
     img = <img className="img-fluid mb-2" src={event.logo.url} />;
   } else {
