@@ -6,12 +6,8 @@ class UsersController < ApplicationController
   end
 
   def create
-    @user = User.new(
-      username: params[:username],
-      email: params[:email],
-      password: params[:password]
-    )
-
+    puts user_params
+    @user = User.new(user_params)
     if @user.save
       render :json =>
       {
@@ -27,11 +23,18 @@ class UsersController < ApplicationController
         :object => @user
       }.to_json
     end
-  #   if user.save
-  #     render json: user
-  #     # session[:user_id] = user.id
-  #   else
-  #     head :unprocessable_entity
-  #   end
+    # if @user.save
+    #   render json: @user
+    #   # session[:user_id] = user.id
+    # else
+    #   head :unprocessable_entity
+    # end
   end
+
+  private
+
+  def user_params
+    params.require(:user).permit(:username, :email, :password)
+end
+
 end

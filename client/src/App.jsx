@@ -20,7 +20,11 @@ class App extends Component {
       conditions: [], //maybe no need
       messages: [], //will be array of object
       categories: [],
-      user: null
+      user: {
+        status: false,
+        username: null,
+        userID: null
+      }
     };
     this.searchEvent = this.searchEvent.bind(this);
     this.addEventToMyList = this.addEventToMyList.bind(this);
@@ -111,7 +115,10 @@ class App extends Component {
         </nav>
 
         <div className="userRegistration">
-          <UserRegistration setUser={user => this.setState({ user })} />
+          <UserRegistration
+            setUser={user => this.setState({ user })}
+            loginUser={this.state.user}
+          />
         </div>
 
         <main>

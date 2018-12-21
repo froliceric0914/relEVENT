@@ -6,8 +6,8 @@ class UserRegistration extends Component {
     super(props);
 
     this.state = {
-      email: "eric1111@eric.com",
-      username: "ericcool",
+      email: "eric11111@eric.com",
+      username: "ericcool1",
       password: "1234567"
     };
     // this._handleSubmit = this._handleSubmit.bind(this);
@@ -32,7 +32,14 @@ class UserRegistration extends Component {
       })
       .then(data => {
         console.log("user data from backend", data);
-        //   this.props.setUser({ ... })
+        this.props.setUser({
+          user: {
+            status: true,
+            user: data.object.username,
+            userID: data.object.id
+          }
+        });
+        console.log("login-user: ", this.props.loginUser);
       });
     //call the props and change the state of user in app.js
     // this.props.UserRegistration(email, username, password);
