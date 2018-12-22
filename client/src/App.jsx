@@ -23,12 +23,12 @@ class App extends Component {
       categories: [],
 
       currentChatMessage: '',
-      eventId: '',
+      eventId: '0',
 
       user: {
         status: false,
-        username: "testUser",
-        userID: null,
+        username: 'test',
+        userID: 1,
       }
 
     };
@@ -113,9 +113,11 @@ class App extends Component {
         console.log(this.state.messages);
         // concat to message list
       },
-      create: function(chatContent) {
+      create: function(chatContent, user_id ,event_id) {
         this.perform('create', {
-          content: chatContent
+          content: chatContent,
+          user_id: user_id,
+          event_id: event_id
         });
       }
     });
@@ -131,13 +133,25 @@ class App extends Component {
   // function handleSendEvent to handle the onClick event and do the message sending
   handleSendEvent(event) {
     event.preventDefault();
-    this.chats.create(this.state.currentChatMessage
-
+    this.chats.create(this.state.currentChatMessage, this.state.user.userID, this.state.eventId
     );
-    // {message: this.state.currentChatMessage,
-    //   userID: this.state.user.userID,
-    //   eventId: this.state.eventId
-    // }
+
+ 
+    //  fetch("http://localhost:8080/messages", {
+    //   headers: {
+    //     Accept: "application/json",
+    //     "Content-Type": "application/json"
+    //   },
+    //   method: "POST",
+    //   body: JSON.stringify({ message: {
+    //      user_id: this.state.user.userId,
+    //      event_id: this.state.eventId,
+    //      content: this.state.currentChatMessage,
+    //     } })
+    // })
+ 
+
+
     this.setState({
       currentChatMessage: ''
     });

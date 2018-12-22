@@ -19,7 +19,7 @@ user3 = User.create!(username: 'Azusa', email: 'azusa@azusa.com', password: 'pas
 user4 = User.create!(username: 'Erik', email: 'erik@erik.com', password: 'password')
 # puts user4.save
 
-# # Event.find_or_create!_by(name: 'My Event', user: User.first)
+# Event.find_or_create!_by(name: 'My Event', user: User.first)
 # # Event.find_or_create!_by(name: 'My Event 2', user: User.last)
 
 

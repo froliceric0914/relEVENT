@@ -7,10 +7,27 @@ class ChatChannel < ApplicationCable::Channel
   def unsubscribed; end
 
   def create(opts)
-    Message.create(
-      content: opts.fetch('content'),
-      event_id: 1,
-      user_id: 1
+
+    @category = Category.first
+    
+    event = Event.find_by!(
+      external_event_id: opts.fetch('event_id'), 
+    ) || Event.create!(
+      external_event_id: opts.fetch('event_id'), 
+      like_count: 0, 
+      category: @category
     )
+
+
+    user = User.find_by!(id: opts.fetch('user_id'))
+    
+    if event
+      test = Message.create(
+        content: opts.fetch('content'),
+        user_id: user.id,
+        event_id: event.id
+      )
+    end
+    # byebug
   end
 end
