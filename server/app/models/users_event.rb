@@ -12,7 +12,7 @@ end
 # </form>
 
 # onSubmit = () => {
-#   fetch('localhost:3001/events', {
+#   fetch('localhost:8080/events', {
 #     method: "POST",
 #     body: JSON.strinifgy{
 #       name: this.state.name,

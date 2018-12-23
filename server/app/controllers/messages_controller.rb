@@ -1,7 +1,7 @@
 class MessagesController < ApplicationController
   def index
-    @event = Event.find params[:event_id]
-    @messages = @event.messages
+    @event = Event.find_by(external_event_id: params[:event_id])
+    @messages = Message.where(event_id: @event )
     render json: @messages, status: :ok
   end
 

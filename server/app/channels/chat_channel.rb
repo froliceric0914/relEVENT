@@ -10,7 +10,7 @@ class ChatChannel < ApplicationCable::Channel
 
     @category = Category.first
     
-    event = Event.find_by!(
+    event = Event.find_by(
       external_event_id: opts.fetch('event_id'), 
     ) || Event.create!(
       external_event_id: opts.fetch('event_id'), 

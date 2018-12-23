@@ -17,7 +17,8 @@ class App extends Component {
     this.state = {
       orderby: "date",
       events: [],
-      targetEvents: [],
+      eventSelected: [],
+      eventsForRender:[],
       conditions: [], //maybe no need
       messages: [], //will be array of object
       categories: [],
@@ -27,10 +28,9 @@ class App extends Component {
 
       user: {
         status: false,
-        username: 'test',
-        userID: 1,
+        username: null,
+        userID: null,
       }
-
     };
     this.searchEvent = this.searchEvent.bind(this);
     this.addEventToMyList = this.addEventToMyList.bind(this);
@@ -102,16 +102,31 @@ class App extends Component {
   }
 
   createSocket() {
-    let cable = Cable.createConsumer('ws://localhost:3001/cable');
+    let cable = Cable.createConsumer('ws://localhost:8080/cable');
     this.chats = cable.subscriptions.create({
       channel: 'ChatChannel'
     }, {
       connected: () => {},
       received: (data) => {
+        // console.log(data);
+        // // this.setState({ messages: [...this.state.messages, data ] });
+        // console.log(this.state.messages);
+        // // concat to message list
+
+    //retrieve updated message list from db
+    fetch(
+      `http://localhost:8080/events/${this.state.eventId}/messages`)
+      .then(res => {
+        console.log(res);
+        return res.json();
+      })
+      .then(data => {
+        if(data){
         console.log(data);
-        this.setState({ messages: [...this.state.messages, data ] });
-        console.log(this.state.messages);
-        // concat to message list
+        this.setState({ messages: data });
+        }
+      });
+
       },
       create: function(chatContent, user_id ,event_id) {
         this.perform('create', {
@@ -136,38 +151,31 @@ class App extends Component {
     this.chats.create(this.state.currentChatMessage, this.state.user.userID, this.state.eventId
     );
 
- 
-    //  fetch("http://localhost:8080/messages", {
-    //   headers: {
-    //     Accept: "application/json",
-    //     "Content-Type": "application/json"
-    //   },
-    //   method: "POST",
-    //   body: JSON.stringify({ message: {
-    //      user_id: this.state.user.userId,
-    //      event_id: this.state.eventId,
-    //      content: this.state.currentChatMessage,
-    //     } })
-    // })
- 
-
-
     this.setState({
       currentChatMessage: ''
     });
   }
 
   openChat(event) {
+
+    // if(!this.state.user.status){
+    //     alert("TODO: if user was not logged in, we need to show log-in form with please log-in message in DOM");
+    //   return;
+    // }
+
     console.log("aaa");
       $(".chatSpace").animate({
         width: "toggle"
     });
 
+    // $(".card").hide();
+    // event.targetElement.show();
+
    console.log("target",event.target.name);
    this.setState({
      eventId: event.target.name
    });
-   // console.log("pare",(event.target).parent);
+  //  console.log("pare", event.target.parentElement.parentElement.parentElement.find('.card'));
   //   $(".chatSpace").siblings.animate({
   //     width: "toggle"
   // });
@@ -179,17 +187,35 @@ class App extends Component {
       //   // $(".chatSpace textarea").focus();
       // }
 
+    fetch(
+      `http://localhost:8080/events/${event.target.name}/messages`)
+      .then(res => {
+        console.log(res);
+        return res.json();
+      })
+      .then(data => {
+        if(data){
+        console.log(data);
+        this.setState({ messages: data });
+        }
+      });
+
   }
 
 
   render() {
+
+
+    let test = <div>aaa</div>
+    // let user = <div>{this.state.user.userID}</div>
+
     // maybe no need
     const { events, conditions } = this.state;
     // const searchResult = events.filter(event => {
     //   return event;
     // })
     let messages = this.state.messages.map((message, i)=>{
-    return <Message key = {i} message = {message} user= {this.state.user} />
+    return <Message key = {i} message = {message} />
 });
 
 
@@ -199,6 +225,8 @@ class App extends Component {
           <a href="/" className="navbar-brand">
             eventoooo
           </a>
+          {this.state.user.username}
+          {this.state.user.userID}
           <button>search</button>&nbsp;
           <button>list</button>
         </nav>

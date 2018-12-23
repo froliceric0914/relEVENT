@@ -2,6 +2,7 @@ class User < ApplicationRecord
   has_secure_password
   has_many :users_events
   has_many :events, through: :users_events
+  has_many :messages
 
   # validates :username, presence: true,  uniqueness: true 
   # validates :email, presence: true, uniqueness: { case_sensitive: false }

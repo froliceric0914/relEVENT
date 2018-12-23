@@ -12,6 +12,7 @@ body {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+
 }
 
 /////////////////// navbar ///////////////////
@@ -92,7 +93,7 @@ main {
   width: 100%;
   height: 100%;
   margin:0 auto;
-  // display: none;
+  display: none;
 
   .messageList {
     height: 100%;

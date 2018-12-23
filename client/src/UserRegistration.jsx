@@ -33,11 +33,11 @@ class UserRegistration extends Component {
       .then(data => {
         console.log("user data from backend", data);
         this.props.setUser({
-          user: {
+  
             status: true,
-            user: data.object.username,
+            username: data.object.username,
             userID: data.object.id
-          }
+          
         });
         console.log("login-user: ", this.props.loginUser);
       });

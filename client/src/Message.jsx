@@ -9,7 +9,7 @@ class Message extends Component {
 
     return (
       <div>
-        {this.props.user.username} &nbsp;
+        {this.props.message.user.username} &nbsp;
         {this.props.message.content}
       </div>
     );
