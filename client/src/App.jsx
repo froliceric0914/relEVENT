@@ -17,8 +17,6 @@ class App extends Component {
     this.state = {
       orderby: "date",
       events: [],
-      eventSelected: [],
-      eventsForRender:[],
       conditions: [], //maybe no need
       messages: [], //will be array of object
       categories: [],
@@ -42,7 +40,7 @@ class App extends Component {
     this.createSocket();
     //retrieve initial events before first render(default events)
     const url = fetch(
-      `https://www.eventbriteapi.com/v3/events/search/?q=&sort_by=date&location.address=toronto&start_date.keyword=today&expand=organizer,venue&token=25ZVHBJBUGPPTEWGEP5W`
+      `https://www.eventbriteapi.com/v3/events/search/?q=&sort_by=date&location.address=toronto&start_date.keyword=today&expand=organizer,venue&token=${process.env.TOKEN}`
     )
       .then(res => {
         return res.json();
@@ -58,7 +56,7 @@ class App extends Component {
 
     // Query the API
     const categoriesResponse = fetch(
-      `https://www.eventbriteapi.com/v3/categories/?token=25ZVHBJBUGPPTEWGEP5W`
+      `https://www.eventbriteapi.com/v3/categories/?token=${process.env.TOKEN}`
     )
       .then(res => {
         return res.json();
@@ -76,7 +74,7 @@ class App extends Component {
   searchEvent(keyword, category, location, localWithin) {
     const getURL = `https://www.eventbriteapi.com/v3/events/search/?q=${keyword}&expand=organizer,venue&sort_by=${
       this.state.orderby
-    }&categories=${category}&location.address=${location}&location.within=${localWithin}&token=25ZVHBJBUGPPTEWGEP5W`;
+    }&categories=${category}&location.address=${location}&location.within=${localWithin}&token=${process.env.TOKEN}`;
     console.log("url", getURL);
 
     const url = fetch(getURL)
@@ -158,47 +156,35 @@ class App extends Component {
 
   openChat(event) {
 
-    // if(!this.state.user.status){
-    //     alert("TODO: if user was not logged in, we need to show log-in form with please log-in message in DOM");
-    //   return;
-    // }
-
-    console.log("aaa");
-      $(".chatSpace").animate({
+    $(".chatSpace").animate({
         width: "toggle"
     });
 
-    // $(".card").hide();
-    // event.targetElement.show();
+    var target = $( event.target.parentElement.parentElement.parentElement);
+  
+      target.siblings().toggle();
 
-   console.log("target",event.target.name);
-   this.setState({
-     eventId: event.target.name
-   });
-  //  console.log("pare", event.target.parentElement.parentElement.parentElement.find('.card'));
-  //   $(".chatSpace").siblings.animate({
-  //     width: "toggle"
-  // });
+      var check = target.next();
+      if (!$(check).is(':visible')) {
 
-      // if ($(".chatSpace").is(':visible')) {
-      //   $(".chatSpace").slideRight("slow");
-      // } else {
-      //   $(".chatSpace").slideLeft("slow");
-      //   // $(".chatSpace textarea").focus();
-      // }
-
-    fetch(
-      `http://localhost:8080/events/${event.target.name}/messages`)
-      .then(res => {
-        console.log(res);
-        return res.json();
-      })
-      .then(data => {
-        if(data){
-        console.log(data);
-        this.setState({ messages: data });
-        }
-      });
+        this.setState({
+          eventId: event.target.name
+        });
+     
+         fetch(
+           `http://localhost:8080/events/${event.target.name}/messages`)
+           .then(res => {
+             console.log(res);
+             return res.json();
+           })
+           .then(data => {
+             if(data){
+             console.log(data);
+             this.setState({ messages: data });
+             }
+           });
+  
+      }
 
   }
 
@@ -226,7 +212,6 @@ class App extends Component {
             eventoooo
           </a>
           {this.state.user.username}
-          {this.state.user.userID}
           <button>search</button>&nbsp;
           <button>list</button>
         </nav>
