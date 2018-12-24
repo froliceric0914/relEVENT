@@ -15,14 +15,6 @@ const Event = ({ event, openChat}) => {
   }
 
   return (
-    // <div className='eventPanel'>
-    //   <div >
-    //   {event.name.text}
-    //   </div>
-
-    //   <button>chat</button>&nbsp;
-    //   <button>add to list</button>
-    // </div><div class="col-md-4 mt-4">
 
     <div className="card">
       <div className="card-body">{img}</div>
@@ -30,31 +22,33 @@ const Event = ({ event, openChat}) => {
       <div className="card-body">
         <div className="card-text">
           <h2 className="text-center card-title">
-            ${event.name.text.substring(0, 35)}...
+            {event.name.text.substring(0, 35)}...
           </h2>
           <p className="lead text-info">Event Information:</p>
-          <p>${event.description.text ? event.description.text.substring(0, 200) : ""}...</p>
+          <p>{event.description.text ? event.description.text.substring(0, 200) : ""}...</p>
 
           <span className="badge badge-secondary">
             Date & Time: {event.start.local}
           </span>
           <br />
           <span className="badge badge-secondary">
-            Location: ${event.venue.address.address_1}
+            Location: {event.venue.address.address_1}
           </span>
+
           <a
             href={event.url}
             target="_blank"
             className="btn btn-primary btn-block mt-4"
           >
-            Get Tickets
+            More Details
           </a>
+
           <button
           name={event.id}
             onClick={openChat}
             target="_blank"
             className="btn btn-danger btn-block mt-4"
-          > Chat About It!</button>
+          >Chat</button>
 
         </div>
       </div>

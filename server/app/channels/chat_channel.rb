@@ -18,7 +18,6 @@ class ChatChannel < ApplicationCable::Channel
       category: @category
     )
 
-
     user = User.find_by!(id: opts.fetch('user_id'))
     
     if event
@@ -28,6 +27,6 @@ class ChatChannel < ApplicationCable::Channel
         event_id: event.id
       )
     end
-    # byebug
+
   end
 end

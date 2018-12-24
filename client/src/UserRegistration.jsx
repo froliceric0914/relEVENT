@@ -47,7 +47,7 @@ class UserRegistration extends Component {
 
   render() {
     return (
-      <div claseName="container registration-wrappers">
+      <div className="container registration-wrappers">
         <div className="registration-form">
           <label for="user-name">Username</label>
           <input

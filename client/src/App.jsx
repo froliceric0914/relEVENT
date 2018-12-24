@@ -6,9 +6,7 @@ import Message from "./Message.jsx";
 // import MessageList from "./MessageList.jsx";
 import UserRegistration from "./UserRegistration.jsx";
 
-//TODO: toggle search panel (jQuery?)
 //TODO: styling
-//TODO: set websocket
 //TODO: need sanitize for user input
 class App extends Component {
   constructor(props) {
@@ -20,10 +18,8 @@ class App extends Component {
       conditions: [], //maybe no need
       messages: [], //will be array of object
       categories: [],
-
       currentChatMessage: '',
       eventId: '0',
-
       user: {
         status: false,
         username: null,
@@ -33,7 +29,6 @@ class App extends Component {
     this.searchEvent = this.searchEvent.bind(this);
     this.addEventToMyList = this.addEventToMyList.bind(this);
     this.openChat = this.openChat.bind(this);
-
   }
 
   componentWillMount() {
@@ -72,6 +67,14 @@ class App extends Component {
   }
 
   searchEvent(keyword, category, location, localWithin) {
+
+    //close chat space
+    if ($(".chatSpace").is(':visible')) {
+          $(".chatSpace").animate({
+          width: "toggle"
+      });
+    }
+
     const getURL = `https://www.eventbriteapi.com/v3/events/search/?q=${keyword}&expand=organizer,venue&sort_by=${
       this.state.orderby
     }&categories=${category}&location.address=${location}&location.within=${localWithin}&token=${process.env.TOKEN}`;
@@ -86,19 +89,16 @@ class App extends Component {
         const results = data.events;
         this.setState({ events: results.slice(0) });
 
-        //filter events with valid decription
+        //filter events with valid description
       });
   }
 
-  // extract each form values and assign to fetch query
-  //search the search based on input form the SeardchPa
-  // ↓need to add place holder to use passed param. empty value will be ignored
-
   addEventToMyList(id) {
-    alert("do get request with id to express");
+    alert("do get request");
     //update state
   }
 
+  // socket
   createSocket() {
     let cable = Cable.createConsumer('ws://localhost:8080/cable');
     this.chats = cable.subscriptions.create({
@@ -111,7 +111,7 @@ class App extends Component {
         // console.log(this.state.messages);
         // // concat to message list
 
-    //retrieve updated message list from db
+    // retrieve updated message list from db TODO: it's repeated. need refactor
     fetch(
       `http://localhost:8080/events/${this.state.eventId}/messages`)
       .then(res => {
@@ -154,6 +154,7 @@ class App extends Component {
     });
   }
 
+  // Open Chat space
   openChat(event) {
 
     $(".chatSpace").animate({
@@ -165,12 +166,18 @@ class App extends Component {
       target.siblings().toggle();
 
       var check = target.next();
+
+      // When a chat space was not open
       if (!$(check).is(':visible')) {
+
+        $(event.target).css("background-color", "#ff9933");
+        $(event.target).text("Close Chat");
 
         this.setState({
           eventId: event.target.name
         });
      
+         // retrieve messages that belong to an event requested
          fetch(
            `http://localhost:8080/events/${event.target.name}/messages`)
            .then(res => {
@@ -183,27 +190,20 @@ class App extends Component {
              this.setState({ messages: data });
              }
            });
-  
+       return;
       }
 
+      // When a chat space was already open
+      $(event.target).css("background-color", "#dc3545");
+      $(event.target).text("Chat");
   }
 
 
   render() {
 
-
-    let test = <div>aaa</div>
-    // let user = <div>{this.state.user.userID}</div>
-
-    // maybe no need
-    const { events, conditions } = this.state;
-    // const searchResult = events.filter(event => {
-    //   return event;
-    // })
     let messages = this.state.messages.map((message, i)=>{
     return <Message key = {i} message = {message} />
 });
-
 
     return (
       <div>
@@ -256,7 +256,6 @@ class App extends Component {
                       Send
                   </button>
               </div>
-
             </div>
           </div>
         </main>
