@@ -31,6 +31,7 @@ class App extends Component {
     this.addEventToMyList = this.addEventToMyList.bind(this);
     this.openChat = this.openChat.bind(this);
     this.closeChat = this.closeChat.bind(this);
+    this.handleIconClick = this.handleIconClick;
   }
 
   componentWillMount() {
@@ -151,6 +152,10 @@ class App extends Component {
     });
   }
 
+  handleIconClick(event) {
+    console.log(event.target);
+  }
+
   // Open Chat space
   openChat(event) {
 
@@ -249,6 +254,7 @@ class App extends Component {
               events={this.state.events}
               searchEvent={this.searchEvent}
               openChat={this.openChat}
+              handleIconClick={this.handleIconClick}
             />
 
             <div className="chatSpace">

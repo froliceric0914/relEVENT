@@ -87,6 +87,22 @@ main {
   background: grey;
 }
 
+.icons{
+  font-size: 2rem;
+  
+  i:hover{
+    cursor: pointer;
+  }
+  
+  .fa-heart{
+    color: red;
+  }
+  
+  .fa-bookmark{
+    color: green;
+  }
+}
+
 //***************** chat *****************//
 .chatSpace {
   background: green;

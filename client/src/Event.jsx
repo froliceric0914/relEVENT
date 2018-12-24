@@ -5,7 +5,7 @@ import React from "react";
 //TODO: add onclick to chat button. show chat component
 //TODO: add styling
 
-const Event = ({ event, openChat}) => {
+const Event = ({ event, openChat, handleIconClick}) => {
   let img;
   // console.log("event", event);
   if (event.logo && event.logo.url) {
@@ -33,7 +33,12 @@ const Event = ({ event, openChat}) => {
           <br />
           <span className="badge badge-secondary">
             Location: {event.venue.address.address_1}
-          </span>
+          </span>handleIconClick
+
+          <div className="icons">
+            <i className="far fa-heart" onClick={ handleIconClick }>0</i> &nbsp;
+            <i className="far fa-bookmark" onClick={ handleIconClick }></i>
+          </div>
 
           <a
             href={event.url}
