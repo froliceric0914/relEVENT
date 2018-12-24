@@ -118,6 +118,10 @@ message10 = Message.create!(event: Event.second, user: user2, content: "Let me j
 
 
 
+# #for test
+# UsersEvent.create!(user: User.last, event: Event.first, bookmarked:true, liked: true);
+# UsersEvent.create!(user: User.last, event: Event.second, bookmarked:true, liked: false);
+# UsersEvent.create!(user: User.last, event: Event.third, bookmarked:false, liked: true);
 
 
 

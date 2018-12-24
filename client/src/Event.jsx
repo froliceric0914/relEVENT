@@ -40,10 +40,10 @@ const Event = ({ event, openChat}) => {
             target="_blank"
             className="btn btn-primary btn-block mt-4"
           >
-            More Details
+            More 
           </a>
 
-          <button
+          <button className="chatButton"
           name={event.id}
             onClick={openChat}
             target="_blank"

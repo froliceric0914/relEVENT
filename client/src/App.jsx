@@ -24,11 +24,13 @@ class App extends Component {
         status: false,
         username: null,
         userID: null,
-      }
+      },
+      myList: []
     };
     this.searchEvent = this.searchEvent.bind(this);
     this.addEventToMyList = this.addEventToMyList.bind(this);
     this.openChat = this.openChat.bind(this);
+    this.closeChat = this.closeChat.bind(this);
   }
 
   componentWillMount() {
@@ -65,15 +67,10 @@ class App extends Component {
   componentDidMount() {
     //socket will come here
   }
-
+  
   searchEvent(keyword, category, location, localWithin) {
 
-    //close chat space
-    if ($(".chatSpace").is(':visible')) {
-          $(".chatSpace").animate({
-          width: "toggle"
-      });
-    }
+    this.closeChat();
 
     const getURL = `https://www.eventbriteapi.com/v3/events/search/?q=${keyword}&expand=organizer,venue&sort_by=${
       this.state.orderby
@@ -198,6 +195,21 @@ class App extends Component {
       $(event.target).text("Chat");
   }
 
+  //close chat space
+  closeChat(e){
+
+    //close chat space
+    // if ($(".chatSpace").is(':visible')) {
+
+    //   $(".card-text").find("button").css("background-color", "#dc3545");
+    //   $(".card-text").find("button").text("Chat");
+
+    //   $(".chatSpace").animate({
+    //     width: "toggle"
+    //   });
+    // }
+
+  }
 
   render() {
 
@@ -220,6 +232,7 @@ class App extends Component {
           <UserRegistration
             setUser={user => this.setState({ user })}
             loginUser={this.state.user}
+            setMyList={myList => this.setState( myList )}
           />
         </div>
 
@@ -241,6 +254,7 @@ class App extends Component {
             <div className="chatSpace">
               <div className='stage'>
                 <h1>Chat</h1>
+                <div id="closeX" onClick={this.closeChat}>X</div>
                 <div className='chat-logs'>
                 {messages}
                 </div>
