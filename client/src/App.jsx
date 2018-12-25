@@ -154,18 +154,16 @@ class App extends Component {
 
   handleIconClick(event) {
    
+    let selectedIcon =  event.target.getAttribute("data-name");
     let otherIcon = $(event.target).siblings()[0];
 
     let currentIconStatus = event.target.getAttribute("data-on");
     let otherIconStatus = otherIcon.getAttribute("data-on");
+    
     let selectedEventId = event.target.getAttribute("data-id");
-    let selectedIcon =  event.target.getAttribute("data-name");
+
     let liked = false;
     let bookmarked = false;
-    
-    // console.log(selectedEventId);
-    // console.log("current",currentIconStatus);
-    // console.log("other",otherIconStatus);
  
     // if current icon was on 
     if(currentIconStatus === "true"){
@@ -177,7 +175,15 @@ class App extends Component {
       // if both icons became off :destroy
       if(otherIconStatus==="false"){
            console.log("destroy");
-        //destroy
+        
+           fetch(`http://localhost:8080/users/${this.state.user.userID}/user_events/${selectedEventId}`, {
+             headers: {
+               Accept: "application/json",
+               "Content-Type": "application/json"
+             },
+             method: "DELETE",
+           })
+
         return;
       
       }
@@ -192,40 +198,44 @@ class App extends Component {
       if(otherIconStatus==="false"){
         console.log("create");
 
-
-   
-
-       //create
+       //create users_events
        (selectedIcon === "heart")? liked = true : bookmarked = true;
 
-    fetch(`http://localhost:8080/users/${this.state.user.userID}/user_events`, {
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json"
-      },
-      method: "POST",
-      body: JSON.stringify({ event_id: selectedEventId ,liked: liked , bookmarked: bookmarked })
-    })
-      .then(res => {
-        // console.log("ress", res);
-        return res.json();
-      })
-      // .then(data => {
-      //   console.log("user data from backend", data);
-      //   this.props.setUser({
-  
-      //       status: true,
-      //       username: data.object.username,
-      //       userID: data.object.id
-          
-      //   });
+        fetch(`http://localhost:8080/users/${this.state.user.userID}/user_events`, {
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json"
+          },
+          method: "POST",
+          body: JSON.stringify({ event_id: selectedEventId ,liked: liked , bookmarked: bookmarked })
+        })
 
        return;
       }   
     }
     
-    // other one is on :put
-    console.log("put");
+    // other one was on :put
+    console.log("update");
+
+    if(selectedIcon === "heart"){
+      //  liked = !currentIconStatus  if could set boolean. need refactor
+       liked = currentIconStatus === "true" ? "false" : "true";
+       bookmarked = otherIconStatus;
+       
+    }else{
+      //  bookmarked = !currentIconStatus  if could set boolean. need refactor
+       bookmarked = currentIconStatus === "true" ? "false" : "true";
+       liked = otherIconStatus;
+    }
+ 
+    fetch(`http://localhost:8080/users/${this.state.user.userID}/user_events/${selectedEventId}`, {
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json"
+      },
+      method: "PUT",
+      body: JSON.stringify({ event_id: selectedEventId ,liked: liked , bookmarked: bookmarked })
+    })
    
   }
 

@@ -33,7 +33,13 @@
       end
     end
 
-    def put
+    def update
+      @event = Event.find_by(
+        external_event_id: params[:event_id], 
+      )
+      user_events = UsersEvent.find_by(user_id: params[:user_id], event_id: @event.id)
+      user_events.update(bookmarked: params[:bookmarked],
+      liked: params[:liked])
 
     end  
 
@@ -49,7 +55,10 @@
     end
 
     def destroy
-      user_events = UsersEvent.where('user_id = ? AND event_id = ?', params[:user_id], params[:id])
+
+      @event = Event.find_by!(external_event_id: params[:id])
+
+      user_events = UsersEvent.where('user_id = ? AND event_id = ?', params[:user_id], @event.id)
       # destory needs an ID to delete 
       UsersEvent.destroy(user_events.first.id)
       # UsersEvent.where(user_id: params[:user_id], event_id: params[:event_id]).destroy_all
