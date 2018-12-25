@@ -3,12 +3,28 @@
   class UserEventsController < ApplicationController
 
     def create
-      user_events = UsersEvent.create(
-        user_id: current_user,
-        event_id: params[:event_id],
+      puts "here!"
+
+      @category = Category.first
+    
+      @event = Event.find_by(
+        external_event_id: params[:event_id], 
+      ) || Event.create!(
+        external_event_id: params[:event_id], 
+        like_count: 0, 
+        category: @category
+      )
+
+      @user = User.find_by!(id: params[:user_id])
+
+      user_events = UsersEvent.create!(
+        user_id: @user.id,
+        event_id: @event.id,
         bookmarked: params[:bookmarked],
         liked: params[:liked]
       )
+      # byebug
+
       if user_events
         render json: user_events
       else
@@ -16,6 +32,10 @@
         # render json: {message: "entry already exists"}
       end
     end
+
+    def put
+
+    end  
 
     def events 
       # this finds the users events

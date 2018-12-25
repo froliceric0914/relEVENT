@@ -33,11 +33,11 @@ const Event = ({ event, openChat, handleIconClick}) => {
           <br />
           <span className="badge badge-secondary">
             Location: {event.venue.address.address_1}
-          </span>handleIconClick
+          </span>
 
           <div className="icons">
-            <i className="far fa-heart" onClick={ handleIconClick }>0</i> &nbsp;
-            <i className="far fa-bookmark" onClick={ handleIconClick }></i>
+            <i data-on="false" data-id={event.id} data-name="heart" className="far fa-heart" onClick={ handleIconClick }>0</i> &nbsp;
+            <i data-on="false" data-id={event.id} data-name="bookmark" className="far fa-bookmark" onClick={ handleIconClick }></i>
           </div>
 
           <a

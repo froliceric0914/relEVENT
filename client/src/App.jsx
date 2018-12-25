@@ -23,7 +23,7 @@ class App extends Component {
       user: {
         status: false,
         username: null,
-        userID: null,
+        userID: 0,
       },
       myList: []
     };
@@ -31,7 +31,7 @@ class App extends Component {
     this.addEventToMyList = this.addEventToMyList.bind(this);
     this.openChat = this.openChat.bind(this);
     this.closeChat = this.closeChat.bind(this);
-    this.handleIconClick = this.handleIconClick;
+    this.handleIconClick = this.handleIconClick.bind(this);
   }
 
   componentWillMount() {
@@ -153,7 +153,80 @@ class App extends Component {
   }
 
   handleIconClick(event) {
-    console.log(event.target);
+   
+    let otherIcon = $(event.target).siblings()[0];
+
+    let currentIconStatus = event.target.getAttribute("data-on");
+    let otherIconStatus = otherIcon.getAttribute("data-on");
+    let selectedEventId = event.target.getAttribute("data-id");
+    let selectedIcon =  event.target.getAttribute("data-name");
+    let liked = false;
+    let bookmarked = false;
+    
+    // console.log(selectedEventId);
+    // console.log("current",currentIconStatus);
+    // console.log("other",otherIconStatus);
+ 
+    // if current icon was on 
+    if(currentIconStatus === "true"){
+      console.log("aaa");
+      $(event.target).removeClass('fas');
+      $(event.target).addClass('far');
+      event.target.setAttribute("data-on", "false");
+
+      // if both icons became off :destroy
+      if(otherIconStatus==="false"){
+           console.log("destroy");
+        //destroy
+        return;
+      
+      }
+      
+    // if current icon was off  
+    }else{
+      $(event.target).removeClass('far');
+      $(event.target).addClass('fas');
+      event.target.setAttribute("data-on", "true");
+
+      // other one was off :create
+      if(otherIconStatus==="false"){
+        console.log("create");
+
+
+   
+
+       //create
+       (selectedIcon === "heart")? liked = true : bookmarked = true;
+
+    fetch(`http://localhost:8080/users/${this.state.user.userID}/user_events`, {
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json"
+      },
+      method: "POST",
+      body: JSON.stringify({ event_id: selectedEventId ,liked: liked , bookmarked: bookmarked })
+    })
+      .then(res => {
+        // console.log("ress", res);
+        return res.json();
+      })
+      // .then(data => {
+      //   console.log("user data from backend", data);
+      //   this.props.setUser({
+  
+      //       status: true,
+      //       username: data.object.username,
+      //       userID: data.object.id
+          
+      //   });
+
+       return;
+      }   
+    }
+    
+    // other one is on :put
+    console.log("put");
+   
   }
 
   // Open Chat space
