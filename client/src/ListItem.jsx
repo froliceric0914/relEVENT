@@ -22,28 +22,29 @@ class ListItem extends Component {
   
     return (
 
-      <div className="listItem">
-         <div className="card">
-            <div className="card-body">
-             <img className="img-fluid mb-0" src={this.props.listItem.event.logo_url} />
-            </div>
-            <div className="card-text">
-             {this.props.listItem.event.name}
-            </div>
-          </div>
-      </div>
-
-      // horizontal layout
+      // vertical layout
       // <div className="listItem">
-      //    <div className=" row">
-      //       <div className="col-md-5">
+      //    <div className="card">
+      //       <div className="card-body">
       //        <img className="img-fluid mb-0" src={this.props.listItem.event.logo_url} />
       //       </div>
-      //       <div className="col-md-7">
+      //       <div className="card-text">
       //        {this.props.listItem.event.name}
       //       </div>
       //     </div>
       // </div>
+
+      //horizontal layout
+      <div className="listItem">
+         <div className=" row">
+            <div className="col-md-5">
+             <img className="img-fluid mb-0" src={this.props.listItem.event.logo_url} />
+            </div>
+            <div className="col-md-7">
+             {this.props.listItem.event.name}
+            </div>
+          </div>
+      </div>
     );
   }
 }

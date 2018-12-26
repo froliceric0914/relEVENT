@@ -39,9 +39,12 @@ const Event = ({ event, openChat, handleIconClick}) => {
           </span>
 
           <div className="icons">
-            <i data-on="false" data-id={event.id} data-name="heart" data-event-name = {event.name.text} data-img-url={img_url} className="far fa-heart" onClick={ handleIconClick }>0</i> &nbsp;
+            <i data-on="false" data-id={event.id} data-name="like" data-event-name = {event.name.text} data-img-url={img_url} className="far fa-heart" onClick={ handleIconClick }>0</i> &nbsp;
             <i data-on="false" data-id={event.id} data-name="bookmark" data-event-name = {event.name.text} data-img-url={img_url} className="far fa-bookmark" onClick={ handleIconClick }></i>
           </div>
+
+          <div className="iconSideError"></div>
+          <div className="iconSideMessage"></div>
 
           <a
             href={event.url}

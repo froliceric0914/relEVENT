@@ -12,10 +12,11 @@ const MyList = ({ listItems }) => {
 
     <div className="myList">
      <h3>my event list</h3>
+     <p>{listItems.length}</p>
     {listItems.length? 
-    listItems.map((listItem,id) => {
+    listItems.map((listItem) => {
       if (listItem.bookmarked){
-        return <ListItem  key={id} listItem={listItem} />;
+        return <ListItem  key={listItem.id} listItem={listItem} />;
       }
 
     }):<div> You don't have any items yet.</div>}

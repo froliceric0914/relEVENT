@@ -157,13 +157,22 @@ class App extends Component {
 
   handleIconClick(event) {
    
+  
+  
+    let selectedIcon =  event.target.getAttribute("data-name");
+    
+    let otherIcon = $(event.target).siblings()[0];
+
     if(!this.state.user.userID){
-      alert("TODO: show login request in html")
+
+      // request log-in
+      $(".iconSideError").text(`You need log-in or register to use ${selectedIcon} function`);
+      setTimeout(function(){ 
+        $(".iconSideError").text("");
+      }, 3000);
+
       return;
     }
-    console.log("items",this.state.listItems);
-    let selectedIcon =  event.target.getAttribute("data-name");
-    let otherIcon = $(event.target).siblings()[0];
 
     let currentIconStatus = event.target.getAttribute("data-on");
     let otherIconStatus = otherIcon.getAttribute("data-on");
@@ -211,7 +220,7 @@ class App extends Component {
         console.log("create");
 
        //create users_events
-       (selectedIcon === "heart")? liked = true : bookmarked = true;
+       (selectedIcon === "like")? liked = true : bookmarked = true;
 
         fetch(`http://localhost:8080/users/${this.state.user.userID}/user_events`, {
           headers: {
@@ -231,7 +240,7 @@ class App extends Component {
     // other one was on :put
     console.log("update");
 
-    if(selectedIcon === "heart"){
+    if(selectedIcon === "like"){
       //  liked = !currentIconStatus  if could set boolean. need refactor
        liked = currentIconStatus === "true" ? "false" : "true";
        bookmarked = otherIconStatus;
@@ -265,7 +274,13 @@ class App extends Component {
   openChat(event) {
 
     if(!this.state.user.userID){
-      alert("TODO: show login request in html")
+
+      // request log-in
+      $(".iconSideError").text("You need log-in or register to use chat function");
+      setTimeout(function(){ 
+        $(".iconSideError").text("");
+      }, 3500);
+
       return;
     }
     
@@ -342,16 +357,13 @@ class App extends Component {
           return res.json();
         })
         .then(data => {
-          if(data){
-          console.log(data);
-          let newData = data
-          this.setState({ listItems: newData });
-          }
+          this.setState({ listItems: data });
         });
     }
     console.log("fired2");
   }
   
+
   
   render() {
 
