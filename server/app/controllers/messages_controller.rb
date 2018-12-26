@@ -5,11 +5,12 @@ class MessagesController < ApplicationController
     render json: @messages, status: :ok
   end
 
-  def create
-    @event = Event.find params[:event_id]
-    @message = @event.messages.create(message_params.content)
-    render json: @message, status: :created
-  end
+  # messages are created by chat_channel controller
+  # def create
+  #   @event = Event.find params[:event_id]
+  #   @message = @event.messages.create(message_params.content)
+  #   render json: @message, status: :created
+  # end
 
   private
 

@@ -15,6 +15,8 @@ class ChatChannel < ApplicationCable::Channel
     ) || Event.create!(
       external_event_id: opts.fetch('event_id'), 
       like_count: 0, 
+      name: opts.fetch('event_name'),
+      logo_url: opts.fetch('img_url'),
       category: @category
     )
 

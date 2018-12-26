@@ -5,6 +5,7 @@ import EventList from "./EventList.jsx";
 import Message from "./Message.jsx";
 // import MessageList from "./MessageList.jsx";
 import UserRegistration from "./UserRegistration.jsx";
+import MyList from "./MyList.jsx";
 
 //TODO: styling
 //TODO: need sanitize for user input
@@ -25,13 +26,14 @@ class App extends Component {
         username: null,
         userID: 0,
       },
-      myList: []
+      listItems: []
     };
     this.searchEvent = this.searchEvent.bind(this);
-    this.addEventToMyList = this.addEventToMyList.bind(this);
     this.openChat = this.openChat.bind(this);
     this.closeChat = this.closeChat.bind(this);
     this.handleIconClick = this.handleIconClick.bind(this);
+    this.openMyList = this.openMyList.bind(this);
+    this.assignMyListData = this.assignMyListData.bind(this);
   }
 
   componentWillMount() {
@@ -66,8 +68,11 @@ class App extends Component {
   }
 
   componentDidMount() {
-    //socket will come here
+     
   }
+
+
+
   
   searchEvent(keyword, category, location, localWithin) {
 
@@ -91,10 +96,6 @@ class App extends Component {
       });
   }
 
-  addEventToMyList(id) {
-    alert("do get request");
-    //update state
-  }
 
   // socket
   createSocket() {
@@ -124,11 +125,13 @@ class App extends Component {
       });
 
       },
-      create: function(chatContent, user_id ,event_id) {
+      create: function(chatContent, user_id ,event_id, event_name, img_url) {
         this.perform('create', {
           content: chatContent,
           user_id: user_id,
-          event_id: event_id
+          event_id: event_id,
+          event_name: event_name,
+          img_url: img_url
         });
       }
     });
@@ -144,7 +147,7 @@ class App extends Component {
   // function handleSendEvent to handle the onClick event and do the message sending
   handleSendEvent(event) {
     event.preventDefault();
-    this.chats.create(this.state.currentChatMessage, this.state.user.userID, this.state.eventId
+    this.chats.create(this.state.currentChatMessage, this.state.user.userID, this.state.eventId, this.state.eventName, this.state.imgUrl
     );
 
     this.setState({
@@ -154,6 +157,11 @@ class App extends Component {
 
   handleIconClick(event) {
    
+    if(!this.state.user.userID){
+      alert("TODO: show login request in html")
+      return;
+    }
+    console.log("items",this.state.listItems);
     let selectedIcon =  event.target.getAttribute("data-name");
     let otherIcon = $(event.target).siblings()[0];
 
@@ -161,13 +169,15 @@ class App extends Component {
     let otherIconStatus = otherIcon.getAttribute("data-on");
     
     let selectedEventId = event.target.getAttribute("data-id");
+    let eventName = event.target.getAttribute("data-event-name");
+    let imgUrl = event.target.getAttribute("data-img-url");
+   
 
     let liked = false;
     let bookmarked = false;
  
     // if current icon was on 
     if(currentIconStatus === "true"){
-      console.log("aaa");
       $(event.target).removeClass('fas');
       $(event.target).addClass('far');
       event.target.setAttribute("data-on", "false");
@@ -183,6 +193,8 @@ class App extends Component {
              },
              method: "DELETE",
            })
+
+           this.assignMyListData();
 
         return;
       
@@ -207,8 +219,10 @@ class App extends Component {
             "Content-Type": "application/json"
           },
           method: "POST",
-          body: JSON.stringify({ event_id: selectedEventId ,liked: liked , bookmarked: bookmarked })
+          body: JSON.stringify({ event_id: selectedEventId ,liked: liked , bookmarked: bookmarked , event_name: eventName, img_url: imgUrl})
         })
+
+        this.assignMyListData();
 
        return;
       }   
@@ -236,11 +250,27 @@ class App extends Component {
       method: "PUT",
       body: JSON.stringify({ event_id: selectedEventId ,liked: liked , bookmarked: bookmarked })
     })
+
+    this.assignMyListData();
    
+  }
+
+  openMyList(event) {
+      $(".myList").animate({
+        width: "toggle"
+    });
   }
 
   // Open Chat space
   openChat(event) {
+
+    if(!this.state.user.userID){
+      alert("TODO: show login request in html")
+      return;
+    }
+    
+    let eventName = event.target.getAttribute("data-event-name");
+    let imgUrl = event.target.getAttribute("data-img-url");
 
     $(".chatSpace").animate({
         width: "toggle"
@@ -259,7 +289,9 @@ class App extends Component {
         $(event.target).text("Close Chat");
 
         this.setState({
-          eventId: event.target.name
+          eventId: event.target.name,
+          event_name: eventName,
+          img_url: imgUrl
         });
      
          // retrieve messages that belong to an event requested
@@ -299,6 +331,28 @@ class App extends Component {
 
   }
 
+  assignMyListData(){
+    if(this.state.user.userID){
+      console.log("fired1");
+       //go to events function of user_event route and get myList data
+      fetch(
+        `http://localhost:8080/users/${this.state.user.userID}/events`)
+        .then(res => {
+          console.log(res);
+          return res.json();
+        })
+        .then(data => {
+          if(data){
+          console.log(data);
+          let newData = data
+          this.setState({ listItems: newData });
+          }
+        });
+    }
+    console.log("fired2");
+  }
+  
+  
   render() {
 
     let messages = this.state.messages.map((message, i)=>{
@@ -312,55 +366,59 @@ class App extends Component {
             eventoooo
           </a>
           {this.state.user.username}
+          {this.state.listItems.length}
           <button>search</button>&nbsp;
-          <button>list</button>
+          <button style={{display: this.state.user.userID ? "block" : "none"}} onClick={this.openMyList}>Mylist</button>
         </nav>
 
         <div className="userRegistration">
           <UserRegistration
             setUser={user => this.setState({ user })}
             loginUser={this.state.user}
-            setMyList={myList => this.setState( myList )}
+            // setMyList={listItems => this.setState( listItems )}
           />
         </div>
 
         <main>
-          <div className="searchPanel">
-            <SearchPanel
-              searchEvent={this.searchEvent}
-              categories={this.state.categories}
-            />
-          </div>
+          <div className="column" >
+            <div className="searchPanel">
+              <SearchPanel
+                searchEvent={this.searchEvent}
+                categories={this.state.categories}
+              />
+            </div>
 
-          <div className="mainContent">
-            <EventList
-              events={this.state.events}
-              searchEvent={this.searchEvent}
-              openChat={this.openChat}
-              handleIconClick={this.handleIconClick}
-            />
+            <div className="mainContent">
+              <EventList
+                events={this.state.events}
+                searchEvent={this.searchEvent}
+                openChat={this.openChat}
+                handleIconClick={this.handleIconClick}
+              />
 
-            <div className="chatSpace">
-              <div className='stage'>
-                <h1>Chat</h1>
-                <div id="closeX" onClick={this.closeChat}>X</div>
-                <div className='chat-logs'>
-                {messages}
+              <div className="chatSpace">
+                <div className='stage'>
+                  <h1>Chat</h1>
+                  <div id="closeX" onClick={this.closeChat}>X</div>
+                  <div className='chat-logs'>
+                  {messages}
+                  </div>
+                    <input
+                      value={ this.state.currentChatMessage }
+                      onChange={ (e) => this.updateCurrentChatMessage(e) }
+                      type='text'
+                      placeholder='Enter your message...'
+                      className='chat-input'/>
+                      <button
+                        onClick={ (e) => this.handleSendEvent(e) }
+                        className='send'>
+                        Send
+                    </button>
                 </div>
-                  <input
-                    value={ this.state.currentChatMessage }
-                    onChange={ (e) => this.updateCurrentChatMessage(e) }
-                    type='text'
-                    placeholder='Enter your message...'
-                    className='chat-input'/>
-                    <button
-                      onClick={ (e) => this.handleSendEvent(e) }
-                      className='send'>
-                      Send
-                  </button>
               </div>
             </div>
           </div>
+          <MyList listItems={this.state.listItems}/>
         </main>
       </div>
     );

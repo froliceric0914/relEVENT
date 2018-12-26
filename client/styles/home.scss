@@ -34,10 +34,15 @@ body {
     font-weight: 400;
   }
 
+
   p {
     float: right;
     line-height: 60px;
     margin: auto 10px;
+  }
+
+  button {
+    color: #000;
   }
 }
 
@@ -67,8 +72,6 @@ main {
   background: tomato;
   display: flex;
   height: 100%;
-  display: flex;
-  flex-direction: column;
 }
 
 //***************** search *****************//
@@ -193,4 +196,16 @@ main {
   max-width: 300px;
   font-weight: 700;
   padding: 10px;
+}
+
+//***************** myList *****************//
+
+.myList {
+  min-width: 25%;
+  display: none;
+  background-color: white;
+}
+
+.myList:hover {
+  cursor: pointer;
 }

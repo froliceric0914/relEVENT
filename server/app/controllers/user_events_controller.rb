@@ -5,6 +5,7 @@
     def create
       puts "here!"
 
+      # currently no use, so just assign first one 
       @category = Category.first
     
       @event = Event.find_by(
@@ -12,6 +13,8 @@
       ) || Event.create!(
         external_event_id: params[:event_id], 
         like_count: 0, 
+        name: params[:event_name],
+        logo_url: params[:img_url],
         category: @category
       )
 
@@ -48,10 +51,16 @@
       user_events = UsersEvent.where(
         user_id: params[:user_id]
       )
-      # this pulls out the event id's into an array
-      filtered_user_events = user_events.map{|i| i.event_id}
-      # return found events to the client
-      render json: Event.find(filtered_user_events)
+
+      # if you need to get events matched
+      # =====================================
+      # # this pulls out the event id's into an array
+      # filtered_user_events = user_events.map{|i| i.event_id}
+      # # return found events to the client
+      # render json: Event.find(filtered_user_events)
+      # =====================================
+  
+      render json: user_events
     end
 
     def destroy

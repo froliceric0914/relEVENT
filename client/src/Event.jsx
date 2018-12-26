@@ -7,11 +7,14 @@ import React from "react";
 
 const Event = ({ event, openChat, handleIconClick}) => {
   let img;
+  let img_url;
   // console.log("event", event);
   if (event.logo && event.logo.url) {
     img = <img className="img-fluid mb-2" src={event.logo.url} />;
+    img_url = event.logo.url;
   } else {
     img = <div />;
+    img_url = "";
   }
 
   return (
@@ -36,8 +39,8 @@ const Event = ({ event, openChat, handleIconClick}) => {
           </span>
 
           <div className="icons">
-            <i data-on="false" data-id={event.id} data-name="heart" className="far fa-heart" onClick={ handleIconClick }>0</i> &nbsp;
-            <i data-on="false" data-id={event.id} data-name="bookmark" className="far fa-bookmark" onClick={ handleIconClick }></i>
+            <i data-on="false" data-id={event.id} data-name="heart" data-event-name = {event.name.text} data-img-url={img_url} className="far fa-heart" onClick={ handleIconClick }>0</i> &nbsp;
+            <i data-on="false" data-id={event.id} data-name="bookmark" data-event-name = {event.name.text} data-img-url={img_url} className="far fa-bookmark" onClick={ handleIconClick }></i>
           </div>
 
           <a
@@ -49,7 +52,9 @@ const Event = ({ event, openChat, handleIconClick}) => {
           </a>
 
           <button className="chatButton"
-          name={event.id}
+            name={event.id}
+            data-event-name = {event.name.text}
+            data-img-url={img_url}
             onClick={openChat}
             target="_blank"
             className="btn btn-danger btn-block mt-4"
