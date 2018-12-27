@@ -6,7 +6,7 @@ import ListItem from './ListItem.jsx';
 //TODO: add onclick to chat button. show chat component
 //TODO: add styling
 
-const MyList = ({ listItems }) => {
+const MyList = ({ listItems, handleListItemClick }) => {
   
   return (
 
@@ -16,7 +16,7 @@ const MyList = ({ listItems }) => {
     {listItems.length? 
     listItems.map((listItem) => {
       if (listItem.bookmarked){
-        return <ListItem  key={listItem.id} listItem={listItem} />;
+        return <ListItem  key={listItem.id} listItem={listItem} handleListItemClick={handleListItemClick}/>;
       }
 
     }):<div> You don't have any items yet.</div>}

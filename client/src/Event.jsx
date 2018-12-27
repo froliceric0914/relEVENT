@@ -5,7 +5,7 @@ import React from "react";
 //TODO: add onclick to chat button. show chat component
 //TODO: add styling
 
-const Event = ({ event, openChat, handleIconClick}) => {
+const Event = ({ event, openChat, handleIconClick, listItems}) => {
   let img;
   let img_url;
   // console.log("event", event);
@@ -16,6 +16,25 @@ const Event = ({ event, openChat, handleIconClick}) => {
     img = <div />;
     img_url = "";
   }
+
+  let likeIcon = "false";
+  let bookmarkIcon = "false";
+  let likeClass = "far";
+  let bookmarkClass = "far";
+
+  listItems.forEach((item)=>{
+      if(event.id === item.event.external_event_id){
+        likeIcon = item.liked;
+        bookmarkIcon = item.bookmarked;
+        if(likeIcon === "true"){
+          likeClass = "fas";
+        }
+        if(likeIcon === "true"){
+           bookmarkClass = "fas";
+        }
+        console.log("reached");
+      }
+  });
 
   return (
 

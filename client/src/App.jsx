@@ -34,6 +34,8 @@ class App extends Component {
     this.handleIconClick = this.handleIconClick.bind(this);
     this.openMyList = this.openMyList.bind(this);
     this.assignMyListData = this.assignMyListData.bind(this);
+    this.handleListItemClick = this.handleListItemClick.bind(this);
+ 
   }
 
   componentWillMount() {
@@ -264,6 +266,66 @@ class App extends Component {
    
   }
 
+  handleListItemClick(event){
+
+    // this.closeChat();
+
+    console.log("tar",event.target);
+    let selectedEventId = event.target.getAttribute("data-id");
+    
+    fetch(
+    `https://www.eventbriteapi.com/v3/events/${selectedEventId}/?token=${process.env.TOKEN}&expand=organizer,venue`
+    )
+      .then(res => {
+        return res.json();
+      })
+      .then(data => {
+
+        this.setState({ events: [data] });
+      });
+
+      this.setState({ eventId: selectedEventId });
+      
+
+      // retrieve messages that belong to an event requested
+      fetch(
+        `http://localhost:8080/events/${selectedEventId}/messages`)
+        .then(res => {
+          console.log(res);
+          return res.json();
+        })
+        .then(data => {
+          if(data){
+          console.log(data);
+         //  this.listUpdater(data);
+          this.setState({ messages: data })
+
+          }
+        });
+
+        if ($(".chatSpace").is(':visible')) {
+          console.log("aaamm");
+          $("body .card-text .chatButton").css("background-color", "#ff9933");
+          $("body .card-text .chatButton").text("Close Chat");
+
+        }
+
+      // fetch(
+      //   `http://localhost:8080/events/${selectedEventId}/messages`)
+      //   .then(res => {
+      //     console.log(res);
+      //     return res.json();
+      //   })
+      //   .then(data => {
+      //     if(data){
+      //     console.log(data);
+      //    //  this.listUpdater(data);
+      //     this.setState({ messages: data })
+
+      //     }
+      //   });
+  }
+
   openMyList(event) {
       $(".myList").animate({
         width: "toggle"
@@ -319,7 +381,9 @@ class App extends Component {
            .then(data => {
              if(data){
              console.log(data);
-             this.setState({ messages: data });
+            //  this.listUpdater(data);
+             this.setState({ messages: data })
+
              }
            });
        return;
@@ -330,25 +394,35 @@ class App extends Component {
       $(event.target).text("Chat");
   }
 
+  // listUpdater = (data) => {
+  //   this.setState({ messages: this.state.employers.concat(data) });
+  // }
+
   //close chat space
   closeChat(e){
 
     //close chat space
-    // if ($(".chatSpace").is(':visible')) {
+    if ($(".chatSpace").is(':visible')) {
 
+      $(".chatSpace").animate({
+        width: "toggle"
+      });
+      $(".card-text .chatButton").css("background-color", "#dc3545");
+      $(".card-text .chatButton").text("Chat");
+      
     //   $(".card-text").find("button").css("background-color", "#dc3545");
     //   $(".card-text").find("button").text("Chat");
 
     //   $(".chatSpace").animate({
     //     width: "toggle"
     //   });
-    // }
+    }
 
   }
 
   assignMyListData(){
     if(this.state.user.userID){
-      console.log("fired1");
+ 
        //go to events function of user_event route and get myList data
       fetch(
         `http://localhost:8080/users/${this.state.user.userID}/events`)
@@ -360,7 +434,7 @@ class App extends Component {
           this.setState({ listItems: data });
         });
     }
-    console.log("fired2");
+ 
   }
   
 
@@ -406,6 +480,7 @@ class App extends Component {
                 searchEvent={this.searchEvent}
                 openChat={this.openChat}
                 handleIconClick={this.handleIconClick}
+                listItems={this.state.listItems}
               />
 
               <div className="chatSpace">
@@ -430,7 +505,8 @@ class App extends Component {
               </div>
             </div>
           </div>
-          <MyList listItems={this.state.listItems}/>
+          <MyList listItems={this.state.listItems}
+          handleListItemClick={this.handleListItemClick}/>
         </main>
       </div>
     );

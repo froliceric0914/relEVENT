@@ -20,6 +20,7 @@ class ListItem extends Component {
 
   render() {
   
+    let eventId = this.props.listItem.event.external_event_id;
     return (
 
       // vertical layout
@@ -38,7 +39,8 @@ class ListItem extends Component {
       <div className="listItem">
          <div className=" row">
             <div className="col-md-5">
-             <img className="img-fluid mb-0" src={this.props.listItem.event.logo_url} />
+             <img className="img-fluid mb-0" src={this.props.listItem.event.logo_url}
+             data-id={eventId} onClick={this.props.handleListItemClick} />
             </div>
             <div className="col-md-7">
              {this.props.listItem.event.name}
