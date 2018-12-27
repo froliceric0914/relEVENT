@@ -4,6 +4,7 @@ import EventList from "./EventList.jsx";
 import MessageList from "./MessageList.jsx";
 import ChatBar from "./ChatBar.jsx";
 import UserRegistration from "./UserRegistration.jsx";
+import UserLogin from "./UserLogin.jsx";
 
 //TODO: toggle search panel (jQuery?)
 //TODO: styling
@@ -40,14 +41,14 @@ class App extends Component {
         return res.json();
       })
       .then(events => {
-        console.log("APIdata", events.events);
+        // console.log("APIdata", events.events);
         let data = events.events.filter(event => {
           if (event.description.text) return true;
         });
         this.setState({ events: data.slice(0) });
       });
 
-    // Query the API
+    // Query the API for category list
     const categoriesResponse = fetch(
       `https://www.eventbriteapi.com/v3/categories/?token=25ZVHBJBUGPPTEWGEP5W`
     )
@@ -75,11 +76,10 @@ class App extends Component {
         return res.json();
       })
       .then(data => {
-        console.log("queryEvents", data.events);
+        // console.log("queryEvents", data.events);
         const results = data.events;
-        this.setState({ events: results.slice(0) });
-
         //filter events with valid decription
+        this.setState({ events: results.slice(0) });
       });
   }
 
@@ -98,12 +98,6 @@ class App extends Component {
   }
 
   render() {
-    // maybe no need
-    const { events, conditions } = this.state;
-    // const searchResult = events.filter(event => {
-    //   return event;
-    // });
-
     return (
       <div>
         <nav className="navbar">
@@ -118,6 +112,13 @@ class App extends Component {
           <UserRegistration
             setUser={user => this.setState({ user })}
             loginUser={this.state.user}
+          />
+        </div>
+
+        <div className="userLogin">
+          <UserLogin
+            setUser={user => this.setState({ user })}
+            loginUser={this.state.user} // render it in the nav
           />
         </div>
 
