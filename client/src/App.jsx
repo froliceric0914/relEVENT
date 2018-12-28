@@ -5,6 +5,8 @@ import EventList from "./EventList.jsx";
 import Message from "./Message.jsx";
 // import MessageList from "./MessageList.jsx";
 import UserRegistration from "./UserRegistration.jsx";
+import UserLogin from "./UserLogin.jsx";
+// import { withCookies, Cookies } from "react-cookie";
 
 //TODO: toggle search panel (jQuery?)
 //TODO: styling
@@ -48,7 +50,7 @@ class App extends Component {
         return res.json();
       })
       .then(events => {
-        console.log("APIdata", events.events);
+        // console.log("APIdata", events.events);
         let data = events.events.filter(event => {
           if (event.description.text) return true;
         });
@@ -56,7 +58,7 @@ class App extends Component {
       });
 
 
-    // Query the API
+    // Query the API for category list
     const categoriesResponse = fetch(
       `https://www.eventbriteapi.com/v3/categories/?token=25ZVHBJBUGPPTEWGEP5W`
     )
@@ -84,11 +86,10 @@ class App extends Component {
         return res.json();
       })
       .then(data => {
-        console.log("queryEvents", data.events);
+        // console.log("queryEvents", data.events);
         const results = data.events;
-        this.setState({ events: results.slice(0) });
-
         //filter events with valid decription
+        this.setState({ events: results.slice(0) });
       });
   }
 
@@ -179,14 +180,25 @@ class App extends Component {
           <a href="/" className="navbar-brand">
             eventoooo
           </a>
+          {this.state.user.username}
           <button>search</button>&nbsp;
-          <button>list</button>
+          <button>list</button>&nbsp;
+          <button>register</button>&nbsp;
+          <button>login</button>&nbsp;
+          <button>logout</button>&nbsp;
         </nav>
 
         <div className="userRegistration">
           <UserRegistration
             setUser={user => this.setState({ user })}
             loginUser={this.state.user}
+          />
+        </div>
+
+        <div className="userLogin">
+          <UserLogin
+            setUser={user => this.setState({ user })}
+            loginUser={this.state.user} // render it in the nav
           />
         </div>
 

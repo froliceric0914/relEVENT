@@ -30,17 +30,16 @@ const Event = ({ event, openChat}) => {
       <div className="card-body">
         <div className="card-text">
           <h2 className="text-center card-title">
-            ${event.name.text.substring(0, 35)}...
+            {event.name.text.substring(0, 35)}...
           </h2>
           <p className="lead text-info">Event Information:</p>
-          <p>${event.description.text ? event.description.text.substring(0, 200) : ""}...</p>
-
+          <p>{event.description.text.substring(0, 200)}...</p>
           <span className="badge badge-secondary">
             Date & Time: {event.start.local}
           </span>
           <br />
           <span className="badge badge-secondary">
-            Location: ${event.venue.address.address_1}
+            Location: {event.venue.address.address_1}
           </span>
           <a
             href={event.url}

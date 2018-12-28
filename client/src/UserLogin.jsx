@@ -1,37 +1,35 @@
 import React, { Component } from "react";
 //submit a form of the user name&password
 //TODO: import the api function(route. method,callback)
-class UserRegistration extends Component {
+class UserLogin extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
       email: "eric11111@eric.com",
-      username: "ericcool1",
       password: "1234567"
     };
     // this._handleSubmit = this._handleSubmit.bind(this);
   }
   //
   _handleSubmit = e => {
-    const { email, username, password } = this.state;
-    alert("submit the form");
-    // console.log("userInfo", { email, username, password });
-    const user = fetch("http://localhost:8080/users", {
+    const { email, password } = this.state;
+    alert("Submit Login");
+    console.log("userLoginInfo", { email, password });
+    const user = fetch("http://localhost:8080/login", {
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json"
       },
       method: "POST",
-      body: JSON.stringify({ user: { email, username, password } })
-      //{user:{...}}
+      body: JSON.stringify({ user: { email, password } })
     })
       .then(res => {
         // console.log("ress", res);
         return res.json();
       })
       .then(data => {
-        console.log("user data from backend", data);
+        console.log("user_login data from backend", data);
         this.props.setUser({
           status: true,
           username: data.object.username,
@@ -40,28 +38,13 @@ class UserRegistration extends Component {
         console.log("login-user: ", this.props.loginUser);
       });
     //call the props and change the state of user in app.js
-    // this.props.UserRegistration(email, username, password);
+    // this.props.UserLogin(email, username, password);
   };
 
   render() {
     return (
-      <div className="container registration-wrappers">
-        <div className="registration-form">
-          <label for="user-name">Username</label>
-          <input
-            type="text"
-            id="login-username"
-            className="form-user"
-            onChange={e => {
-              this.setState({
-                username: e.target.value
-              });
-            }}
-            value={this.state.username}
-          />
-        </div>
-
-        <div className="registration-form">
+      <div claseName="container login-wrappers">
+        <div className="login-form">
           <label for="user-email">Email</label>
           <input
             type="email"
@@ -76,7 +59,7 @@ class UserRegistration extends Component {
           />
         </div>
 
-        <div className="registration-form">
+        <div className="login-form">
           <label for="user-password">Password</label>
           <input
             type="text"
@@ -98,7 +81,7 @@ class UserRegistration extends Component {
             className="mt-5 form-control btn btn-success"
             id="submitBtn"
           >
-            Register
+            Login in
           </button>
         </div>
       </div>
@@ -106,4 +89,4 @@ class UserRegistration extends Component {
   }
 }
 
-export default UserRegistration;
+export default UserLogin;

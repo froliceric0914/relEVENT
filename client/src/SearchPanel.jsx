@@ -6,13 +6,12 @@ import React, { Component } from "react";
 
 // TODO: make the key words first
 
-//listen to the
 class SearchPanel extends Component {
   constructor(props) {
     super(props);
     this.state = {
       keyword: "drake",
-      category: "103",
+      category: "",
       location: "toronto",
       localWithin: "50km"
       // `${this.props.categories}`

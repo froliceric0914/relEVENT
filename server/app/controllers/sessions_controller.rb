@@ -4,14 +4,25 @@ class SessionsController < ApplicationController
   end
 
  def create
-  if user = User.authenticate_with_credentials(params[:email], params[:password])
-      session[:user_id] = user.id
-      render json: user
-      # redirect_to '/'
-    else
-      # redirect_to '/login'
-      puts "User login was unsuccessful"
-      head :forbidden
+  @user = User.find_by(email: params[:user][:email])
+  puts "user from db", @user
+  puts "email from front-ent", params[:user][:email]
+  puts "user from front-end", params
+  if @user = User.authenticate_with_credentials(params[:user][:email], params[:user][:password])
+      # session[:user_id] = @user.id
+      render :json =>
+      {
+        :status => 'ok',
+        :message => 'User logged in!',
+        :object => @user
+      }.to_json
+      else
+        render :json =>
+        {
+          :status => 'User login was unsuccessful',
+          :message => @user.errors.full_messages.to_sentence,
+          :object => @user
+        }.to_json
     end
   end
 
@@ -21,3 +32,21 @@ class SessionsController < ApplicationController
   end
 
 end
+
+
+
+
+# def create
+#   if user = User.authenticate_with_credentials(params[:email], params[:password])
+#       session[:user_id] = user.id
+#       render json: user
+#     else
+#       puts "User login was unsuccessful"
+#       head :forbidden
+#     end
+#   end
+
+#   def destroy
+#     session[:user_id] = nil
+#     redirect_to '/login'
+#   end
