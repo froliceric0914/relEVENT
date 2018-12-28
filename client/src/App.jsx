@@ -30,9 +30,21 @@ class App extends Component {
       }
     };
     this.searchEvent = this.searchEvent.bind(this);
-    this.addEventToMyList = this.addEventToMyList.bind(this);
+    // this.logout = this.logout.bind(this);
+    this.addEventToMyList.bind(this);
     this.openChat = this.openChat.bind(this);
   }
+
+  // logout() {
+  //   delete_cookie("userCookie");
+  //   this.setState({
+  //     user: {
+  //       status: false,
+  //       username: null,
+  //       userID: null
+  //     }
+  //   });
+  // }
 
   componentWillMount() {
     this.state.user = read_cookie("userCookie");
@@ -114,7 +126,21 @@ class App extends Component {
           <button>list</button>&nbsp;
           <button>register</button>&nbsp;
           <button>login</button>&nbsp;
-          <button>logout</button>&nbsp;
+          <button
+            onClick={e => {
+              delete_cookie("userCookie");
+              this.setState({
+                user: {
+                  status: false,
+                  username: null,
+                  userID: null
+                }
+              });
+            }}
+          >
+            logout
+          </button>
+          &nbsp;
         </nav>
 
         <div className="userRegistration">
