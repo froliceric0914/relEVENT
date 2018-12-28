@@ -127,7 +127,14 @@ main {
   height: 100%;
 }
 
-#closeX:hover{
+.right{
+  float: right;
+}
+
+.closeX{
+  font-size:3rem;
+}
+.closeX:hover{
    cursor: pointer;
    opacity: 0.8;
 }

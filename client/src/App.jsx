@@ -16,6 +16,7 @@ class App extends Component {
     this.state = {
       orderby: "date",
       events: [],
+      eventsTmp: [],
       conditions: [], //maybe no need
       messages: [], //will be array of object
       categories: [],
@@ -27,7 +28,7 @@ class App extends Component {
         userID: 0,
       },
       listItems: [],
-    
+      listItemSelected: false
     };
     this.searchEvent = this.searchEvent.bind(this);
     this.openChat = this.openChat.bind(this);
@@ -36,6 +37,7 @@ class App extends Component {
     this.openMyList = this.openMyList.bind(this);
     // this.assignMyListData = this.assignMyListData.bind(this);
     this.handleListItemClick = this.handleListItemClick.bind(this);
+    this.handleXIconOnEventClick = this.handleXIconOnEventClick.bind(this);
  
   }
 
@@ -76,6 +78,7 @@ class App extends Component {
 
   searchEvent(keyword, category, location, localWithin) {
 
+    this.setState({ listItemSelected: false });
     this.closeChat();
 
     const getURL = `https://www.eventbriteapi.com/v3/events/search/?q=${keyword}&expand=organizer,venue&sort_by=${
@@ -157,7 +160,6 @@ class App extends Component {
 
   handleIconClick(event) {
    
-  
     let selectedIcon =  event.target.getAttribute("data-name");
     
     let otherIcon = $(event.target).siblings()[0];
@@ -291,7 +293,11 @@ class App extends Component {
   handleListItemClick(event){
 
     let selectedEventId = event.target.getAttribute("data-id");
-    
+        // move current search result in tmp 
+    if(this.state.listItemSelected === false){
+      this.setState({ eventsTmp: this.state.events });
+    }
+    this.setState({ listItemSelected: true });
 
     console.log("retrieve user list");
     // retrieve user_event data
@@ -317,9 +323,6 @@ class App extends Component {
         this.setState({ events: [data] });
       });
 
-     
-      
-
       // retrieve messages that belong to an event requested
       fetch(
         `http://localhost:8080/events/${selectedEventId}/messages`)
@@ -342,6 +345,16 @@ class App extends Component {
 
   }
 
+  // when x Icon on an event from myList was clicked
+  handleXIconOnEventClick(event) {
+
+    this.closeChat()
+    this.setState({ listItemSelected: false });
+    this.setState({ events: this.state.eventsTmp });
+
+  }
+
+  // Open user's MyList
   openMyList(event) {
       $(".myList").animate({
         width: "toggle"
@@ -410,10 +423,6 @@ class App extends Component {
       $(event.target).text("Chat");
   }
 
-  // listUpdater = (data) => {
-  //   this.setState({ messages: this.state.employers.concat(data) });
-  // }
-
   //close chat space
   closeChat(e){
 
@@ -426,76 +435,13 @@ class App extends Component {
       $(".card-text .chatButton").css("background-color", "#dc3545");
       $(".card-text .chatButton").text("Chat");
       
-    //   $(".card-text").find("button").css("background-color", "#dc3545");
-    //   $(".card-text").find("button").text("Chat");
-
-    //   $(".chatSpace").animate({
-    //     width: "toggle"
-    //   });
     }
-
   }
 
-  // assignMyListData(){
-  //   if(this.state.user.userID){
- 
-  //      //go to events function of user_event route and get myList data
-  //     fetch(
-  //       `http://localhost:8080/users/${this.state.user.userID}/events`)
-  //       .then(res => {
-  //         console.log(res);
-  //         return res.json();
-  //       })
-  //       .then(data => {
-  //         console.log("ddd",data);
-
-  //         console.log("before",this.state.listItems);
-
-  //          this.setState((prevState) => {
-    
-  //           console.log("data", data);
-  //           return { listItems:  data };
-  //          });
-
-  //          console.log("after",this.state.listItems);
-
-  //         //  this.setState(() => {
-  //         //    let newData = data
-  //         //   return { listItems:  newData };
-  //         //  });
-
-          
-
-  //         // setTimeout(()=>{ 
-  //         //   this.setState({ listItems: data });
-  //         // }, 0);
-
-         
-  //       //   setTimeout(()=>{
-  //       //   this.setState((prevState) => {
-  //       //     prevState.listItems = data.concat();
-  //       //     return { listItems:  prevState.listItems };
-  //       // });}, 0);
-      
-  //       // this.setState({
-  //       //   listItems:  data
-  //       // });
-        
-  //     });
-  //   }
-  //   console.log("after2",this.state.listItems);
-  // }
-  
-  componentWillReceiveProps(newProps, old) {
-    console.log("new",newProps);
-    console.log("old",old);
-}
-
-  
   render() {
 
     let messages = this.state.messages.map((message, i)=>{
-    return <Message key = {i} message = {message} />
+    return <Message key = {i} message = {message} user_id />
 });
 
     return (
@@ -534,12 +480,15 @@ class App extends Component {
                 openChat={this.openChat}
                 handleIconClick={this.handleIconClick}
                 listItems={this.state.listItems}
+                listItemSelected={this.state.listItemSelected}
+                handleXIconOnEventClick={this.handleXIconOnEventClick}
               />
 
               <div className="chatSpace">
                 <div className='stage'>
                   <h1>Chat</h1>
-                  <div id="closeX" onClick={this.closeChat}>X</div>
+                  <div className="closeX" onClick={this.closeChat}>x</div>
+                  {/* <i id="closeX" className="fas fa-times fa-2x" onClick={this.closeChat}></i> */}
                   <div className='chat-logs'>
                   {messages}
                   </div>

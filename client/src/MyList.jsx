@@ -12,7 +12,6 @@ const MyList = ({ listItems, handleListItemClick }) => {
 
     <div className="myList">
      <h3>my event list</h3>
-     <p>{listItems.length}</p>
     {listItems.length? 
     listItems.map((listItem) => {
       if (listItem.bookmarked){
