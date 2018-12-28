@@ -48,6 +48,7 @@
     "dotenv": "^6.2.0",
     "dotenv-webpack": "^1.5.7",
     "fs": "0.0.1-security",
+    "fscookie": "^1.0.2",
     "react": "^15.4.2",
     "react-bootstrap": "^0.32.4",
     "react-cookie": "^3.0.8",

@@ -1,7 +1,6 @@
 import React, { Component } from "react";
-// import { bake_cookie, read_cookie, delete_cookie } from "sfcookies";
-//submit a form of the user name&password
-//TODO: import the api function(route. method,callback)
+import { bake_cookie, read_cookie, delete_cookie } from "sfcookies";
+
 class UserRegistration extends Component {
   constructor(props) {
     super(props);
@@ -11,13 +10,11 @@ class UserRegistration extends Component {
       username: "ericcool1",
       password: "1234567"
     };
-    // this._handleSubmit = this._handleSubmit.bind(this);
   }
-  //
+
   _handleSubmit = e => {
     const { email, username, password } = this.state;
     alert("submit the form");
-    // console.log("userInfo", { email, username, password });
     const user = fetch("http://localhost:8080/users", {
       headers: {
         Accept: "application/json",
@@ -25,10 +22,8 @@ class UserRegistration extends Component {
       },
       method: "POST",
       body: JSON.stringify({ user: { email, username, password } })
-      //{user:{...}}
     })
       .then(res => {
-        // console.log("ress", res);
         return res.json();
       })
       .then(data => {
@@ -38,19 +33,8 @@ class UserRegistration extends Component {
           username: data.object.username,
           userID: data.object.id
         });
-        set(
-          "user",
-          {
-            status: true,
-            username: data.object.username,
-            userID: data.object.id
-          },
-          { path: "/" }
-        );
-        console.log("login-user: ", this.props.loginUser);
+        bake_cookie("userCookie", this.props.userState);
       });
-    //call the props and change the state of user in app.js
-    // this.props.UserRegistration(email, username, password);
   };
 
   render() {

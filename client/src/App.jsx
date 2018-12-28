@@ -35,6 +35,9 @@ class App extends Component {
   }
 
   componentWillMount() {
+    this.state.user = read_cookie("userCookie");
+    // console.log("read cookie", read_cookie("userCookie"));
+    console.log("cookie of user?", this.state.user);
     //retrieve initial events before first render(default events)
     this.state.user = read_cookie("userCookie");
     console.log("this should be the user", this.state.user);
@@ -93,12 +96,10 @@ class App extends Component {
 
   addEventToMyList(id) {
     alert("do get request with id to express");
-    //update state
   }
 
   openChat(id) {
     alert("show chat space and get request with id to express");
-    //update state
   }
 
   render() {
@@ -119,8 +120,7 @@ class App extends Component {
         <div className="userRegistration">
           <UserRegistration
             setUser={user => this.setState({ user })}
-            setCookie={cookie => this.setState({ cookie })}
-            loginUser={this.state.user}
+            userState={this.state.user}
           />
         </div>
 
