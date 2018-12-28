@@ -98,7 +98,7 @@ class UserRegistration extends Component {
             className="mt-5 form-control btn btn-success"
             id="submitBtn"
           >
-            Submit
+            Register
           </button>
         </div>
       </div>

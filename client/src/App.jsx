@@ -5,6 +5,7 @@ import MessageList from "./MessageList.jsx";
 import ChatBar from "./ChatBar.jsx";
 import UserRegistration from "./UserRegistration.jsx";
 import UserLogin from "./UserLogin.jsx";
+// import { withCookies, Cookies } from "react-cookie";
 
 //TODO: toggle search panel (jQuery?)
 //TODO: styling
@@ -104,8 +105,12 @@ class App extends Component {
           <a href="/" className="navbar-brand">
             eventoooo
           </a>
+          {this.state.user.username}
           <button>search</button>&nbsp;
-          <button>list</button>
+          <button>list</button>&nbsp;
+          <button>register</button>&nbsp;
+          <button>login</button>&nbsp;
+          <button>logout</button>&nbsp;
         </nav>
 
         <div className="userRegistration">
