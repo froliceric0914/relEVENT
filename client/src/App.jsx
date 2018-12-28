@@ -35,7 +35,6 @@ class App extends Component {
     this.closeChat = this.closeChat.bind(this);
     this.handleIconClick = this.handleIconClick.bind(this);
     this.openMyList = this.openMyList.bind(this);
-    // this.assignMyListData = this.assignMyListData.bind(this);
     this.handleListItemClick = this.handleListItemClick.bind(this);
     this.handleXIconOnEventClick = this.handleXIconOnEventClick.bind(this);
  
@@ -108,24 +107,24 @@ class App extends Component {
     }, {
       connected: () => {},
       received: (data) => {
-        // console.log(data);
+        
+        // if you don't connect with back-end =========
         // // this.setState({ messages: [...this.state.messages, data ] });
         // console.log(this.state.messages);
         // // concat to message list
+        //===============================================
 
-    // retrieve updated message list from db TODO: it's repeated. need refactor
-    fetch(
-      `http://localhost:8080/events/${this.state.eventId}/messages`)
-      .then(res => {
-        console.log(res);
-        return res.json();
-      })
-      .then(data => {
-        if(data){
-        console.log(data);
-        this.setState({ messages: data });
-        }
-      });
+        // retrieve updated message list from db TODO: it's repeated. need refactor
+        fetch(
+          `http://localhost:8080/events/${this.state.eventId}/messages`)
+          .then(res => {
+            return res.json();
+          })
+          .then(data => {
+            if(data){
+            this.setState({ messages: data });
+            }
+          });
 
       },
       create: function(chatContent, user_id ,event_id, event_name, img_url) {
@@ -177,15 +176,11 @@ class App extends Component {
 
     let currentIconStatus = event.target.getAttribute("data-on");
     let otherIconStatus = otherIcon.getAttribute("data-on");
-
-    console.log("currentIconStatus", currentIconStatus);
-    console.log("otherIconStatus", otherIconStatus);
     
     let selectedEventId = event.target.getAttribute("data-id");
     let eventName = event.target.getAttribute("data-event-name");
     let imgUrl = event.target.getAttribute("data-img-url");
    
-    console.log("type", typeof currentIconStatus)
     let liked = false;
     let bookmarked = false;
  
@@ -259,12 +254,12 @@ class App extends Component {
     console.log("update");
 
     if(selectedIcon === "like"){
-      //  liked = !currentIconStatus  if could set boolean. need refactor
+      //  liked = !currentIconStatus  if you can set boolean. need refactor
        liked = currentIconStatus === "true" ? "false" : "true";
        bookmarked = otherIconStatus;
        
     }else{
-      //  bookmarked = !currentIconStatus  if could set boolean. need refactor
+      //  bookmarked = !currentIconStatus  if you can set boolean. need refactor
        bookmarked = currentIconStatus === "true" ? "false" : "true";
        liked = otherIconStatus;
     }
@@ -460,6 +455,7 @@ class App extends Component {
           <UserRegistration
             setUser={user => this.setState({ user })}
             loginUser={this.state.user}
+            // this goes to log in component
             // setMyList={listItems => this.setState( listItems )}
           />
         </div>
