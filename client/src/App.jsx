@@ -6,7 +6,6 @@ import ChatBar from "./ChatBar.jsx";
 import UserRegistration from "./UserRegistration.jsx";
 import UserLogin from "./UserLogin.jsx";
 import { bake_cookie, read_cookie, delete_cookie } from "sfcookies";
-// import { withCookies, Cookies } from "react-cookie";
 
 //TODO: toggle search panel (jQuery?)
 //TODO: styling
@@ -22,6 +21,7 @@ class App extends Component {
       targetEvents: [],
       conditions: [], //maybe no need
       messages: [], //will be array of object
+      cookie: [],
       categories: [],
       user: {
         status: false,
@@ -36,6 +36,8 @@ class App extends Component {
 
   componentWillMount() {
     //retrieve initial events before first render(default events)
+    this.state.user = read_cookie("userCookie");
+    console.log("this should be the user", this.state.user);
     const url = fetch(
       `https://www.eventbriteapi.com/v3/events/search/?q=&sort_by=date&location.address=toronto&start_date.keyword=today&expand=organizer,venue&token=25ZVHBJBUGPPTEWGEP5W`
     )
@@ -117,6 +119,7 @@ class App extends Component {
         <div className="userRegistration">
           <UserRegistration
             setUser={user => this.setState({ user })}
+            setCookie={cookie => this.setState({ cookie })}
             loginUser={this.state.user}
           />
         </div>
@@ -124,7 +127,7 @@ class App extends Component {
         <div className="userLogin">
           <UserLogin
             setUser={user => this.setState({ user })}
-            loginUser={this.state.user} // render it in the nav
+            userState={this.state.user} // render it in the nav
           />
         </div>
 

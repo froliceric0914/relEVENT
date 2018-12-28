@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { bake_cookie, read_cookie, delete_cookie } from "sfcookies";
+// import { bake_cookie, read_cookie, delete_cookie } from "sfcookies";
 //submit a form of the user name&password
 //TODO: import the api function(route. method,callback)
 class UserRegistration extends Component {
@@ -38,6 +38,15 @@ class UserRegistration extends Component {
           username: data.object.username,
           userID: data.object.id
         });
+        set(
+          "user",
+          {
+            status: true,
+            username: data.object.username,
+            userID: data.object.id
+          },
+          { path: "/" }
+        );
         console.log("login-user: ", this.props.loginUser);
       });
     //call the props and change the state of user in app.js

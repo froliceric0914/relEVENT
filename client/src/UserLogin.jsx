@@ -36,7 +36,8 @@ class UserLogin extends Component {
           username: data.object.username,
           userID: data.object.id
         });
-        console.log("login-user: ", this.props.loginUser);
+        bake_cookie("userCookie", this.props.userState);
+        console.log("login-user: ", read_cookie("userCookie"));
       });
     //call the props and change the state of user in app.js
     // this.props.UserLogin(email, username, password);
