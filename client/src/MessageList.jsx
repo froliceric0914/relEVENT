@@ -20,7 +20,11 @@ class MessageList extends Component {
         <div>aaaa</div>
         <div>aaaa</div>
         <div>aaaa</div>
+<<<<<<< HEAD
         <div>aaaa</div> */}
+=======
+
+>>>>>>> feature/mylist
       </div>
     );
   }

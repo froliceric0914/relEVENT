@@ -1,10 +1,8 @@
 import React, { Component } from "react";
 
-//This is an Search window
-//TODO: set onclick to submit button
-//TODO: add styling
+// This is an Search window
+// TODO: add styling
 
-// TODO: make the key words first
 
 class SearchPanel extends Component {
   constructor(props) {
@@ -119,7 +117,7 @@ class SearchPanel extends Component {
               className="mt-5 form-control btn btn-success"
               id="submitBtn"
             >
-              Seach
+              Search
             </button>
           </div>
         </div>
