@@ -19,7 +19,7 @@ class ListItem extends Component {
   // }
 
   render() {
-  
+
     let eventId = this.props.listItem.event.external_event_id;
     return (
 

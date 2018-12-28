@@ -399,13 +399,10 @@ class App extends Component {
          fetch(
            `http://localhost:8080/events/${event.target.name}/messages`)
            .then(res => {
-             console.log(res);
              return res.json();
            })
            .then(data => {
              if(data){
-             console.log(data);
-            //  this.listUpdater(data);
              this.setState({ messages: data })
 
              }
