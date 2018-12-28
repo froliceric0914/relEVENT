@@ -3,7 +3,6 @@ import React, { Component } from "react";
 // This is an Search window
 // TODO: add styling
 
-
 class SearchPanel extends Component {
   constructor(props) {
     super(props);
@@ -40,8 +39,6 @@ class SearchPanel extends Component {
     return (
       <div className="container search-wrapper">
         <div id="search-events" className="card card-body">
-          <h1 className="text-center">evenTOOOOOOO</h1>
-
           <div className="form-group">
             <label for="event-name">Keyword</label>
             <input

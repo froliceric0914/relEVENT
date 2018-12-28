@@ -465,10 +465,9 @@ class App extends Component {
       <div>
         <nav className="navbar">
           <a href="/" className="navbar-brand">
-            eventoooo
+            relEVENT
           </a>
           {this.state.user.username}
-          <button>list</button>&nbsp;
           <button>register</button>&nbsp;
           <button>login</button>&nbsp;
           <button

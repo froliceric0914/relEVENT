@@ -3,7 +3,6 @@ class SessionsController < ApplicationController
   def new
   end
 
-<<<<<<< HEAD
  def create
   @user = User.find_by(email: params[:user][:email])
   puts "user from db", @user
@@ -24,17 +23,6 @@ class SessionsController < ApplicationController
           :message => @user.errors.full_messages.to_sentence,
           :object => @user
         }.to_json
-=======
-  def create
-    if user = User.authenticate_with_credentials(params[:email], params[:password])
-      session[:user_id] = user.id
-      render json: user
-      # redirect_to '/'
-    else
-      # redirect_to '/login'
-      puts "User login was unsuccessful"
-      head :forbidden
->>>>>>> feature/mylist
     end
   end
 
