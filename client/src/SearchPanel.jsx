@@ -1,18 +1,14 @@
 import React, { Component } from "react";
 
-//This is an Search window
-//TODO: set onclick to submit button
-//TODO: add styling
+// This is an Search window
+// TODO: add styling
 
-// TODO: make the key words first
-
-//listen to the
 class SearchPanel extends Component {
   constructor(props) {
     super(props);
     this.state = {
       keyword: "drake",
-      category: "103",
+      category: "",
       location: "toronto",
       localWithin: "50km"
       // `${this.props.categories}`
@@ -43,8 +39,6 @@ class SearchPanel extends Component {
     return (
       <div className="container search-wrapper">
         <div id="search-events" className="card card-body">
-          <h1 className="text-center">evenTOOOOOOO</h1>
-
           <div className="form-group">
             <label for="event-name">Keyword</label>
             <input
@@ -120,7 +114,7 @@ class SearchPanel extends Component {
               className="mt-5 form-control btn btn-success"
               id="submitBtn"
             >
-              Seach
+              Search
             </button>
           </div>
         </div>

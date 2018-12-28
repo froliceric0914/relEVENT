@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
- 
+
   def index
+    puts 'INDEX'
     @users = User.all
     render json: @users, :except => [:events]
   end
@@ -23,12 +24,7 @@ class UsersController < ApplicationController
         :object => @user
       }.to_json
     end
-    # if @user.save
-    #   render json: @user
-    #   # session[:user_id] = user.id
-    # else
-    #   head :unprocessable_entity
-    # end
+
   end
 
   private
