@@ -436,7 +436,7 @@ class App extends Component {
   render() {
 
     let messages = this.state.messages.map((message, i)=>{
-    return <Message key = {i} message = {message} user_id />
+    return <Message key = {i} message = {message} user_id = {this.state.user.userID} />
 });
 
     return (
