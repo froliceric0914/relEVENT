@@ -19,20 +19,26 @@ const Event = ({ event, openChat, handleIconClick, listItems}) => {
 
   let likeIcon = "false";
   let bookmarkIcon = "false";
-  let likeClass = "far";
-  let bookmarkClass = "far";
+  let likeClass = "far fa-heart";
+  let bookmarkClass = "far fa-bookmark";
 
   listItems.forEach((item)=>{
       if(event.id === item.event.external_event_id){
         likeIcon = item.liked;
         bookmarkIcon = item.bookmarked;
-        if(likeIcon === "true"){
-          likeClass = "fas";
+        if(likeIcon === true){
+          likeClass = "fas fa-heart";
+          // console.log("reached1");
         }
-        if(likeIcon === "true"){
-           bookmarkClass = "fas";
+        if(bookmarkIcon === true){
+           bookmarkClass = "fas fa-bookmark";
+          //  console.log("reached2");
         }
-        console.log("reached");
+        // console.log("liked is", item.liked);
+        // console.log("like icon is",likeIcon);
+        // console.log("bookmarked is", item.bookmarked);
+        // console.log("bookmarkIcon is",bookmarkIcon);
+        // console.log("reached");
       }
   });
 
@@ -58,8 +64,8 @@ const Event = ({ event, openChat, handleIconClick, listItems}) => {
           </span>
 
           <div className="icons">
-            <i data-on="false" data-id={event.id} data-name="like" data-event-name = {event.name.text} data-img-url={img_url} className="far fa-heart" onClick={ handleIconClick }>0</i> &nbsp;
-            <i data-on="false" data-id={event.id} data-name="bookmark" data-event-name = {event.name.text} data-img-url={img_url} className="far fa-bookmark" onClick={ handleIconClick }></i>
+            <i data-on={likeIcon} data-id={event.id} data-name="like" data-event-name = {event.name.text} data-img-url={img_url} className={likeClass} onClick={ handleIconClick }>0</i> &nbsp;
+            <i data-on={bookmarkIcon} data-id={event.id} data-name="bookmark" data-event-name = {event.name.text} data-img-url={img_url} className={bookmarkClass} onClick={ handleIconClick }></i>
           </div>
 
           <div className="iconSideError"></div>

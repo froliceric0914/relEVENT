@@ -26,14 +26,15 @@ class App extends Component {
         username: null,
         userID: 0,
       },
-      listItems: []
+      listItems: [],
+    
     };
     this.searchEvent = this.searchEvent.bind(this);
     this.openChat = this.openChat.bind(this);
     this.closeChat = this.closeChat.bind(this);
     this.handleIconClick = this.handleIconClick.bind(this);
     this.openMyList = this.openMyList.bind(this);
-    this.assignMyListData = this.assignMyListData.bind(this);
+    // this.assignMyListData = this.assignMyListData.bind(this);
     this.handleListItemClick = this.handleListItemClick.bind(this);
  
   }
@@ -73,9 +74,6 @@ class App extends Component {
      
   }
 
-
-
-  
   searchEvent(keyword, category, location, localWithin) {
 
     this.closeChat();
@@ -160,7 +158,6 @@ class App extends Component {
   handleIconClick(event) {
    
   
-  
     let selectedIcon =  event.target.getAttribute("data-name");
     
     let otherIcon = $(event.target).siblings()[0];
@@ -178,12 +175,15 @@ class App extends Component {
 
     let currentIconStatus = event.target.getAttribute("data-on");
     let otherIconStatus = otherIcon.getAttribute("data-on");
+
+    console.log("currentIconStatus", currentIconStatus);
+    console.log("otherIconStatus", otherIconStatus);
     
     let selectedEventId = event.target.getAttribute("data-id");
     let eventName = event.target.getAttribute("data-event-name");
     let imgUrl = event.target.getAttribute("data-img-url");
    
-
+    console.log("type", typeof currentIconStatus)
     let liked = false;
     let bookmarked = false;
  
@@ -193,21 +193,28 @@ class App extends Component {
       $(event.target).addClass('far');
       event.target.setAttribute("data-on", "false");
 
-      // if both icons became off :destroy
+      // if both icons became off :remove
       if(otherIconStatus==="false"){
-           console.log("destroy");
+           console.log("remove");
         
            fetch(`http://localhost:8080/users/${this.state.user.userID}/user_events/${selectedEventId}`, {
              headers: {
                Accept: "application/json",
                "Content-Type": "application/json"
              },
-             method: "DELETE",
+             method: "PUT",
+             body: JSON.stringify({ event_id: selectedEventId ,liked: liked , bookmarked: bookmarked })
+            })
+            .then(res => {
+             return res.json();
            })
-
-           this.assignMyListData();
-
-        return;
+           .then(data => {
+             if(data){
+        
+              this.setState({ listItems: data })
+        
+             }
+           });
       
       }
       
@@ -232,8 +239,15 @@ class App extends Component {
           method: "POST",
           body: JSON.stringify({ event_id: selectedEventId ,liked: liked , bookmarked: bookmarked , event_name: eventName, img_url: imgUrl})
         })
+        .then(res => {
+          return res.json();
+        })
+        .then(data => {
+          if(data){   
+           this.setState({ listItems: data })
 
-        this.assignMyListData();
+          }
+        });
 
        return;
       }   
@@ -261,18 +275,37 @@ class App extends Component {
       method: "PUT",
       body: JSON.stringify({ event_id: selectedEventId ,liked: liked , bookmarked: bookmarked })
     })
+    .then(res => {
+     return res.json();
+   })
+   .then(data => {
+     if(data){
 
-    this.assignMyListData();
+      this.setState({ listItems: data })
+
+     }
+   });
    
   }
 
   handleListItemClick(event){
 
-    // this.closeChat();
-
-    console.log("tar",event.target);
     let selectedEventId = event.target.getAttribute("data-id");
     
+
+    console.log("retrieve user list");
+    // retrieve user_event data
+    fetch(`http://localhost:8080/users/${this.state.user.userID}/events`)
+    .then(res => {
+     
+      return res.json();
+    })
+    .then(data => {
+      if(data){   
+       this.setState({ listItems: data })
+      }
+    });
+
     fetch(
     `https://www.eventbriteapi.com/v3/events/${selectedEventId}/?token=${process.env.TOKEN}&expand=organizer,venue`
     )
@@ -284,19 +317,17 @@ class App extends Component {
         this.setState({ events: [data] });
       });
 
-      this.setState({ eventId: selectedEventId });
+     
       
 
       // retrieve messages that belong to an event requested
       fetch(
         `http://localhost:8080/events/${selectedEventId}/messages`)
         .then(res => {
-          console.log(res);
           return res.json();
         })
         .then(data => {
           if(data){
-          console.log(data);
          //  this.listUpdater(data);
           this.setState({ messages: data })
 
@@ -304,26 +335,11 @@ class App extends Component {
         });
 
         if ($(".chatSpace").is(':visible')) {
-          console.log("aaamm");
           $("body .card-text .chatButton").css("background-color", "#ff9933");
           $("body .card-text .chatButton").text("Close Chat");
 
         }
 
-      // fetch(
-      //   `http://localhost:8080/events/${selectedEventId}/messages`)
-      //   .then(res => {
-      //     console.log(res);
-      //     return res.json();
-      //   })
-      //   .then(data => {
-      //     if(data){
-      //     console.log(data);
-      //    //  this.listUpdater(data);
-      //     this.setState({ messages: data })
-
-      //     }
-      //   });
   }
 
   openMyList(event) {
@@ -420,23 +436,60 @@ class App extends Component {
 
   }
 
-  assignMyListData(){
-    if(this.state.user.userID){
+  // assignMyListData(){
+  //   if(this.state.user.userID){
  
-       //go to events function of user_event route and get myList data
-      fetch(
-        `http://localhost:8080/users/${this.state.user.userID}/events`)
-        .then(res => {
-          console.log(res);
-          return res.json();
-        })
-        .then(data => {
-          this.setState({ listItems: data });
-        });
-    }
- 
-  }
+  //      //go to events function of user_event route and get myList data
+  //     fetch(
+  //       `http://localhost:8080/users/${this.state.user.userID}/events`)
+  //       .then(res => {
+  //         console.log(res);
+  //         return res.json();
+  //       })
+  //       .then(data => {
+  //         console.log("ddd",data);
+
+  //         console.log("before",this.state.listItems);
+
+  //          this.setState((prevState) => {
+    
+  //           console.log("data", data);
+  //           return { listItems:  data };
+  //          });
+
+  //          console.log("after",this.state.listItems);
+
+  //         //  this.setState(() => {
+  //         //    let newData = data
+  //         //   return { listItems:  newData };
+  //         //  });
+
+          
+
+  //         // setTimeout(()=>{ 
+  //         //   this.setState({ listItems: data });
+  //         // }, 0);
+
+         
+  //       //   setTimeout(()=>{
+  //       //   this.setState((prevState) => {
+  //       //     prevState.listItems = data.concat();
+  //       //     return { listItems:  prevState.listItems };
+  //       // });}, 0);
+      
+  //       // this.setState({
+  //       //   listItems:  data
+  //       // });
+        
+  //     });
+  //   }
+  //   console.log("after2",this.state.listItems);
+  // }
   
+  componentWillReceiveProps(newProps, old) {
+    console.log("new",newProps);
+    console.log("old",old);
+}
 
   
   render() {
@@ -506,7 +559,8 @@ class App extends Component {
             </div>
           </div>
           <MyList listItems={this.state.listItems}
-          handleListItemClick={this.handleListItemClick}/>
+          handleListItemClick={this.handleListItemClick}
+          />
         </main>
       </div>
     );

@@ -28,8 +28,12 @@
       )
       # byebug
 
+      user_events_list = UsersEvent.where(
+        user_id: params[:user_id]
+      )
+
       if user_events
-        render json: user_events
+        render json: user_events_list
       else
         head :unprocessable_entity
         # render json: {message: "entry already exists"}
@@ -43,6 +47,11 @@
       user_events = UsersEvent.find_by(user_id: params[:user_id], event_id: @event.id)
       user_events.update(bookmarked: params[:bookmarked],
       liked: params[:liked])
+
+      user_events_list = UsersEvent.where(
+        user_id: params[:user_id]
+      )
+      render json: user_events_list
 
     end  
 
@@ -63,6 +72,23 @@
       render json: user_events
     end
 
+    # to send back json, switched to use this route from destloy 
+    def remove
+
+      @event = Event.find_by!(external_event_id: params[:id])
+
+      user_events = UsersEvent.where('user_id = ? AND event_id = ?', params[:user_id], @event.id)
+      # destory needs an ID to delete 
+      UsersEvent.destroy(user_events.first.id)
+
+      user_events = UsersEvent.where(
+        user_id: params[:user_id]
+      )
+      render json: user_events
+
+    end
+
+    # currently no use since this return 204 with no data
     def destroy
 
       @event = Event.find_by!(external_event_id: params[:id])
@@ -71,6 +97,12 @@
       # destory needs an ID to delete 
       UsersEvent.destroy(user_events.first.id)
       # UsersEvent.where(user_id: params[:user_id], event_id: params[:event_id]).destroy_all
+      
+      # user_events = UsersEvent.where(
+      #   user_id: params[:user_id]
+      # )
+      # render json: user_events
+
     end
   end
 

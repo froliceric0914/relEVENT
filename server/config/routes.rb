@@ -25,6 +25,7 @@ Rails.application.routes.draw do
   end
 
   get '/users/:user_id/events' => 'user_events#events'
+  put '/users/:user_id/remove/:event_id' => 'user_events#remove'
 
     # these routes are for showing users a login form, logging them in, and logging them out.
     get '/login' => 'sessions#new'
