@@ -103,7 +103,7 @@ class App extends Component {
   }
 
   createSocket() {
-    let cable = Cable.createConsumer('ws://localhost:3001/cable');
+    let cable = Cable.createConsumer('ws://localhost:8080/cable');
     this.chats = cable.subscriptions.create({
       channel: 'ChatChannel'
     }, {
@@ -170,8 +170,10 @@ class App extends Component {
     //   return event;
     // })
     let messages = this.state.messages.map((message, i)=>{
-    return <Message key = {i} message = {message}/>
-});
+      return <Message key = {i} message = {message}/>
+      });
+
+    if (this.state.user.status === false) {
 
 
     return (
@@ -188,19 +190,21 @@ class App extends Component {
           <button>logout</button>&nbsp;
         </nav>
 
-        <div className="userRegistration">
-          <UserRegistration
-            setUser={user => this.setState({ user })}
-            loginUser={this.state.user}
-          />
-        </div>
 
-        <div className="userLogin">
-          <UserLogin
-            setUser={user => this.setState({ user })}
-            loginUser={this.state.user} // render it in the nav
-          />
-        </div>
+            <div className="userRegistration">
+              <UserRegistration
+                setUser={user => this.setState({ user })}
+                loginUser={this.state.user}
+              />
+            </div>
+
+            <div className="userLogin">
+              <UserLogin
+                setUser={user => this.setState({ user })}
+                loginUser={this.state.user} // render it in the nav
+              />
+            </div>
+
 
         <main>
           <div className="searchPanel">
@@ -239,8 +243,64 @@ class App extends Component {
             </div>
           </div>
         </main>
-      </div>
-    );
+      </div> )
+
+      } else {
+
+        return (
+
+        <div>
+          <nav className="navbar">
+            <a href="/" className="navbar-brand">
+              eventoooo
+            </a>
+            {this.state.user.username}
+            <button>search</button>&nbsp;
+            <button>list</button>&nbsp;
+            <button>logout</button>&nbsp;
+          </nav>
+
+          <main>
+            <div className="searchPanel">
+              <SearchPanel
+                searchEvent={this.searchEvent}
+                categories={this.state.categories}
+              />
+            </div>
+
+            <div className="mainContent">
+              <EventList
+                events={this.state.events}
+                searchEvent={this.searchEvent}
+                openChat={this.openChat}
+              />
+
+              <div className="chatSpace">
+                <div className='stage'>
+                  <h1>Chat</h1>
+                  <div className='chat-logs'>
+                  {messages}
+                  </div>
+                    <input
+                      value={ this.state.currentChatMessage }
+                      onChange={ (e) => this.updateCurrentChatMessage(e) }
+                      type='text'
+                      placeholder='Enter your message...'
+                      className='chat-input'/>
+                      <button
+                        onClick={ (e) => this.handleSendEvent(e) }
+                        className='send'>
+                        Send
+                    </button>
+                </div>
+
+              </div>
+            </div>
+          </main>
+        </div>
+
+      )}
+
   }
 }
 
