@@ -5,6 +5,7 @@ import MessageList from "./MessageList.jsx";
 import ChatBar from "./ChatBar.jsx";
 import UserRegistration from "./UserRegistration.jsx";
 import UserLogin from "./UserLogin.jsx";
+import { bake_cookie, read_cookie, delete_cookie } from "sfcookies";
 // import { withCookies, Cookies } from "react-cookie";
 
 //TODO: toggle search panel (jQuery?)

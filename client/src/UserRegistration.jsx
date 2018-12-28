@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { bake_cookie, read_cookie, delete_cookie } from "sfcookies";
 //submit a form of the user name&password
 //TODO: import the api function(route. method,callback)
 class UserRegistration extends Component {
