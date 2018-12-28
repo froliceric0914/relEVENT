@@ -153,7 +153,7 @@ class App extends Component {
    this.setState({
      eventId: event.target.name
    });
-   // console.log("pare",(event.target).parent);
+   console.log("pare", (event.target.parentElement.parentElement.parentElement).siblings());
   //   $(".chatSpace").siblings.animate({
   //     width: "toggle"
   // });
