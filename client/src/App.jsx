@@ -5,6 +5,7 @@ import MessageList from "./MessageList.jsx";
 import ChatBar from "./ChatBar.jsx";
 import UserRegistration from "./UserRegistration.jsx";
 import UserLogin from "./UserLogin.jsx";
+import { bake_cookie, read_cookie } from "sfcookies";
 
 //TODO: toggle search panel (jQuery?)
 //TODO: styling
@@ -33,6 +34,9 @@ class App extends Component {
   }
 
   componentWillMount() {
+    this.state.user = read_cookie("userCookie");
+    // console.log("read cookie", read_cookie("userCookie"));
+    console.log("cookie of user?", this.state.user);
     //retrieve initial events before first render(default events)
     const url = fetch(
       `https://www.eventbriteapi.com/v3/events/search/?q=&sort_by=date&location.address=toronto&start_date.keyword=today&expand=organizer,venue&token=25ZVHBJBUGPPTEWGEP5W`
@@ -111,14 +115,14 @@ class App extends Component {
         <div className="userRegistration">
           <UserRegistration
             setUser={user => this.setState({ user })}
-            loginUser={this.state.user}
+            userState={this.state.user}
           />
         </div>
 
         <div className="userLogin">
           <UserLogin
             setUser={user => this.setState({ user })}
-            loginUser={this.state.user} // render it in the nav
+            userState={this.state.user} // render it in the nav
           />
         </div>
 
