@@ -385,6 +385,7 @@ class App extends Component {
       width: "toggle"
     });
   }
+  
 
   // Open Chat space
   openChat(event) {
@@ -451,6 +452,7 @@ class App extends Component {
       });
       $(".card-text .chatButton").css("background-color", "#dc3545");
       $(".card-text .chatButton").text("Chat");
+      $(".card").show();
     }
   }
 
@@ -473,12 +475,18 @@ class App extends Component {
           <button
             onClick={e => {
               delete_cookie("userCookie");
+              this.closeChat();
+              $(".myList").hide();
               this.setState({
                 user: {
                   status: false,
                   username: null,
                   userID: null
-                }
+                },
+                listItems: [],
+                listItemSelected: false,
+                currentChatMessage: "",
+                eventId: "0",
               });
             }}
           >
@@ -504,6 +512,7 @@ class App extends Component {
         <div className="userLogin">
           <UserLogin
             setUser={user => this.setState({ user })}
+            setList={listItems => this.setState(listItems)}
             userState={this.state.user} // render it in the nav
           />
         </div>
