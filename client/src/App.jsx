@@ -31,7 +31,8 @@ class App extends Component {
         userID: 0
       },
       listItems: [],
-      listItemSelected: false
+      listItemSelected: false,
+      allEvents:[]
     };
     this.searchEvent = this.searchEvent.bind(this);
     this.openChat = this.openChat.bind(this);
@@ -53,9 +54,27 @@ class App extends Component {
   //   });
   // }
 
+  getAllEventInDB = () => { 
+    fetch(
+    `http://localhost:8080/events`,
+    )
+    .then(res => {
+      return res.json();
+    })
+    .then(data => {
+      console.log("received! ",data);
+      if (data) {
+        this.setState({
+          allEvents: data
+        });
+      }
+    });
+  }
+
   componentWillMount() {
     this.state.user = read_cookie("userCookie");
     this.createSocket();
+    this.getAllEventInDB();
     //retrieve initial events before first render(default events)
     this.state.user = read_cookie("userCookie");
     console.log("this should be the user", this.state.user);
@@ -273,6 +292,7 @@ class App extends Component {
             return res.json();
           })
           .then(data => {
+            console.log("this is",data);
             if (data) {
               this.setState({ listItems: data });
             }
@@ -535,6 +555,7 @@ class App extends Component {
                 listItems={this.state.listItems}
                 listItemSelected={this.state.listItemSelected}
                 handleXIconOnEventClick={this.handleXIconOnEventClick}
+                allEvents={this.state.allEvents}
               />
 
               <div className="chatSpace">

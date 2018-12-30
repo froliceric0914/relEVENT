@@ -11,7 +11,8 @@ const Event = ({
   handleIconClick,
   listItems,
   listItemSelected,
-  handleXIconOnEventClick
+  handleXIconOnEventClick,
+  allEvents
 }) => {
   let img;
   let img_url;
@@ -28,6 +29,14 @@ const Event = ({
   let bookmarkIcon = "false";
   let likeClass = "far fa-heart";
   let bookmarkClass = "far fa-bookmark";
+  let likeCount = 0;
+
+  // allEvents.forEach(item=>{
+  //   if (event.id === item.external_event_id) {
+  //     likeCount = item.like_count;
+  //     console.log("count", item.like_count)
+  //   }
+  // })
 
   listItems.forEach(item => {
     if (event.id === item.event.external_event_id) {
@@ -89,7 +98,8 @@ const Event = ({
               data-img-url={img_url}
               className={likeClass}
               onClick={handleIconClick}
-            />{" "}
+            />
+            <span>{likeCount}</span>
             &nbsp;
             <i
               data-on={bookmarkIcon}

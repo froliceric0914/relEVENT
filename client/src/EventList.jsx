@@ -10,7 +10,8 @@ const EventList = ({
   handleIconClick,
   listItems,
   listItemSelected,
-  handleXIconOnEventClick
+  handleXIconOnEventClick,
+  allEvents
 }) => {
   return (
     <div className="eventList">
@@ -24,6 +25,7 @@ const EventList = ({
             listItems={listItems}
             listItemSelected={listItemSelected}
             handleXIconOnEventClick={handleXIconOnEventClick}
+            allEvents={allEvents}
           />
         );
       })}
