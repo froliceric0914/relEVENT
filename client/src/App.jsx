@@ -62,7 +62,6 @@ class App extends Component {
       return res.json();
     })
     .then(data => {
-      console.log("received! ",data);
       if (data) {
         this.setState({
           allEvents: data
@@ -215,9 +214,6 @@ class App extends Component {
     let currentIconStatus = event.target.getAttribute("data-on");
     let otherIconStatus = otherIcon.getAttribute("data-on");
 
-    console.log("currentIconStatus",currentIconStatus);
-    console.log("otherIconStatus",otherIconStatus);
-
     let selectedEventId = event.target.getAttribute("data-id");
     let eventName = event.target.getAttribute("data-event-name");
     let imgUrl = event.target.getAttribute("data-img-url");
@@ -258,6 +254,7 @@ class App extends Component {
           .then(data => {
             if (data) {
               this.setState({ listItems: data });
+              this.getAllEventInDB();
             }
           });
       }
@@ -296,9 +293,9 @@ class App extends Component {
             return res.json();
           })
           .then(data => {
-            console.log("this is",data);
             if (data) {
               this.setState({ listItems: data });
+              this.getAllEventInDB();
             }
           });
 
@@ -342,6 +339,7 @@ class App extends Component {
       .then(data => {
         if (data) {
           this.setState({ listItems: data });
+          this.getAllEventInDB();
         }
       });
   }

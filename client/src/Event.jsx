@@ -16,7 +16,7 @@ const Event = ({
 }) => {
   let img;
   let img_url;
-  // console.log("event", event);
+
   if (event.logo && event.logo.url) {
     img = <img className="img-fluid mb-2" src={event.logo.url} />;
     img_url = event.logo.url;
@@ -34,11 +34,9 @@ const Event = ({
   allEvents.forEach(item=>{
     if (event.id === item.external_event_id) {
       likeCount = item.like_count;
-      console.log("count", item.like_count)
     }
   })
 
-  console.log(listItems);
   listItems.forEach(item => {
     if (event.id === item.event.external_event_id) {
       likeIcon = item.liked;
@@ -52,8 +50,6 @@ const Event = ({
     }
   });
 
-  console.log("likeIcon", likeIcon);
-  console.log("bookmarkIcon",bookmarkIcon);
   // if item was selected from a list, show close icon to back to search
   let xIcon;
   if (listItemSelected) {
