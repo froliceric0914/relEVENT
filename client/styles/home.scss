@@ -3,6 +3,7 @@
 @import url("https://cdnjs.cloudflare.com/ajax/libs/normalize/4.2.0/normalize.min.css");
 
 /////////////////// universal ///////////////////
+
 body {
   background: white;
   color: black;
@@ -81,6 +82,7 @@ main {
 }
 
 .mainContent {
+  width: 100%;
   display: flex;
 }
 
@@ -88,6 +90,7 @@ main {
 
 .eventList {
   background: grey;
+  min-width: 50%;
 }
 
 .icons{
@@ -114,7 +117,7 @@ main {
 .chatSpace {
   background: green;
   width: 100%;
-  height: 100%;
+  height: 700px;
   margin:0 auto;
   display: none;
 
@@ -212,9 +215,9 @@ main {
 //***************** myList *****************//
 
 .myList {
-  min-width: 25%;
   display: none;
   background-color: white;
+  width: 40%;
 }
 
 .myList img:hover {

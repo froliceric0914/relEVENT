@@ -8,6 +8,8 @@ import UserRegistration from "./UserRegistration.jsx";
 import UserLogin from "./UserLogin.jsx";
 import { bake_cookie, read_cookie, delete_cookie } from "sfcookies";
 import MyList from "./MyList.jsx";
+import Scroll from "./Scroll.jsx";
+
 
 //TODO: styling
 //TODO: need sanitize for user input
@@ -510,23 +512,26 @@ class App extends Component {
 
         <main>
           <div className="column">
-            <div className="searchPanel">
+            {/* <div className="searchPanel">
               <SearchPanel
                 searchEvent={this.searchEvent}
                 categories={this.state.categories}
               />
-            </div>
+            </div> */}
 
             <div className="mainContent">
-              <EventList
-                events={this.state.events}
-                searchEvent={this.searchEvent}
-                openChat={this.openChat}
-                handleIconClick={this.handleIconClick}
-                listItems={this.state.listItems}
-                listItemSelected={this.state.listItemSelected}
-                handleXIconOnEventClick={this.handleXIconOnEventClick}
-              />
+              <Scroll width="100%" height="700px">
+                <EventList
+                  events={this.state.events}
+                  searchEvent={this.searchEvent}
+                  openChat={this.openChat}
+                  handleIconClick={this.handleIconClick}
+                  listItems={this.state.listItems}
+                  listItemSelected={this.state.listItemSelected}
+                  handleXIconOnEventClick={this.handleXIconOnEventClick}
+                />
+              </Scroll>
+
 
               <div className="chatSpace">
                 <div className="stage">
@@ -535,7 +540,9 @@ class App extends Component {
                     x
                   </div>
                   {/* <i id="closeX" className="fas fa-times fa-2x" onClick={this.closeChat}></i> */}
-                  <div className="chat-logs">{messages}</div>
+                    <Scroll width="100%" height="500">
+                      <div className="chat-logs">{messages}</div>
+                    </Scroll>
                   <input
                     value={this.state.currentChatMessage}
                     onChange={e => this.updateCurrentChatMessage(e)}
