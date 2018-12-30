@@ -22,7 +22,6 @@ class UserLogin extends Component {
       return res.json();
     })
     .then(data => {
-      console.log("received ",data);
       if (data) {
         this.props.setList({
           listItems: data
