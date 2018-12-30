@@ -197,7 +197,8 @@ class App extends Component {
   handleIconClick(event) {
     let selectedIcon = event.target.getAttribute("data-name");
 
-    let otherIcon = $(event.target).siblings()[0];
+    // Selecting other icon. Be careful if you change layout
+    let otherIcon = $(event.target).siblings(".icon")[0];
 
     if (!this.state.user.userID) {
       // request log-in
@@ -213,6 +214,9 @@ class App extends Component {
 
     let currentIconStatus = event.target.getAttribute("data-on");
     let otherIconStatus = otherIcon.getAttribute("data-on");
+
+    console.log("currentIconStatus",currentIconStatus);
+    console.log("otherIconStatus",otherIconStatus);
 
     let selectedEventId = event.target.getAttribute("data-id");
     let eventName = event.target.getAttribute("data-event-name");

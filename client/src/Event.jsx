@@ -27,30 +27,33 @@ const Event = ({
 
   let likeIcon = "false";
   let bookmarkIcon = "false";
-  let likeClass = "far fa-heart";
-  let bookmarkClass = "far fa-bookmark";
+  let likeClass = "far fa-heart icon";
+  let bookmarkClass = "far fa-bookmark icon";
   let likeCount = 0;
 
-  // allEvents.forEach(item=>{
-  //   if (event.id === item.external_event_id) {
-  //     likeCount = item.like_count;
-  //     console.log("count", item.like_count)
-  //   }
-  // })
+  allEvents.forEach(item=>{
+    if (event.id === item.external_event_id) {
+      likeCount = item.like_count;
+      console.log("count", item.like_count)
+    }
+  })
 
+  console.log(listItems);
   listItems.forEach(item => {
     if (event.id === item.event.external_event_id) {
       likeIcon = item.liked;
       bookmarkIcon = item.bookmarked;
       if (likeIcon === true) {
-        likeClass = "fas fa-heart";
+        likeClass = "fas fa-heart icon";
       }
       if (bookmarkIcon === true) {
-        bookmarkClass = "fas fa-bookmark";
+        bookmarkClass = "fas fa-bookmark icon";
       }
     }
   });
 
+  console.log("likeIcon", likeIcon);
+  console.log("bookmarkIcon",bookmarkIcon);
   // if item was selected from a list, show close icon to back to search
   let xIcon;
   if (listItemSelected) {
