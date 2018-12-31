@@ -13,14 +13,14 @@ const MyList = ({ listItems, handleListItemClick }) => {
 
     <div className="myList">
       <Scroll width="100%" height="500px">
-        <h3>my event list</h3>
+        <h3>Your event list</h3>
         {listItems.length? 
         listItems.map((listItem) => {
           if (listItem.bookmarked){
             return <ListItem  key={listItem.id} listItem={listItem} handleListItemClick={handleListItemClick}/>;
           }
 
-        }):<div> You don't have any items yet.</div>}
+        }):<div className="notify"> You don't have any items yet.</div>}
       </Scroll>  
     </div>
   );

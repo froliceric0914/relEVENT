@@ -218,6 +218,28 @@ main {
   display: none;
   background-color: white;
   width: 40%;
+  // text-align: center;
+  h3{
+    padding: 0.2rem;
+  }
+
+  .notify{
+    margin:0.3rem
+  }
+
+  .fa-heart{
+    color: red;
+    font-size: 1rem;
+  }
+ 
+  .list-txt{
+    font-size:1.2rem;
+    padding-left: 0;
+  }
+
+  .img{
+    position: cover;
+  }
 }
 
 .myList img:hover {

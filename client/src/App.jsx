@@ -535,7 +535,7 @@ class App extends Component {
 
               <div className="chatSpace">
                 <div className="stage">
-                <Scroll width="100%" height="500">
+                <Scroll width="100%" height="500px">
                   <div className="chatSpaceHeader" style={{position: "sticky", top: "0", backgroundColor: "#fff"}}>
                     <h1 style={{margin: "0"}}>Chat</h1>
                     <div className="closeX" onClick={this.closeChat}>

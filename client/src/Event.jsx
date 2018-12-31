@@ -66,12 +66,12 @@ const Event = ({
         {xIcon}
         <div className="card-text">
           <h2 className="text-center card-title">
-            {event.name.text.substring(0, 35)}...
+            {/* {event.name.text.substring(0, 35)}... */}
+            {event.name.text.substring(35) ? event.name.text.substring(0, 35)+ "..." : event.name.text}
           </h2>
           <p className="lead text-info">Event Information:</p>
-          <p>{event.description.text.substring(0, 200)}...</p>
-          {/* <p>{event.description.text ? event.description.text.substring(0, 200) : ""}...</p> */}
-
+          {/* <p>{event.description.text.substring(0, 200)}...</p> */}
+          <p>{event.description.text.substring(200) ? event.description.text.substring(0, 200) + "..." : event.description.text}</p>
           <span className="badge badge-secondary">
             Date & Time: {event.start.local}
           </span>
