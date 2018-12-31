@@ -12,7 +12,7 @@ const MyList = ({ listItems, handleListItemClick }) => {
   return (
 
     <div className="myList">
-      <Scroll width="100%" height="700px">
+      <Scroll width="100%" height="500px">
         <h3>my event list</h3>
         {listItems.length? 
         listItems.map((listItem) => {

@@ -535,14 +535,17 @@ class App extends Component {
 
               <div className="chatSpace">
                 <div className="stage">
-                  <h1>Chat</h1>
-                  <div className="closeX" onClick={this.closeChat}>
-                    x
+                <Scroll width="100%" height="500">
+                  <div className="chatSpaceHeader" style={{position: "sticky", top: "0", backgroundColor: "#fff"}}>
+                    <h1 style={{margin: "0"}}>Chat</h1>
+                    <div className="closeX" onClick={this.closeChat}>
+                      x
+                    </div>
                   </div>
-                  {/* <i id="closeX" className="fas fa-times fa-2x" onClick={this.closeChat}></i> */}
-                    <Scroll width="100%" height="500">
+                  {/* <i id="closeX" className="fas fa-times fa-2x" onClick={this.closeChat}></i> */}                   
                       <div className="chat-logs">{messages}</div>
-                    </Scroll>
+                </Scroll>
+
                   <input
                     value={this.state.currentChatMessage}
                     onChange={e => this.updateCurrentChatMessage(e)}
