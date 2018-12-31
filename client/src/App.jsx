@@ -77,6 +77,20 @@ class App extends Component {
     //retrieve initial events before first render(default events)
     this.state.user = read_cookie("userCookie");
     console.log("this should be the user", this.state.user);
+
+    if(this.state.user.status){
+      console.log("retrieve user list");
+      // retrieve user_event data
+      fetch(`http://localhost:8080/users/${this.state.user.userID}/events`)
+        .then(res => {
+          return res.json();
+        })
+        .then(data => {
+          if (data) {
+            this.setState({ listItems: data });
+          }
+        });
+    }
     const url = fetch(
       `https://www.eventbriteapi.com/v3/events/search/?q=&sort_by=date&location.address=toronto&start_date.keyword=today&expand=organizer,venue&token=${
         process.env.TOKEN
@@ -351,6 +365,7 @@ class App extends Component {
       this.setState({ eventsTmp: this.state.events });
     }
     this.setState({ listItemSelected: true });
+    this.setState({ eventId: selectedEventId });
 
     console.log("retrieve user list");
     // retrieve user_event data
