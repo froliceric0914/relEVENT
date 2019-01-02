@@ -13,6 +13,23 @@ class UserLogin extends Component {
     // this._handleSubmit = this._handleSubmit.bind(this);
   }
   //
+
+  _list = id => { 
+    fetch(
+    `http://localhost:8080/users/${id}/events`,
+    )
+    .then(res => {
+      return res.json();
+    })
+    .then(data => {
+      if (data) {
+        this.props.setList({
+          listItems: data
+        });
+      }
+    });
+  }
+
   _handleSubmit = e => {
     const { email, password } = this.state;
     alert("Submit Login");
@@ -36,6 +53,7 @@ class UserLogin extends Component {
           username: data.object.username,
           userID: data.object.id
         });
+        this._list(this.props.userState.userID);
         bake_cookie("userCookie", this.props.userState);
         console.log("login-user: ", read_cookie("userCookie"));
       });
