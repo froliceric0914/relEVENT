@@ -60,73 +60,145 @@ const Event = ({
   }
 
   return (
-    <div className="card">
-      <div className="card-body">{img}</div>
-      <div className="card-body">
-        {xIcon}
+    <div className="card col-md-6">
+      <div>
+        <div className="image">{img}</div>
+      </div>
+      <div>
         <div className="card-text">
           <h2 className="text-center card-title">
             {event.name.text.substring(0, 35)}...
           </h2>
-          <p className="lead text-info">Event Information:</p>
           <p>{event.description.text.substring(0, 200)}...</p>
-          {/* <p>{event.description.text ? event.description.text.substring(0, 200) : ""}...</p> */}
+        </div>
+      </div>
+      <div>
+        <span className="badge badge-secondary">
+          Date & Time: {event.start.local}
+        </span>
+        <br />
+        <span className="badge badge-secondary">
+          Location: {event.venue.address.address_1}
+        </span>
 
-          <span className="badge badge-secondary">
-            Date & Time: {event.start.local}
-          </span>
-          <br />
-          <span className="badge badge-secondary">
-            Location: {event.venue.address.address_1}
-          </span>
-
-          <div className="icons">
-            <i
-              data-on={likeIcon}
-              data-id={event.id}
-              data-name="like"
-              data-event-name={event.name.text}
-              data-img-url={img_url}
-              className={likeClass}
-              onClick={handleIconClick}
-            />{" "}
-            &nbsp;
-            <i
-              data-on={bookmarkIcon}
-              data-id={event.id}
-              data-name="bookmark"
-              data-event-name={event.name.text}
-              data-img-url={img_url}
-              className={bookmarkClass}
-              onClick={handleIconClick}
-            />
-          </div>
-
-          <div className="iconSideError" />
-          <div className="iconSideMessage" />
-
-          <a
-            href={event.url}
-            target="_blank"
-            className="btn btn-primary btn-block mt-4"
-          >
-            More
-          </a>
-
-          <button
-            className="chatButton btn btn-danger btn-block mt-4"
-            name={event.id}
+        <div className="icons">
+          <i
+            data-on={likeIcon}
+            data-id={event.id}
+            data-name="like"
             data-event-name={event.name.text}
             data-img-url={img_url}
-            onClick={openChat}
-            target="_blank"
-          >
-            Chat
-          </button>
+            className={likeClass}
+            onClick={handleIconClick}
+          />{" "}
+          &nbsp;
         </div>
+        <div className="icons">
+          <i
+            data-on={bookmarkIcon}
+            data-id={event.id}
+            data-name="bookmark"
+            data-event-name={event.name.text}
+            data-img-url={img_url}
+            className={bookmarkClass}
+            onClick={handleIconClick}
+          />
+        </div>
+
+        <div className="iconSideError" />
+        <div className="iconSideMessage" />
+
+        <a
+          href={event.url}
+          target="_blank"
+          className="btn btn-primary btn-block mt-4"
+        >
+          More
+        </a>
+
+        <button
+          className="chatButton btn btn-danger btn-block mt-4"
+          name={event.id}
+          data-event-name={event.name.text}
+          data-img-url={img_url}
+          onClick={openChat}
+          target="_blank"
+        >
+          Chat
+        </button>
       </div>
     </div>
   );
 };
 
 export default Event;
+
+{
+  /* <div className="card">
+      
+<div className="card-body">{img}</div>
+<div className="card-body">
+  {xIcon}
+  <div className="card-text">
+    <h2 className="text-center card-title">
+      {event.name.text.substring(0, 35)}...
+    </h2>
+    <p className="lead text-info">Event Information:</p>
+    <p>{event.description.text.substring(0, 200)}...</p>
+    {/* <p>{event.description.text ? event.description.text.substring(0, 200) : ""}...</p> */
+}
+
+//     <span className="badge badge-secondary">
+//       Date & Time: {event.start.local}
+//     </span>
+//     <br />
+//     <span className="badge badge-secondary">
+//       Location: {event.venue.address.address_1}
+//     </span>
+
+//     <div className="icons">
+//       <i
+//         data-on={likeIcon}
+//         data-id={event.id}
+//         data-name="like"
+//         data-event-name={event.name.text}
+//         data-img-url={img_url}
+//         className={likeClass}
+//         onClick={handleIconClick}
+//       />{" "}
+//       &nbsp;
+//       <i
+//         data-on={bookmarkIcon}
+//         data-id={event.id}
+//         data-name="bookmark"
+//         data-event-name={event.name.text}
+//         data-img-url={img_url}
+//         className={bookmarkClass}
+//         onClick={handleIconClick}
+//       />
+//     </div>
+
+//     <div className="iconSideError" />
+//     <div className="iconSideMessage" />
+
+//     <a
+//       href={event.url}
+//       target="_blank"
+//       className="btn btn-primary btn-block mt-4"
+//     >
+//       More
+//     </a>
+
+//     <button
+//       className="chatButton btn btn-danger btn-block mt-4"
+//       name={event.id}
+//       data-event-name={event.name.text}
+//       data-img-url={img_url}
+//       onClick={openChat}
+//       target="_blank"
+//     >
+//       Chat
+//     </button>
+//   </div>
+// </div>
+// </div> */}
