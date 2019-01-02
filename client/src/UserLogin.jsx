@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { bake_cookie, read_cookie, delete_cookie } from "sfcookies";
 //submit a form of the user name&password
 //TODO: import the api function(route. method,callback)
 class UserLogin extends Component {
@@ -35,7 +36,8 @@ class UserLogin extends Component {
           username: data.object.username,
           userID: data.object.id
         });
-        console.log("login-user: ", this.props.loginUser);
+        bake_cookie("userCookie", this.props.userState);
+        console.log("login-user: ", read_cookie("userCookie"));
       });
     //call the props and change the state of user in app.js
     // this.props.UserLogin(email, username, password);

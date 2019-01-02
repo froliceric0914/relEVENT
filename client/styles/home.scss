@@ -12,6 +12,7 @@ body {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+
 }
 
 /////////////////// navbar ///////////////////
@@ -33,10 +34,15 @@ body {
     font-weight: 400;
   }
 
+
   p {
     float: right;
     line-height: 60px;
     margin: auto 10px;
+  }
+
+  button {
+    color: #000;
   }
 }
 
@@ -66,8 +72,6 @@ main {
   background: tomato;
   display: flex;
   height: 100%;
-  display: flex;
-  flex-direction: column;
 }
 
 //***************** search *****************//
@@ -86,6 +90,26 @@ main {
   background: grey;
 }
 
+.icons{
+  font-size: 2rem;
+  
+  i:hover{
+    cursor: pointer;
+  }
+  
+  .fa-heart{
+    color: red;
+  }
+  
+  .fa-bookmark{
+    color: green;
+  }
+}
+
+.iconSideError{
+  color:red;
+}
+
 //***************** chat *****************//
 .chatSpace {
   background: green;
@@ -101,6 +125,18 @@ main {
 
 .stage{
   height: 100%;
+}
+
+.right{
+  float: right;
+}
+
+.closeX{
+  font-size:3rem;
+}
+.closeX:hover{
+   cursor: pointer;
+   opacity: 0.8;
 }
 
 //**** chatbar ****//
@@ -171,4 +207,16 @@ main {
   max-width: 300px;
   font-weight: 700;
   padding: 10px;
+}
+
+//***************** myList *****************//
+
+.myList {
+  min-width: 25%;
+  display: none;
+  background-color: white;
+}
+
+.myList img:hover {
+  cursor: pointer;
 }
