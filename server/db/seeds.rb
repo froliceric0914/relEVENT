@@ -99,7 +99,7 @@ end
 ######### User_event #########
 users_event1 = UsersEvent.create!(user: user1, event: Event.first, bookmarked:true, liked: true);
 users_event2 = UsersEvent.create!(user: user1, event: Event.second, bookmarked:true, liked: false);
-users_event1 = UsersEvent.create!(user: user1, event: Event.first, bookmarked:false, liked: true);
+users_event1 = UsersEvent.create!(user: user1, event: Event.third, bookmarked:false, liked: true);
 users_event3 = UsersEvent.create!(user: user2, event: Event.first, bookmarked:true, liked: true);
 
 
