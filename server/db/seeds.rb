@@ -19,7 +19,7 @@ user3 = User.create!(username: 'Azusa', email: 'azusa@azusa.com', password: 'pas
 user4 = User.create!(username: 'Erik', email: 'erik@erik.com', password: 'password')
 # puts user4.save
 
-# # Event.find_or_create!_by(name: 'My Event', user: User.first)
+# Event.find_or_create!_by(name: 'My Event', user: User.first)
 # # Event.find_or_create!_by(name: 'My Event 2', user: User.last)
 
 
@@ -118,6 +118,10 @@ message10 = Message.create!(event: Event.second, user: user2, content: "Let me j
 
 
 
+# #for test
+# UsersEvent.create!(user: User.last, event: Event.first, bookmarked:true, liked: true);
+# UsersEvent.create!(user: User.last, event: Event.second, bookmarked:true, liked: false);
+# UsersEvent.create!(user: User.last, event: Event.third, bookmarked:false, liked: true);
 
 
 
