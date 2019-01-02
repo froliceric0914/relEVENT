@@ -33,7 +33,8 @@ class App extends Component {
         userID: 0
       },
       listItems: [],
-      listItemSelected: false
+      listItemSelected: false,
+      allEvents:[]
     };
     this.searchEvent = this.searchEvent.bind(this);
     this.openChat = this.openChat.bind(this);
@@ -55,12 +56,43 @@ class App extends Component {
   //   });
   // }
 
+  getAllEventInDB = () => { 
+    fetch(
+    `http://localhost:8080/events`,
+    )
+    .then(res => {
+      return res.json();
+    })
+    .then(data => {
+      if (data) {
+        this.setState({
+          allEvents: data
+        });
+      }
+    });
+  }
+
   componentWillMount() {
     this.state.user = read_cookie("userCookie");
     this.createSocket();
+    this.getAllEventInDB();
     //retrieve initial events before first render(default events)
     this.state.user = read_cookie("userCookie");
     console.log("this should be the user", this.state.user);
+
+    if(this.state.user.status){
+      console.log("retrieve user list");
+      // retrieve user_event data
+      fetch(`http://localhost:8080/users/${this.state.user.userID}/events`)
+        .then(res => {
+          return res.json();
+        })
+        .then(data => {
+          if (data) {
+            this.setState({ listItems: data });
+          }
+        });
+    }
     const url = fetch(
       `https://www.eventbriteapi.com/v3/events/search/?q=&sort_by=date&location.address=toronto&start_date.keyword=today&expand=organizer,venue&token=${
         process.env.TOKEN
@@ -75,6 +107,7 @@ class App extends Component {
           if (event.description.text) return true;
         });
         this.setState({ events: data.slice(0) });
+        this.setState({ eventsTmp: data.slice(0) });
       });
 
     // Query the API for category list
@@ -180,7 +213,8 @@ class App extends Component {
   handleIconClick(event) {
     let selectedIcon = event.target.getAttribute("data-name");
 
-    let otherIcon = $(event.target).siblings()[0];
+    // Selecting other icon. Be careful if you change layout
+    let otherIcon = $(event.target).siblings(".icon")[0];
 
     if (!this.state.user.userID) {
       // request log-in
@@ -237,6 +271,7 @@ class App extends Component {
           .then(data => {
             if (data) {
               this.setState({ listItems: data });
+              this.getAllEventInDB();
             }
           });
       }
@@ -277,6 +312,7 @@ class App extends Component {
           .then(data => {
             if (data) {
               this.setState({ listItems: data });
+              this.getAllEventInDB();
             }
           });
 
@@ -320,6 +356,7 @@ class App extends Component {
       .then(data => {
         if (data) {
           this.setState({ listItems: data });
+          this.getAllEventInDB();
         }
       });
   }
@@ -331,6 +368,7 @@ class App extends Component {
       this.setState({ eventsTmp: this.state.events });
     }
     this.setState({ listItemSelected: true });
+    this.setState({ eventId: selectedEventId });
 
     console.log("retrieve user list");
     // retrieve user_event data
@@ -480,6 +518,7 @@ class App extends Component {
               this.closeChat();
               $(".myList").hide();
               this.setState({
+                events: this.state.eventsTmp,
                 user: {
                   status: false,
                   username: null,
@@ -521,14 +560,15 @@ class App extends Component {
 
         <main>
           <div className="column">
-            {/* <div className="searchPanel">
+            <div className="searchPanel">
               <SearchPanel
                 searchEvent={this.searchEvent}
                 categories={this.state.categories}
               />
-            </div> */}
+            </div>
 
             <div className="mainContent">
+
               <Scroll width="100%" height="700px">
                 <EventList
                   events={this.state.events}
@@ -538,9 +578,9 @@ class App extends Component {
                   listItems={this.state.listItems}
                   listItemSelected={this.state.listItemSelected}
                   handleXIconOnEventClick={this.handleXIconOnEventClick}
+                  allEvents={this.state.allEvents}
                 />
               </Scroll>
-
 
               <div className="chatSpace">
                 <div className="stage">

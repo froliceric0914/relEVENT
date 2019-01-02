@@ -11,11 +11,12 @@ const Event = ({
   handleIconClick,
   listItems,
   listItemSelected,
-  handleXIconOnEventClick
+  handleXIconOnEventClick,
+  allEvents
 }) => {
   let img;
   let img_url;
-  // console.log("event", event);
+
   if (event.logo && event.logo.url) {
     img = <img className="img-fluid mb-2" src={event.logo.url} />;
     img_url = event.logo.url;
@@ -26,18 +27,25 @@ const Event = ({
 
   let likeIcon = "false";
   let bookmarkIcon = "false";
-  let likeClass = "far fa-heart";
-  let bookmarkClass = "far fa-bookmark";
+  let likeClass = "far fa-heart icon";
+  let bookmarkClass = "far fa-bookmark icon";
+  let likeCount = 0;
+
+  allEvents.forEach(item=>{
+    if (event.id === item.external_event_id) {
+      likeCount = item.like_count;
+    }
+  })
 
   listItems.forEach(item => {
     if (event.id === item.event.external_event_id) {
       likeIcon = item.liked;
       bookmarkIcon = item.bookmarked;
       if (likeIcon === true) {
-        likeClass = "fas fa-heart";
+        likeClass = "fas fa-heart icon";
       }
       if (bookmarkIcon === true) {
-        bookmarkClass = "fas fa-bookmark";
+        bookmarkClass = "fas fa-bookmark icon";
       }
     }
   });
@@ -89,7 +97,8 @@ const Event = ({
               data-img-url={img_url}
               className={likeClass}
               onClick={handleIconClick}
-            />{" "}
+            />
+            <span>{likeCount}</span>
             &nbsp;
             <i
               data-on={bookmarkIcon}
