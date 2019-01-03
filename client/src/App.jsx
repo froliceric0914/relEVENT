@@ -9,8 +9,12 @@ import UserLogin from "./UserLogin.jsx";
 import { bake_cookie, read_cookie, delete_cookie } from "sfcookies";
 import MyList from "./MyList.jsx";
 import Scroll from "./Scroll.jsx";
+<<<<<<< HEAD
 import Chat from "./Chat.jsx";
 
+=======
+import ReactDOM from 'react-dom'
+>>>>>>> 3af423909d48fa41029e06cf0ce2fba396b1e64b
 
 //TODO: styling
 //TODO: need sanitize for user input
@@ -73,6 +77,14 @@ class App extends Component {
     });
   }
 
+  scrollToBottom = () => {
+    let messageList  = document.getElementById("messageList")
+    const scrollHeight = messageList.scrollHeight;
+    const height = messageList.clientHeight;
+    const maxScrollTop = scrollHeight - height;
+    ReactDOM.findDOMNode(messageList).scrollTop = maxScrollTop > 0 ? maxScrollTop : 0;
+    }
+
   componentWillMount() {
     this.state.user = read_cookie("userCookie");
     this.createSocket();
@@ -125,6 +137,10 @@ class App extends Component {
   }
 
   componentDidMount() {}
+
+  componentDidUpdate() {
+    this.scrollToBottom();
+  }
 
   searchEvent(keyword, category, location, localWithin) {
     this.setState({ listItemSelected: false });
@@ -193,6 +209,7 @@ class App extends Component {
     this.setState({
       currentChatMessage: event.target.value
     });
+
   }
 
   // function handleSendEvent to handle the onClick event and do the message sending
@@ -205,7 +222,6 @@ class App extends Component {
       this.state.eventName,
       this.state.imgUrl
     );
-
     this.setState({
       currentChatMessage: ""
     });
@@ -411,6 +427,7 @@ class App extends Component {
       $("body .card-text .chatButton").css("background-color", "#ff9933");
       $("body .card-text .chatButton").text("Close Chat");
     }
+    this.scrollToBottom();
   }
 
   // when x Icon on an event from myList was clicked
@@ -422,9 +439,12 @@ class App extends Component {
 
   // Open user's MyList
   openMyList(event) {
-    $(".myList").animate({
-      width: "toggle"
-    });
+    // $(".myList").animate({
+    //   width: "toggle"
+    // });
+    $(".myList").is(":visible")? $(".myList").slideUp(): $(".myList").slideDown();
+
+    
   }
 
 
@@ -500,7 +520,7 @@ class App extends Component {
   render() {
     let messages = this.state.messages.map((message, i) => {
       return (
-        <Message key={i} message={message} user_id={this.state.user.userID} />
+        <Message key={i} message={message} user_id={this.state.user.userID}/>
       );
     });
 
@@ -542,6 +562,7 @@ class App extends Component {
           >
             Mylist
           </button>
+
         </nav>
 
         <main>
@@ -581,15 +602,22 @@ class App extends Component {
 
               <div className="chatSpace">
                 <div className="stage">
-                <Scroll width="100%" height="500px">
+                <Scroll width="100%" height="500px" idName="messageList">
+                {/* <div id="messageList"> */}
                   <div className="chatSpaceHeader" style={{position: "sticky", top: "0", backgroundColor: "#fff"}}>
                     <h1 style={{margin: "0"}}>Chat</h1>
                     <div className="closeX" onClick={this.closeChat}>
                       x
                     </div>
+<<<<<<< HEAD
                   </div>
                   {/* <i id="closeX" className="fas fa-times fa-2x" onClick={this.closeChat}></i> */}
+=======
+                    </div>
+                    {/* <i id="closeX" className="fas fa-times fa-2x" onClick={this.closeChat}></i> */}                   
+>>>>>>> 3af423909d48fa41029e06cf0ce2fba396b1e64b
                       <div className="chat-logs">{messages}</div>
+                  {/* </div> */}
                 </Scroll>
 
                   <input

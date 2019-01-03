@@ -12,7 +12,7 @@ const MyList = ({ listItems, handleListItemClick }) => {
   return (
 
     <div className="myList">
-      <Scroll width="100%" height="500px">
+      
         <h3>Your event list</h3>
         {listItems.length?
         listItems.map((listItem) => {
@@ -21,8 +21,14 @@ const MyList = ({ listItems, handleListItemClick }) => {
           }
 
         }):<div className="notify"> You don't have any items yet.</div>}
+<<<<<<< HEAD
       </Scroll>
+=======
+     
+>>>>>>> 3af423909d48fa41029e06cf0ce2fba396b1e64b
     </div>
+
+    
   );
 };
 
