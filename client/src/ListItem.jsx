@@ -15,7 +15,7 @@ const ListItem = ({
   //   })
   //   .then(data => {
   //        return  data;
-  //   }); 
+  //   });
   // }
 
   let eventId = listItem.event.external_event_id;

@@ -62,7 +62,7 @@ body {
 
 .userRegistration {
   margin-top: 60px;
-  height: 100%;
+  // height: 100%;
   display: flex;
   flex-direction: column;
 }
@@ -95,15 +95,35 @@ main {
 
 .icons{
   font-size: 2rem;
-  
+
   i:hover{
     cursor: pointer;
   }
-  
+
   .fa-heart{
     color: red;
   }
-  
+
+  .fa-bookmark{
+    color: green;
+  }
+}
+
+.iconSideError{
+  color:red;
+}
+
+.icons{
+  font-size: 2rem;
+
+  i:hover{
+    cursor: pointer;
+  }
+
+  .fa-heart{
+    color: red;
+  }
+
   .fa-bookmark{
     color: green;
   }
@@ -115,7 +135,7 @@ main {
 
 //***************** chat *****************//
 .chatSpace {
-  background: green;
+  background-color: white;
   width: 100%;
   height: 700px;
   margin:0 auto;
@@ -172,6 +192,7 @@ main {
 
 //**** message ****//
 .message {
+
   display: flex;
   padding: 0 5px;
 }
@@ -231,7 +252,7 @@ main {
     color: red;
     font-size: 1rem;
   }
- 
+
   .list-txt{
     font-size:1.2rem;
     padding-left: 0;
@@ -239,6 +260,10 @@ main {
 
   .img{
     position: cover;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 20%;
   }
 }
 

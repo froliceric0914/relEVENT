@@ -11,9 +11,10 @@ class Message extends Component {
     return (
 
       // we will adjust about user colour later
+
       <div style={{color: isCurrentUser ? "blue" : "#000"}}>
         {this.props.message.user.username}
-        {isCurrentUser ? 
+        {isCurrentUser ?
         "(You)" : ""}
          &nbsp;
         {this.props.message.content}

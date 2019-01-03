@@ -9,6 +9,7 @@ import UserLogin from "./UserLogin.jsx";
 import { bake_cookie, read_cookie, delete_cookie } from "sfcookies";
 import MyList from "./MyList.jsx";
 import Scroll from "./Scroll.jsx";
+import Chat from "./Chat.jsx";
 
 
 //TODO: styling
@@ -56,7 +57,7 @@ class App extends Component {
   //   });
   // }
 
-  getAllEventInDB = () => { 
+  getAllEventInDB = () => {
     fetch(
     `http://localhost:8080/events`,
     )
@@ -425,7 +426,7 @@ class App extends Component {
       width: "toggle"
     });
   }
-  
+
 
   // Open Chat space
   openChat(event) {
@@ -543,31 +544,27 @@ class App extends Component {
           </button>
         </nav>
 
-        <div className="userRegistration">
-          <UserRegistration
-            setUser={user => this.setState({ user })}
-            userState={this.state.user}
-          />
-        </div>
-
-        <div className="userLogin">
-          <UserLogin
-            setUser={user => this.setState({ user })}
-            setList={listItems => this.setState(listItems)}
-            userState={this.state.user} // render it in the nav
-          />
-        </div>
-
         <main>
           <div className="column">
-            <div className="searchPanel">
-              <SearchPanel
-                searchEvent={this.searchEvent}
-                categories={this.state.categories}
-              />
-            </div>
+
+          <div className="userRegistration">
+            <UserRegistration
+              setUser={user => this.setState({ user })}
+              userState={this.state.user}
+            />
+          </div>
+
+          <div className="userLogin">
+            <UserLogin
+              setUser={user => this.setState({ user })}
+              setList={listItems => this.setState(listItems)}
+              userState={this.state.user} // render it in the nav
+            />
+          </div>
+
 
             <div className="mainContent">
+
 
               <Scroll width="100%" height="700px">
                 <EventList
@@ -591,7 +588,7 @@ class App extends Component {
                       x
                     </div>
                   </div>
-                  {/* <i id="closeX" className="fas fa-times fa-2x" onClick={this.closeChat}></i> */}                   
+                  {/* <i id="closeX" className="fas fa-times fa-2x" onClick={this.closeChat}></i> */}
                       <div className="chat-logs">{messages}</div>
                 </Scroll>
 

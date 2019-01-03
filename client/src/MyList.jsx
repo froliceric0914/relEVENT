@@ -8,20 +8,20 @@ import Scroll from "./Scroll.jsx";
 //TODO: add styling
 
 const MyList = ({ listItems, handleListItemClick }) => {
-  
+
   return (
 
     <div className="myList">
       <Scroll width="100%" height="500px">
         <h3>Your event list</h3>
-        {listItems.length? 
+        {listItems.length?
         listItems.map((listItem) => {
           if (listItem.bookmarked){
             return <ListItem  key={listItem.id} listItem={listItem} handleListItemClick={handleListItemClick}/>;
           }
 
         }):<div className="notify"> You don't have any items yet.</div>}
-      </Scroll>  
+      </Scroll>
     </div>
   );
 };
