@@ -14,26 +14,28 @@ class UserLogin extends Component {
   }
   //
 
-  _list = id => { 
-    fetch(
-    `http://localhost:8080/users/${id}/events`,
-    )
-    .then(res => {
-      return res.json();
-    })
-    .then(data => {
-      if (data) {
-        this.props.setList({
-          listItems: data
-        });
-      }
-    });
-  }
+  _list = id => {
+    fetch(`http://localhost:8080/users/${id}/events`)
+      .then(res => {
+        return res.json();
+      })
+      .then(data => {
+        if (data) {
+          this.props.setList({
+            listItems: data
+          });
+        }
+      });
+  };
 
   _handleSubmit = e => {
     const { email, password } = this.state;
+
+    // this.props.setComponentLogin({ showCompoenent: false });
+    // console.log("showComponent:", this.props.setComponentLogin);
     alert("Submit Login");
-    console.log("userLoginInfo", { email, password });
+
+    // console.log("userLoginInfo", { email, password });
     const user = fetch("http://localhost:8080/login", {
       headers: {
         Accept: "application/json",
@@ -59,6 +61,7 @@ class UserLogin extends Component {
       });
     //call the props and change the state of user in app.js
     // this.props.UserLogin(email, username, password);
+    $(".userLogin").slideUp();
   };
 
   render() {

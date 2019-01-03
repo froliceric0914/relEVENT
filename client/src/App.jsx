@@ -10,7 +10,6 @@ import { bake_cookie, read_cookie, delete_cookie } from "sfcookies";
 import MyList from "./MyList.jsx";
 import Scroll from "./Scroll.jsx";
 
-
 //TODO: styling
 //TODO: need sanitize for user input
 class App extends Component {
@@ -34,7 +33,7 @@ class App extends Component {
       },
       listItems: [],
       listItemSelected: false,
-      allEvents:[]
+      allEvents: []
     };
     this.searchEvent = this.searchEvent.bind(this);
     this.openChat = this.openChat.bind(this);
@@ -56,21 +55,19 @@ class App extends Component {
   //   });
   // }
 
-  getAllEventInDB = () => { 
-    fetch(
-    `http://localhost:8080/events`,
-    )
-    .then(res => {
-      return res.json();
-    })
-    .then(data => {
-      if (data) {
-        this.setState({
-          allEvents: data
-        });
-      }
-    });
-  }
+  getAllEventInDB = () => {
+    fetch(`http://localhost:8080/events`)
+      .then(res => {
+        return res.json();
+      })
+      .then(data => {
+        if (data) {
+          this.setState({
+            allEvents: data
+          });
+        }
+      });
+  };
 
   componentWillMount() {
     this.state.user = read_cookie("userCookie");
@@ -80,7 +77,7 @@ class App extends Component {
     this.state.user = read_cookie("userCookie");
     console.log("this should be the user", this.state.user);
 
-    if(this.state.user.status){
+    if (this.state.user.status) {
       console.log("retrieve user list");
       // retrieve user_event data
       fetch(`http://localhost:8080/users/${this.state.user.userID}/events`)
@@ -425,7 +422,6 @@ class App extends Component {
       width: "toggle"
     });
   }
-  
 
   // Open Chat space
   openChat(event) {
@@ -510,9 +506,24 @@ class App extends Component {
             relEVENT
           </a>
           {this.state.user.username}
-          <button>register</button>&nbsp;
-          <button>login</button>&nbsp;
           <button
+            style={{ display: this.state.user.status ? "none" : "block" }}
+          >
+            register
+          </button>
+          &nbsp;
+          <button
+            style={{ display: this.state.user.status ? "none" : "block" }}
+            onClick={e => {
+              $(".userLogin").toggle();
+              // this.setState({ showComponentLogin: true });
+            }}
+          >
+            login
+          </button>
+          &nbsp;
+          <button
+            style={{ display: this.state.user.status ? "block" : "none" }}
             onClick={e => {
               delete_cookie("userCookie");
               this.closeChat();
@@ -527,7 +538,7 @@ class App extends Component {
                 listItems: [],
                 listItemSelected: false,
                 currentChatMessage: "",
-                eventId: "0",
+                eventId: "0"
               });
             }}
           >
@@ -536,7 +547,7 @@ class App extends Component {
           &nbsp;
           <button>search</button>&nbsp;
           <button
-            style={{ display: this.state.user.userID ? "block" : "none" }}
+            style={{ display: this.state.user.status ? "block" : "none" }}
             onClick={this.openMyList}
           >
             Mylist
@@ -555,6 +566,9 @@ class App extends Component {
             setUser={user => this.setState({ user })}
             setList={listItems => this.setState(listItems)}
             userState={this.state.user} // render it in the nav
+            // setComponentLogin={showComponentLogin =>
+            //   this.setState(showComponentLogin)
+            // }
           />
         </div>
 
@@ -568,7 +582,6 @@ class App extends Component {
             </div>
 
             <div className="mainContent">
-
               <Scroll width="100%" height="700px">
                 <EventList
                   events={this.state.events}
@@ -584,16 +597,23 @@ class App extends Component {
 
               <div className="chatSpace">
                 <div className="stage">
-                <Scroll width="100%" height="500px">
-                  <div className="chatSpaceHeader" style={{position: "sticky", top: "0", backgroundColor: "#fff"}}>
-                    <h1 style={{margin: "0"}}>Chat</h1>
-                    <div className="closeX" onClick={this.closeChat}>
-                      x
+                  <Scroll width="100%" height="500px">
+                    <div
+                      className="chatSpaceHeader"
+                      style={{
+                        position: "sticky",
+                        top: "0",
+                        backgroundColor: "#fff"
+                      }}
+                    >
+                      <h1 style={{ margin: "0" }}>Chat</h1>
+                      <div className="closeX" onClick={this.closeChat}>
+                        x
+                      </div>
                     </div>
-                  </div>
-                  {/* <i id="closeX" className="fas fa-times fa-2x" onClick={this.closeChat}></i> */}                   
-                      <div className="chat-logs">{messages}</div>
-                </Scroll>
+                    {/* <i id="closeX" className="fas fa-times fa-2x" onClick={this.closeChat}></i> */}
+                    <div className="chat-logs">{messages}</div>
+                  </Scroll>
 
                   <input
                     value={this.state.currentChatMessage}
