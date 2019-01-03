@@ -12,10 +12,11 @@ class Message extends Component {
 
       // we will adjust about user colour later
 
-      <div style={{color: isCurrentUser ? "blue" : "#000"}}>
+      <div className="userMessage" style={{color: isCurrentUser ? "blue" : "#000"}}>
+        <img src="./images/user-image-2.png" className="userImage"></img>
         {this.props.message.user.username}
         {isCurrentUser ?
-        "(You)" : ""}
+        "  (You):" : ""}
          &nbsp;
         {this.props.message.content}
       </div>

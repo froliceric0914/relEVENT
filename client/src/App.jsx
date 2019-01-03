@@ -621,9 +621,9 @@ class App extends Component {
                   />
                   <button
                     onClick={e => this.handleSendEvent(e)}
-                    className="send"
-                  >
-                    Send
+                    className="send"> Send
+                    <img src="./images/send-message.png" className="send-logo">
+                    </img>
                   </button>
                 </div>
               </div>
