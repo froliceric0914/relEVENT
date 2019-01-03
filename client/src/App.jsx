@@ -514,7 +514,7 @@ class App extends Component {
             />
 
             <label for="navi-toggle" className="navigation__button">
-              <span className="navigation__icon" />
+              <span className="navigation__icon">Menu</span>
             </label>
 
             <div className="navigation__background">&nbsp;</div>
@@ -524,26 +524,6 @@ class App extends Component {
                 <li className="navigation__item">
                   <a href="#" className="navigation__link">
                     <span>01 </span>About Natous
-                  </a>
-                </li>
-                <li className="navigation__item">
-                  <a href="#" className="navigation__link">
-                    <span>02 </span>Your benfits
-                  </a>
-                </li>
-                <li className="navigation__item">
-                  <a href="#" className="navigation__link">
-                    <span>03 </span>Popular tours
-                  </a>
-                </li>
-                <li className="navigation__item">
-                  <a href="#" className="navigation__link">
-                    <span>04 </span>Stories
-                  </a>
-                </li>
-                <li className="navigation__item">
-                  <a href="#" className="navigation__link">
-                    <span>05 </span>Book now
                   </a>
                 </li>
               </ul>
