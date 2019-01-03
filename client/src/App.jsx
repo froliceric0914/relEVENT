@@ -9,12 +9,7 @@ import UserLogin from "./UserLogin.jsx";
 import { bake_cookie, read_cookie, delete_cookie } from "sfcookies";
 import MyList from "./MyList.jsx";
 import Scroll from "./Scroll.jsx";
-<<<<<<< HEAD
-import Chat from "./Chat.jsx";
-
-=======
 import ReactDOM from 'react-dom'
->>>>>>> 3af423909d48fa41029e06cf0ce2fba396b1e64b
 
 //TODO: styling
 //TODO: need sanitize for user input
@@ -444,7 +439,7 @@ class App extends Component {
     // });
     $(".myList").is(":visible")? $(".myList").slideUp(): $(".myList").slideDown();
 
-    
+
   }
 
 
@@ -604,18 +599,15 @@ class App extends Component {
                 <div className="stage">
                 <Scroll width="100%" height="500px" idName="messageList">
                 {/* <div id="messageList"> */}
-                  <div className="chatSpaceHeader" style={{position: "sticky", top: "0", backgroundColor: "#fff"}}>
-                    <h1 style={{margin: "0"}}>Chat</h1>
+                <div className="chatHeaderContainer">
+                  <div className="chatSpaceHeader">
+                    <h1>Chat</h1>
                     <div className="closeX" onClick={this.closeChat}>
-                      x
+                      close chat
                     </div>
-<<<<<<< HEAD
                   </div>
+                </div>
                   {/* <i id="closeX" className="fas fa-times fa-2x" onClick={this.closeChat}></i> */}
-=======
-                    </div>
-                    {/* <i id="closeX" className="fas fa-times fa-2x" onClick={this.closeChat}></i> */}                   
->>>>>>> 3af423909d48fa41029e06cf0ce2fba396b1e64b
                       <div className="chat-logs">{messages}</div>
                   {/* </div> */}
                 </Scroll>
@@ -624,7 +616,7 @@ class App extends Component {
                     value={this.state.currentChatMessage}
                     onChange={e => this.updateCurrentChatMessage(e)}
                     type="text"
-                    placeholder="Enter your message..."
+                    placeholder="Type a message"
                     className="chat-input"
                   />
                   <button
@@ -635,6 +627,8 @@ class App extends Component {
                   </button>
                 </div>
               </div>
+
+
             </div>
           </div>
           <MyList
