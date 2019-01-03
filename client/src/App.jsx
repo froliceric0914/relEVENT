@@ -514,7 +514,7 @@ class App extends Component {
             />
 
             <label for="navi-toggle" className="navigation__button">
-              <span className="navigation__icon">Button&nbsp;</span>
+              <span className="navigation__icon" />
             </label>
 
             <div className="navigation__background">&nbsp;</div>
