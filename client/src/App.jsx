@@ -434,9 +434,12 @@ class App extends Component {
 
   // Open user's MyList
   openMyList(event) {
-    $(".myList").animate({
-      width: "toggle"
-    });
+    // $(".myList").animate({
+    //   width: "toggle"
+    // });
+    $(".myList").is(":visible")? $(".myList").slideUp(): $(".myList").slideDown();
+
+    
   }
   
 
@@ -554,6 +557,19 @@ class App extends Component {
           >
             Mylist
           </button>
+          
+
+          {/* <div className="dropdown">
+            <button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              myList
+            </button>
+            <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <a className="dropdown-item" href="#">Action</a>
+              <a className="dropdown-item" href="#">Another action</a>
+              <a className="dropdown-item" href="#">Something else here</a>
+            </div>
+          </div> */}
+
         </nav>
 
         <div className="userRegistration">

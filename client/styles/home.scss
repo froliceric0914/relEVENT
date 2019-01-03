@@ -120,6 +120,7 @@ main {
   height: 700px;
   margin:0 auto;
   display: none;
+  min-width:0;
 
   .messageList {
     height: 100%;
@@ -215,12 +216,22 @@ main {
 //***************** myList *****************//
 
 .myList {
+  // box-sizing: border-box;
+  margin: 1rem;
   display: none;
+  position: fixed;
   background-color: white;
-  width: 40%;
+  width: 25%;
+  right: 10px;
+  top: 45px;
+  max-height: 70%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  z-index: 1;
   // text-align: center;
   h3{
     padding: 0.2rem;
+    position: sticky;
   }
 
   .notify{
@@ -237,11 +248,22 @@ main {
     padding-left: 0;
   }
 
-  .img{
-    position: cover;
+  .event-title{
+    text-decoration: underline;
   }
+
+  // img{
+  //   position: cover;
+  //   opacity: 1;
+  // }
+
+  img:hover, .event-title:hover {
+    cursor: pointer;
+  }
+
+  .listItem:hover{
+    background-color: #ddd;
+  }
+ 
 }
 
-.myList img:hover {
-  cursor: pointer;
-}
