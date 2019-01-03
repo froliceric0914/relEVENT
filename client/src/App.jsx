@@ -8,6 +8,7 @@ import UserRegistration from "./UserRegistration.jsx";
 import UserLogin from "./UserLogin.jsx";
 import { bake_cookie, read_cookie, delete_cookie } from "sfcookies";
 import MyList from "./MyList.jsx";
+import Scroll from "./Scroll.jsx";
 
 //TODO: styling
 //TODO: need sanitize for user input
@@ -31,7 +32,8 @@ class App extends Component {
         userID: 0
       },
       listItems: [],
-      listItemSelected: false
+      listItemSelected: false,
+      allEvents: []
     };
     this.searchEvent = this.searchEvent.bind(this);
     this.openChat = this.openChat.bind(this);
@@ -53,12 +55,41 @@ class App extends Component {
   //   });
   // }
 
+  getAllEventInDB = () => {
+    fetch(`http://localhost:8080/events`)
+      .then(res => {
+        return res.json();
+      })
+      .then(data => {
+        if (data) {
+          this.setState({
+            allEvents: data
+          });
+        }
+      });
+  };
+
   componentWillMount() {
     this.state.user = read_cookie("userCookie");
     this.createSocket();
+    this.getAllEventInDB();
     //retrieve initial events before first render(default events)
     this.state.user = read_cookie("userCookie");
     console.log("this should be the user", this.state.user);
+
+    if (this.state.user.status) {
+      console.log("retrieve user list");
+      // retrieve user_event data
+      fetch(`http://localhost:8080/users/${this.state.user.userID}/events`)
+        .then(res => {
+          return res.json();
+        })
+        .then(data => {
+          if (data) {
+            this.setState({ listItems: data });
+          }
+        });
+    }
     const url = fetch(
       `https://www.eventbriteapi.com/v3/events/search/?q=&sort_by=date&location.address=toronto&start_date.keyword=today&expand=organizer,venue&token=${
         process.env.TOKEN
@@ -73,6 +104,7 @@ class App extends Component {
           if (event.description.text) return true;
         });
         this.setState({ events: data.slice(0) });
+        this.setState({ eventsTmp: data.slice(0) });
       });
 
     // Query the API for category list
@@ -178,7 +210,8 @@ class App extends Component {
   handleIconClick(event) {
     let selectedIcon = event.target.getAttribute("data-name");
 
-    let otherIcon = $(event.target).siblings()[0];
+    // Selecting other icon. Be careful if you change layout
+    let otherIcon = $(event.target).siblings(".icon")[0];
 
     if (!this.state.user.userID) {
       // request log-in
@@ -235,6 +268,7 @@ class App extends Component {
           .then(data => {
             if (data) {
               this.setState({ listItems: data });
+              this.getAllEventInDB();
             }
           });
       }
@@ -275,6 +309,7 @@ class App extends Component {
           .then(data => {
             if (data) {
               this.setState({ listItems: data });
+              this.getAllEventInDB();
             }
           });
 
@@ -318,6 +353,7 @@ class App extends Component {
       .then(data => {
         if (data) {
           this.setState({ listItems: data });
+          this.getAllEventInDB();
         }
       });
   }
@@ -329,6 +365,7 @@ class App extends Component {
       this.setState({ eventsTmp: this.state.events });
     }
     this.setState({ listItemSelected: true });
+    this.setState({ eventId: selectedEventId });
 
     console.log("retrieve user list");
     // retrieve user_event data
@@ -451,6 +488,7 @@ class App extends Component {
       });
       $(".card-text .chatButton").css("background-color", "#dc3545");
       $(".card-text .chatButton").text("Chat");
+      $(".card").show();
     }
   }
 
@@ -468,17 +506,66 @@ class App extends Component {
             relEVENT
           </a>
           {this.state.user.username}
-          <button>register</button>&nbsp;
+          <div className="navigation">
+            <input
+              type="checkbox"
+              className="navigation__checkbox"
+              id="navi-toggle"
+            />
+
+            <label for="navi-toggle" className="navigation__button">
+              <span className="navigation__icon">Button&nbsp;</span>
+            </label>
+
+            <div className="navigation__background">&nbsp;</div>
+
+            <nav className="navigation__nav">
+              <ul className="navigation__list">
+                <li className="navigation__item">
+                  <a href="#" className="navigation__link">
+                    <span>01 </span>About Natous
+                  </a>
+                </li>
+                <li className="navigation__item">
+                  <a href="#" className="navigation__link">
+                    <span>02 </span>Your benfits
+                  </a>
+                </li>
+                <li className="navigation__item">
+                  <a href="#" className="navigation__link">
+                    <span>03 </span>Popular tours
+                  </a>
+                </li>
+                <li className="navigation__item">
+                  <a href="#" className="navigation__link">
+                    <span>04 </span>Stories
+                  </a>
+                </li>
+                <li className="navigation__item">
+                  <a href="#" className="navigation__link">
+                    <span>05 </span>Book now
+                  </a>
+                </li>
+              </ul>
+            </nav>
+          </div>
           <button>login</button>&nbsp;
           <button
             onClick={e => {
               delete_cookie("userCookie");
+              this.closeChat();
+              $(".myList").hide();
               this.setState({
+                events: this.state.eventsTmp,
                 user: {
                   status: false,
                   username: null,
                   userID: null
-                }
+                },
+                listItems: [],
+                listItemSelected: false,
+                currentChatMessage: "",
+                eventId: "0"
               });
             }}
           >
@@ -504,6 +591,7 @@ class App extends Component {
         <div className="userLogin">
           <UserLogin
             setUser={user => this.setState({ user })}
+            setList={listItems => this.setState(listItems)}
             userState={this.state.user} // render it in the nav
           />
         </div>
@@ -518,24 +606,39 @@ class App extends Component {
             </div>
 
             <div className="mainContent">
-              <EventList
-                events={this.state.events}
-                searchEvent={this.searchEvent}
-                openChat={this.openChat}
-                handleIconClick={this.handleIconClick}
-                listItems={this.state.listItems}
-                listItemSelected={this.state.listItemSelected}
-                handleXIconOnEventClick={this.handleXIconOnEventClick}
-              />
+              <Scroll width="100%" height="700px">
+                <EventList
+                  events={this.state.events}
+                  searchEvent={this.searchEvent}
+                  openChat={this.openChat}
+                  handleIconClick={this.handleIconClick}
+                  listItems={this.state.listItems}
+                  listItemSelected={this.state.listItemSelected}
+                  handleXIconOnEventClick={this.handleXIconOnEventClick}
+                  allEvents={this.state.allEvents}
+                />
+              </Scroll>
 
               <div className="chatSpace">
                 <div className="stage">
-                  <h1>Chat</h1>
-                  <div className="closeX" onClick={this.closeChat}>
-                    x
-                  </div>
-                  {/* <i id="closeX" className="fas fa-times fa-2x" onClick={this.closeChat}></i> */}
-                  <div className="chat-logs">{messages}</div>
+                  <Scroll width="100%" height="500px">
+                    <div
+                      className="chatSpaceHeader"
+                      style={{
+                        position: "sticky",
+                        top: "0",
+                        backgroundColor: "#fff"
+                      }}
+                    >
+                      <h1 style={{ margin: "0" }}>Chat</h1>
+                      <div className="closeX" onClick={this.closeChat}>
+                        x
+                      </div>
+                    </div>
+                    {/* <i id="closeX" className="fas fa-times fa-2x" onClick={this.closeChat}></i> */}
+                    <div className="chat-logs">{messages}</div>
+                  </Scroll>
+
                   <input
                     value={this.state.currentChatMessage}
                     onChange={e => this.updateCurrentChatMessage(e)}
