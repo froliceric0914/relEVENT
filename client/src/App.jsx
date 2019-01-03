@@ -512,18 +512,20 @@ class App extends Component {
               className="navigation__checkbox"
               id="navi-toggle"
             />
-
-            <label for="navi-toggle" className="navigation__button">
+            {/* <label for="navi-toggle" className="navigation__button">
               <span className="navigation__icon">Menu</span>
-            </label>
-
+            </label> */}
             <div className="navigation__background">&nbsp;</div>
-
             <nav className="navigation__nav">
               <ul className="navigation__list">
                 <li className="navigation__item">
                   <a href="#" className="navigation__link">
-                    <span>01 </span>About Natous
+                    <div className="userRegistration">
+                      <UserRegistration
+                        setUser={user => this.setState({ user })}
+                        userState={this.state.user}
+                      />
+                    </div>
                   </a>
                 </li>
               </ul>
@@ -560,13 +562,6 @@ class App extends Component {
             Mylist
           </button>
         </nav>
-
-        <div className="userRegistration">
-          <UserRegistration
-            setUser={user => this.setState({ user })}
-            userState={this.state.user}
-          />
-        </div>
 
         <div className="userLogin">
           <UserLogin
