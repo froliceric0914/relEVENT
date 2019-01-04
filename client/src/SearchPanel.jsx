@@ -56,7 +56,7 @@ class SearchPanel extends Component {
               />
             </div>
 
-            <div className="input-field first-wrap">
+            <div className="input-field second-wrap">
               <label for="category">Category</label>
               <select
                 className="form-control"
@@ -77,7 +77,7 @@ class SearchPanel extends Component {
               </select>
             </div>
 
-            <div className="input-field first-wrap">
+            <div className="input-field second-wrap">
               <label for="location">Location</label>
               <input
                 type="text"
