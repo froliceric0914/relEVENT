@@ -69,53 +69,40 @@ const Event = ({
   }
 
   return (
-    <div classNameName="event-card col-6">
-      <div className="card m-5" style={{ width: "40rem", height: "40rem" }}>
+    <div className="event-card col-6">
+      <div className="card m-5" style={{ width: "40rem", height: "60rem" }}>
         <div
           className="card-img-top"
-          classNameName="event-card-body"
+          className="event-card-body"
           alt="Card image cap"
         >
           {img}
         </div>
         <div className="card-body">
-          
-
-          <div className="container">
-            <div class="row">
-              
-            </div>
-          
-          </div>
-
-
           <h3 className="card-title">
             {event.name.text.substring(35)
               ? event.name.text.substring(0, 35) + "..."
               : event.name.text}
           </h3>
-          <span classNameName="badge badge-secondary">
+          <span className="badge badge-secondary">
             Date & Time: {event.start.local}{" "}
           </span>
           <br />{" "}
-          <span classNameName="badge badge-secondary">
+          <span className="badge badge-secondary">
             Location: {event.venue.address.address_1}{" "}
           </span>
-          <p className="card-text">
-            Some quick example text to build on the card title and make up the
-            bulk of the card's content.
-          </p>
+          <p className="card-text" />
           <a href="#" className="btn btn-primary">
             Description
           </a>
-          <div classNameName="icons">
+          <div className="icons">
             <i
               data-on={likeIcon}
               data-id={event.id}
               data-name="like"
               data-event-name={event.name.text}
               data-img-url={img_url}
-              classNameName={likeclassName}
+              className={likeclassName}
               onClick={handleIconClick}
             />
             <span>{likeCount}</span>
@@ -126,21 +113,19 @@ const Event = ({
               data-name="bookmark"
               data-event-name={event.name.text}
               data-img-url={img_url}
-              classNameName={bookmarkclassName}
+              className={bookmarkclassName}
               onClick={handleIconClick}
             />
           </div>
-          <div classNameName="iconSideError" />
-          <div classNameName="iconSideMessage" />
+          <div className="iconSideError" />
+          <div className="iconSideMessage" />
           <a
             href={event.url}
             target="_blank"
-            classNameName="btn btn-primary btn-block mt-4"
-          >
-            More
-          </a>
+            className="btn btn-primary btn-block mt-4"
+          />
           <button
-            classNameName="chatButton btn btn-danger btn-block mt-4"
+            className="chatButton btn btn-danger btn-block mt-4"
             name={event.id}
             data-event-name={event.name.text}
             data-img-url={img_url}
@@ -149,12 +134,6 @@ const Event = ({
           >
             Chat
           </button>
-
-
-
-
-
-
         </div>
       </div>
     </div>
@@ -162,76 +141,3 @@ const Event = ({
 };
 
 export default Event;
-
-// <div classNameName="event-card col-6">
-//   <div classNameName="event-card-body">{img}</div>
-//   <div classNameName="event-card-body">
-//     {xIcon}
-//     <div classNameName="event-card-text">
-// <h2 classNameName="text-center event-card-title">
-//   {/* {event.name.text.substring(0, 35)}... */}
-//   {event.name.text.substring(35)
-//     ? event.name.text.substring(0, 35) + "..."
-//     : event.name.text}
-// </h2>
-//       <p classNameName="lead text-info">Event Information:</p>
-//       {/* <p>
-//         {event.description.text.substring(200)
-//           ? event.description.text.substring(0, 200) + "..."
-//           : event.description.text}
-//       </p> */}
-//       <span classNameName="badge badge-secondary">
-//         Date & Time: {event.start.local}
-//       </span>
-//       <br />
-//       <span classNameName="badge badge-secondary">
-//         Location: {event.venue.address.address_1}
-//       </span>
-
-// <div classNameName="icons">
-//   <i
-//     data-on={likeIcon}
-//     data-id={event.id}
-//     data-name="like"
-//     data-event-name={event.name.text}
-//     data-img-url={img_url}
-//     classNameName={likeclassName}
-//     onClick={handleIconClick}
-//   />
-//   <span>{likeCount}</span>
-//   &nbsp;
-//   <i
-//     data-on={bookmarkIcon}
-//     data-id={event.id}
-//     data-name="bookmark"
-//     data-event-name={event.name.text}
-//     data-img-url={img_url}
-//     classNameName={bookmarkclassName}
-//     onClick={handleIconClick}
-//   />
-// </div>
-
-// <div classNameName="iconSideError" />
-// <div classNameName="iconSideMessage" />
-
-// <a
-//   href={event.url}
-//   target="_blank"
-//   classNameName="btn btn-primary btn-block mt-4"
-// >
-//   More
-// </a>
-
-// <button
-//   classNameName="chatButton btn btn-danger btn-block mt-4"
-//   name={event.id}
-//   data-event-name={event.name.text}
-//   data-img-url={img_url}
-//   onClick={openChat}
-//   target="_blank"
-// >
-//   Chat
-// </button>
-//     </div>
-//   </div>
-// </div>
