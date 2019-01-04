@@ -59,16 +59,19 @@ body {
 }
 
 .userRegistration {
-  margin-top: 60px;
+  margin-top: 70px;
   height: 100%;
-  display: flex;
+  display: none;
   flex-direction: column;
 }
 
 /////////////////// user registration /////////////
 
 .userLogin {
+  margin-top: 70px;
   display: none;
+  display: none;
+  flex-direction: column;
 }
 
 /////////////////// main ///////////////////

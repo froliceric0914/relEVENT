@@ -508,6 +508,9 @@ class App extends Component {
           {this.state.user.username}
           <button
             style={{ display: this.state.user.status ? "none" : "block" }}
+            onClick={e => {
+              $(".userRegistration").toggle();
+            }}
           >
             register
           </button>
@@ -516,7 +519,6 @@ class App extends Component {
             style={{ display: this.state.user.status ? "none" : "block" }}
             onClick={e => {
               $(".userLogin").toggle();
-              // this.setState({ showComponentLogin: true });
             }}
           >
             login
@@ -566,9 +568,6 @@ class App extends Component {
             setUser={user => this.setState({ user })}
             setList={listItems => this.setState(listItems)}
             userState={this.state.user} // render it in the nav
-            // setComponentLogin={showComponentLogin =>
-            //   this.setState(showComponentLogin)
-            // }
           />
         </div>
 

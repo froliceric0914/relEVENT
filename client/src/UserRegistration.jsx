@@ -35,6 +35,7 @@ class UserRegistration extends Component {
         });
         bake_cookie("userCookie", this.props.userState);
       });
+    $(".userRegistration").slideUp();
   };
 
   render() {
