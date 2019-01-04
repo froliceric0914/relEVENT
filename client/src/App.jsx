@@ -592,6 +592,12 @@ class App extends Component {
             </div>
 
             <div className="mainContent">
+              <div className="searchPanel">
+                <SearchPanel
+                  searchEvent={this.searchEvent}
+                  categories={this.state.categories}
+                />
+              </div>
               <Scroll width="100%" height="700px">
                 <EventList
                   events={this.state.events}
