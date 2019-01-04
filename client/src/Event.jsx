@@ -1,9 +1,24 @@
 import React from "react";
+import * as ReactBootstrap from "react-bootstrap";
 
 //This is an event info pane for an event.
 //TODO: add other values. img, description, venue, cost etc...
 //TODO: add onclick to chat button. show chat component
 //TODO: add styling
+const _clickHandler = e => {
+  console.log("thiddddd", e.target.parentElement.parentElement.parentElement);
+
+  $(e.target.parentElement.parentElement.parentElement).toggleClass("test");
+
+  // ***** come back to dry this
+  // $(this)
+  //   .parentsUntil($(".flip-card-inner"))
+  //   .toggleClass("test");
+
+  console.log("clicked");
+  //   .closest("card m-5 flip-card")
+  //   .addClass(".flip-card .flip-card-inner");
+};
 
 const Event = ({
   event,
@@ -18,7 +33,13 @@ const Event = ({
   let img_url;
 
   if (event.logo && event.logo.url) {
-    img = <img className="img-fluid mb-2" src={event.logo.url} />;
+    img = (
+      <img
+        classNameName="img-fluid mb-2"
+        src={event.logo.url}
+        style={{ borderTopLeftRadius: "10px", borderTopRightRadius: "10px" }}
+      />
+    );
     img_url = event.logo.url;
   } else {
     img = <div />;
@@ -27,25 +48,25 @@ const Event = ({
 
   let likeIcon = "false";
   let bookmarkIcon = "false";
-  let likeClass = "far fa-heart icon";
-  let bookmarkClass = "far fa-bookmark icon";
+  let likeclassName = "far fa-heart icon";
+  let bookmarkclassName = "far fa-bookmark icon";
   let likeCount = 0;
 
-  allEvents.forEach(item=>{
+  allEvents.forEach(item => {
     if (event.id === item.external_event_id) {
       likeCount = item.like_count;
     }
-  })
+  });
 
   listItems.forEach(item => {
     if (event.id === item.event.external_event_id) {
       likeIcon = item.liked;
       bookmarkIcon = item.bookmarked;
       if (likeIcon === true) {
-        likeClass = "fas fa-heart icon";
+        likeclassName = "fas fa-heart icon";
       }
       if (bookmarkIcon === true) {
-        bookmarkClass = "fas fa-bookmark icon";
+        bookmarkclassName = "fas fa-bookmark icon";
       }
     }
   });
@@ -63,75 +84,103 @@ const Event = ({
       </div>
     );
     {
-      /* <i id="closeX" className="fas fa-times fa-2x" onClick={this.closeChat}></i> */
+      /* <i id="closeX" classNameName="fas fa-times fa-2x" onClick={this.closeChat}></i> */
     }
   }
 
   return (
-    <div className="card">
-      <div className="card-body">{img}</div>
-      <div className="card-body">
-        {xIcon}
-        <div className="card-text">
-          <h2 className="text-center card-title">
-            {/* {event.name.text.substring(0, 35)}... */}
-            {event.name.text.substring(35) ? event.name.text.substring(0, 35)+ "..." : event.name.text}
-          </h2>
-          <p className="lead text-info">Event Information:</p>
-          {/* <p>{event.description.text.substring(0, 200)}...</p> */}
-          <p>{event.description.text.substring(200) ? event.description.text.substring(0, 200) + "..." : event.description.text}</p>
-          <span className="badge badge-secondary">
-            Date & Time: {event.start.local}
-          </span>
-          <br />
-          <span className="badge badge-secondary">
-            Location: {event.venue.address.address_1}
-          </span>
-
-          <div className="icons">
-            <i
-              data-on={likeIcon}
-              data-id={event.id}
-              data-name="like"
-              data-event-name={event.name.text}
-              data-img-url={img_url}
-              className={likeClass}
-              onClick={handleIconClick}
-            />
-            <span>{likeCount}</span>
-            &nbsp;
-            <i
-              data-on={bookmarkIcon}
-              data-id={event.id}
-              data-name="bookmark"
-              data-event-name={event.name.text}
-              data-img-url={img_url}
-              className={bookmarkClass}
-              onClick={handleIconClick}
-            />
+    // <div className="event-card col-6">
+    <div
+      className="card m-5 flip-card"
+      style={{ width: "40rem", height: "45rem" }}
+    >
+      <div className="flip-card-inner">
+        <div className="flip-card-front">
+          <div
+            className="card-img-top"
+            className="event-card-body"
+            style={{ overflow: "hidden" }}
+            alt="Card image cap"
+            onClick={_clickHandler}
+          >
+            {img}
           </div>
-
-          <div className="iconSideError" />
-          <div className="iconSideMessage" />
-
-          <a
-            href={event.url}
-            target="_blank"
-            className="btn btn-primary btn-block mt-4"
+          <div className="card-body">
+            <h3 className="card-title">
+              {event.name.text.substring(35)
+                ? event.name.text.substring(0, 35) + "..."
+                : event.name.text}
+            </h3>
+            <span className="badge badge-secondary">
+              Date & Time: {event.start.local}{" "}
+            </span>
+            <br />{" "}
+            <span className="badge badge-secondary">
+              Location: {event.venue.address.address_1}{" "}
+            </span>
+            <p className="card-text" />
+            <a href="#" className="btn btn-primary" onClick={_clickHandler}>
+              Description
+            </a>
+            <div className="icons">
+              <i
+                data-on={likeIcon}
+                data-id={event.id}
+                data-name="like"
+                data-event-name={event.name.text}
+                data-img-url={img_url}
+                className={likeclassName}
+                onClick={handleIconClick}
+              />
+              <span>{likeCount}</span>
+              &nbsp;
+              <i
+                data-on={bookmarkIcon}
+                data-id={event.id}
+                data-name="bookmark"
+                data-event-name={event.name.text}
+                data-img-url={img_url}
+                className={bookmarkclassName}
+                onClick={handleIconClick}
+              />
+            </div>
+            <div className="iconSideError" />
+            <div className="iconSideMessage" />
+            <a
+              href={event.url}
+              target="_blank"
+              className="btn btn-primary btn-block mt-4"
+            />
+            <button
+              className="chatButton btn btn-danger btn-block mt-4"
+              name={event.id}
+              data-event-name={event.name.text}
+              data-img-url={img_url}
+              onClick={openChat}
+              target="_blank"
+            >
+              Chat
+            </button>
+          </div>
+        </div>
+        <div className="flip-card-back">
+          <div
+            className="card-img-top"
+            className="event-card-body"
+            onClick={_clickHandler}
+            alt="Card image cap"
           >
-            More
+            {img}
+          </div>
+          <p className="lead text-info">Event Information:</p>
+          <p>
+            {event.description.text.substring(300)
+              ? event.description.text.substring(0, 300) + "..."
+              : event.description.text}
+          </p>
+          <a href="#" className="btn btn-primary" onClick={_clickHandler}>
+            flip!
           </a>
-
-          <button
-            className="chatButton btn btn-danger btn-block mt-4"
-            name={event.id}
-            data-event-name={event.name.text}
-            data-img-url={img_url}
-            onClick={openChat}
-            target="_blank"
-          >
-            Chat
-          </button>
         </div>
       </div>
     </div>

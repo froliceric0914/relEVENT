@@ -14,7 +14,7 @@ const EventList = ({
   allEvents
 }) => {
   return (
-    <div className="eventList">
+    <div className="eventList row">
       {events.map(event => {
         return (
           <Event

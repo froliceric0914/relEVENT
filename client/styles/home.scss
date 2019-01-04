@@ -96,8 +96,9 @@ main {
 //***************** event *****************//
 
 .eventList {
-  background: grey;
-  min-width: 50%;
+  background: white;
+  margin-top: 10rem;
+  min-width: 60%;
 }
 
 .icons {
@@ -119,6 +120,13 @@ main {
 .iconSideError {
   color: red;
 }
+// .event-card {
+//   padding: 3rem;
+//   column-gap: 10rem;
+//   border: 1rem solid black;
+//   width: 15rem;
+//   height: 30rem;
+// }
 
 .icons {
   font-size: 2rem;
@@ -138,6 +146,57 @@ main {
 
 .iconSideError {
   color: red;
+}
+
+//***************** event card *****************//
+
+.flip-card {
+  background-color: transparent;
+  border: 0.5px solid white;
+  perspective: 1000px;
+  /* Remove this if you don't want the 3D effect */
+}
+
+/* This container is needed to position the front and back side */
+.flip-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  transition: transform 1s ease-in-out;
+  transform-style: preserve-3d;
+}
+
+.test {
+  transform: rotateY(180deg);
+}
+
+/* Do an horizontal flip when you move the mouse over the flip box container */
+// .flip-card:hover .flip-card-inner {
+//   transform: rotateY(180deg);
+// }
+
+/* Position the front and back side */
+.flip-card-front,
+.flip-card-back {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  border-radius: 10px;
+
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+}
+
+/* Style the front side (fallback if image is missing) */
+.flip-card-front {
+  background-color: whitesmoke;
+}
+
+/* Style the back side */
+.flip-card-back {
+  background-color: whitesmoke;
+  transform: rotateY(180deg);
 }
 
 //***************** chat *****************//

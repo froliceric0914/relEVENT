@@ -10,6 +10,7 @@ import { bake_cookie, read_cookie, delete_cookie } from "sfcookies";
 import MyList from "./MyList.jsx";
 import Scroll from "./Scroll.jsx";
 import ReactDOM from "react-dom";
+import * as ReactBootstrap from "react-bootstrap";
 
 //TODO: styling
 //TODO: need sanitize for user input
