@@ -134,6 +134,7 @@ main {
 }
 
 //***************** chat *****************//
+
 .chatSpace {
   background-color: white;
   width: 100%;
@@ -161,7 +162,6 @@ main {
 
 .chatSpaceHeader {
   border-radius: 25px;
-  position: sticky;
   top: 0;
   width: 50%;
   margin: 0;
@@ -170,30 +170,39 @@ main {
 .closeX{
   font-size:3rem;
   width: 100%;
-  font-size: 15px;
+  font-size: 13px;
   text-decoration: underline;
+  padding-top: 7px;
+  text-align: right;
+  padding-top: 12px;
 }
 .closeX:hover{
    cursor: pointer;
    opacity: 0.8;
 }
 
-.stage{
-  height: 100%;
-  border-width: 10px;
-  border-color: black;
-  border-radius: 25px;
-}
+// .stage{
+//   height: 100%;
+//   border-width: 10px;
+//   border-color: black;
+//   border-radius: 25px;
+// }
 
 
 
 
 //**** chatbar ****//
 
+.inputContainer {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
 .chat-input {
   border-radius: 25px;
   border-style: solid;
-  height: 30px;
+  height: 40px;
   padding-left: 50px;
   border-color: #585859;
 }
@@ -250,14 +259,23 @@ main {
   padding: 15px;
 }
 
-.userMessage {
+.userMessageContainer {
   padding: 5px;
+}
+
+.messageContent {
+  overflow-wrap: break-word;
 }
 
 .userImage {
   height: 30px;
   width: 36px;
   padding-right: 6px;
+}
+
+.messageTime {
+  font-size: 9px;
+  float: right;
 }
 
 

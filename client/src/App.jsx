@@ -597,34 +597,39 @@ class App extends Component {
 
               <div className="chatSpace">
                 <div className="stage">
-                <Scroll width="100%" height="500px" idName="messageList">
-                {/* <div id="messageList"> */}
-                <div className="chatHeaderContainer">
-                  <div className="chatSpaceHeader">
-                    <h1>Chat</h1>
-                    <div className="closeX" onClick={this.closeChat}>
-                      close chat
+                  <Scroll width="100%" height="500px" idName="messageList">
+                  {/* <div id="messageList"> */}
+                  <div className="chatHeaderContainer">
+                    <div className="chatSpaceHeader">
+                      <h1>Chat</h1>
                     </div>
-                  </div>
                 </div>
                   {/* <i id="closeX" className="fas fa-times fa-2x" onClick={this.closeChat}></i> */}
                       <div className="chat-logs">{messages}</div>
                   {/* </div> */}
                 </Scroll>
 
-                  <input
-                    value={this.state.currentChatMessage}
-                    onChange={e => this.updateCurrentChatMessage(e)}
-                    type="text"
-                    placeholder="Type a message"
-                    className="chat-input"
-                  />
-                  <button
-                    onClick={e => this.handleSendEvent(e)}
-                    className="send"> Send
-                    <img src="./images/send-message.png" className="send-logo">
-                    </img>
-                  </button>
+                    <div className="inputContainer">
+
+                      <input
+                        value={this.state.currentChatMessage}
+                        onChange={e => this.updateCurrentChatMessage(e)}
+                        type="text"
+                        placeholder="Type a message"
+                        className="chat-input"
+                      />
+                      <button
+                        onClick={e => this.handleSendEvent(e)}
+                        className="send"> Send
+                        <img src="./images/send-message.png" className="send-logo">
+                        </img>
+                      </button>
+
+                    </div>
+
+                  <div className="closeX" onClick={this.closeChat}>
+                    close chat
+                  </div>
                 </div>
               </div>
 
