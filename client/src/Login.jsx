@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { bake_cookie, read_cookie, delete_cookie } from "sfcookies";
 //submit a form of the user name&password
 //TODO: import the api function(route. method,callback)
 class UserLogin extends Component {
@@ -13,23 +12,6 @@ class UserLogin extends Component {
     // this._handleSubmit = this._handleSubmit.bind(this);
   }
   //
-
-  _list = id => {
-    fetch(
-    `http://localhost:8080/users/${id}/events`,
-    )
-    .then(res => {
-      return res.json();
-    })
-    .then(data => {
-      if (data) {
-        this.props.setList({
-          listItems: data
-        });
-      }
-    });
-  }
-
   _handleSubmit = e => {
     const { email, password } = this.state;
     alert("Submit Login");
@@ -47,15 +29,15 @@ class UserLogin extends Component {
         return res.json();
       })
       .then(data => {
-        console.log("user_login data from backend", data);
+        console.log("user data from backend", data);
         this.props.setUser({
-          status: true,
-          username: data.object.username,
-          userID: data.object.id
+          user: {
+            status: true,
+            user: data.object.username,
+            userID: data.object.id
+          }
         });
-        this._list(this.props.userState.userID);
-        bake_cookie("userCookie", this.props.userState);
-        console.log("login-user: ", read_cookie("userCookie"));
+        console.log("login-user: ", this.props.loginUser);
       });
     //call the props and change the state of user in app.js
     // this.props.UserLogin(email, username, password);
@@ -63,8 +45,23 @@ class UserLogin extends Component {
 
   render() {
     return (
-      <div claseName="container login-wrappers">
-        <div className="login-form">
+      <div claseName="container registration-wrappers">
+        <div className="registration-form">
+          <label for="user-name">Username</label>
+          <input
+            type="text"
+            id="login-username"
+            className="form-user"
+            onChange={e => {
+              this.setState({
+                username: e.target.value
+              });
+            }}
+            value={this.state.username}
+          />
+        </div>
+
+        <div className="registration-form">
           <label for="user-email">Email</label>
           <input
             type="email"
@@ -79,7 +76,7 @@ class UserLogin extends Component {
           />
         </div>
 
-        <div className="login-form">
+        <div className="registration-form">
           <label for="user-password">Password</label>
           <input
             type="text"
@@ -101,7 +98,7 @@ class UserLogin extends Component {
             className="mt-5 form-control btn btn-success"
             id="submitBtn"
           >
-            Login in
+            Submit
           </button>
         </div>
       </div>
