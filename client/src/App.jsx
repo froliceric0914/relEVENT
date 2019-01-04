@@ -207,6 +207,7 @@ class App extends Component {
 
   }
 
+
   // function handleSendEvent to handle the onClick event and do the message sending
   handleSendEvent(event) {
     event.preventDefault();
@@ -484,7 +485,7 @@ class App extends Component {
         })
         .then(data => {
           if (data) {
-            this.setState({ 
+            this.setState({
               eventId: eventId,
               event_name: eventName,
               img_url: imgUrl,
