@@ -6,7 +6,7 @@ import * as ReactBootstrap from "react-bootstrap";
 //TODO: add onclick to chat button. show chat component
 //TODO: add styling
 const _clickHandler = e => {
-  console.log("thiddddd", e.target.parentElement.parentElement.parentElement);
+  // console.log("thiddddd", e.target.parentElement.parentElement.parentElement);
 
   $(e.target.parentElement.parentElement.parentElement).toggleClass("test");
 
