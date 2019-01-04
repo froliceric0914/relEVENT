@@ -223,6 +223,22 @@ class App extends Component {
     });
   }
 
+  newMessageFn(event) {
+    if (event.key === 'Enter') {
+      event.preventDefault();
+      this.chats.create(
+        this.state.currentChatMessage,
+        this.state.user.userID,
+        this.state.eventId,
+        this.state.event_name,
+        this.state.img_url
+      );
+      this.setState({
+        currentChatMessage: ""
+      });
+    }
+  }
+
   handleIconClick(event) {
     let selectedIcon = event.target.getAttribute("data-name");
 
@@ -440,8 +456,6 @@ class App extends Component {
     //   width: "toggle"
     // });
     $(".myList").is(":visible")? $(".myList").slideUp(): $(".myList").slideDown();
-
-
   }
 
 
@@ -615,6 +629,7 @@ class App extends Component {
                       <input
                         value={this.state.currentChatMessage}
                         onChange={e => this.updateCurrentChatMessage(e)}
+                        onKeyPress={e => this.newMessageFn(e)}
                         type="text"
                         placeholder="Type a message"
                         className="chat-input"
