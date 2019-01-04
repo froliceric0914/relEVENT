@@ -214,8 +214,8 @@ class App extends Component {
       this.state.currentChatMessage,
       this.state.user.userID,
       this.state.eventId,
-      this.state.eventName,
-      this.state.imgUrl
+      this.state.event_name,
+      this.state.img_url
     );
     this.setState({
       currentChatMessage: ""
@@ -413,6 +413,7 @@ class App extends Component {
       })
       .then(data => {
         if (data) {
+          console.log("message!",data);
           //  this.listUpdater(data);
           this.setState({ messages: data });
         }
@@ -457,6 +458,7 @@ class App extends Component {
       return;
     }
 
+    let eventId = event.target.name;
     let eventName = event.target.getAttribute("data-event-name");
     let imgUrl = event.target.getAttribute("data-img-url");
 
@@ -475,12 +477,6 @@ class App extends Component {
       $(event.target).css("background-color", "#ff9933");
       $(event.target).text("Close Chat");
 
-      this.setState({
-        eventId: event.target.name,
-        event_name: eventName,
-        img_url: imgUrl
-      });
-
       // retrieve messages that belong to an event requested
       fetch(`http://localhost:8080/events/${event.target.name}/messages`)
         .then(res => {
@@ -488,7 +484,11 @@ class App extends Component {
         })
         .then(data => {
           if (data) {
-            this.setState({ messages: data });
+            this.setState({ 
+              eventId: eventId,
+              event_name: eventName,
+              img_url: imgUrl,
+              messages: data });
           }
         });
       return;
