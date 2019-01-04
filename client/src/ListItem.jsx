@@ -15,7 +15,7 @@ const ListItem = ({
   //   })
   //   .then(data => {
   //        return  data;
-  //   }); 
+  //   });
   // }
 
   let eventId = listItem.event.external_event_id;
@@ -46,8 +46,8 @@ const ListItem = ({
             data-id={eventId} onClick={handleListItemClick} />
           </div>
           <div className="col-md-7 list-txt">
-            <div>
-              {listItem.event.name.substring(35) ? listItem.event.name.substring(0, 35)+ "..." : listItem.event.name}
+            <div className="event-title"  data-id={eventId} onClick={handleListItemClick} >
+              {listItem.event.name.substring(25) ? listItem.event.name.substring(0, 25)+ "..." : listItem.event.name}
             </div>
             <i className={likeClass} />
           </div>
