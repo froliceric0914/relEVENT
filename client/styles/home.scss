@@ -89,28 +89,38 @@ main {
 //***************** event *****************//
 
 .eventList {
-  background: grey;
-  min-width: 50%;
+  background: white;
+  margin-top: 10rem;
+  min-width: 60%;
+
 }
 
-.icons{
+.event-card {
+  padding: 3rem;
+  column-gap: 10rem;
+  border: 1rem solid black;
+  width: 15rem;
+  height: 30rem;
+}
+
+.icons {
   font-size: 2rem;
-  
-  i:hover{
+
+  i:hover {
     cursor: pointer;
   }
-  
-  .fa-heart{
+
+  .fa-heart {
     color: red;
   }
-  
-  .fa-bookmark{
+
+  .fa-bookmark {
     color: green;
   }
 }
 
-.iconSideError{
-  color:red;
+.iconSideError {
+  color: red;
 }
 
 //***************** chat *****************//
@@ -118,7 +128,7 @@ main {
   background: green;
   width: 100%;
   height: 700px;
-  margin:0 auto;
+  margin: 0 auto;
   display: none;
 
   .messageList {
@@ -126,20 +136,21 @@ main {
   }
 }
 
-.stage{
+.stage {
   height: 100%;
 }
 
-.right{
+.right {
   float: right;
 }
 
-.closeX{
-  font-size:3rem;
+.closeX {
+  font-size: 3rem;
 }
-.closeX:hover{
-   cursor: pointer;
-   opacity: 0.8;
+
+.closeX:hover {
+  cursor: pointer;
+  opacity: 0.8;
 }
 
 //**** chatbar ****//
@@ -218,26 +229,27 @@ main {
   display: none;
   background-color: white;
   width: 40%;
+
   // text-align: center;
-  h3{
+  h3 {
     padding: 0.2rem;
   }
 
-  .notify{
-    margin:0.3rem
+  .notify {
+    margin: 0.3rem
   }
 
-  .fa-heart{
+  .fa-heart {
     color: red;
     font-size: 1rem;
   }
- 
-  .list-txt{
-    font-size:1.2rem;
+
+  .list-txt {
+    font-size: 1.2rem;
     padding-left: 0;
   }
 
-  .img{
+  .img {
     position: cover;
   }
 }
