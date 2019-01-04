@@ -68,53 +68,54 @@ r_events = RestClient.get("https://www.eventbriteapi.com/v3/events/search/?sort_
 
 # @categories = Category.all
 
+# somewhat got error so do comment out for now ============================
+# @events.each do |event| 
+#   category_id = event["category_id"]
+#   @category = Category.find_by_category_id(category_id)
 
-@events.each do |event| 
-  category_id = event["category_id"]
-  @category = Category.find_by_category_id(category_id)
+#   if @category 
+#     Event.create!(
+#       name: event["name"]["text"], 
+#       external_event_id: event["id"], 
+#       like_count: 0, 
+#       description: event["description"]["text"], 
+#       start_local: event["start"]["local"], 
+#       end_local: event["end"]["local"],
+#       logo_url: event["logo"]["url"],
+#       event_url: event["url"], 
+#       city: event["venue"]["address"]["city"], 
+#       region: event["venue"]["address"]["region"], 
+#       venue_name: event["venue"]["name"], 
+#       venue_address: event["venue"]["address"]["localized_address_display"], 
+#       latitude: event["venue"]["latitude"], 
+#       longitude: event["venue"]["longitude"], 
+#       category: @category, 
+#       is_free: event["is_free"], 
+#       cost: "30"
+#     )
+#   end
+  
+# end
 
-  if @category 
-    Event.create!(
-      name: event["name"]["text"], 
-      external_event_id: event["id"], 
-      like_count: 0, 
-      description: event["description"]["text"], 
-      start_local: event["start"]["local"], 
-      end_local: event["end"]["local"],
-      logo_url: event["logo"]["url"],
-      event_url: event["url"], 
-      city: event["venue"]["address"]["city"], 
-      region: event["venue"]["address"]["region"], 
-      venue_name: event["venue"]["name"], 
-      venue_address: event["venue"]["address"]["localized_address_display"], 
-      latitude: event["venue"]["latitude"], 
-      longitude: event["venue"]["longitude"], 
-      category: @category, 
-      is_free: event["is_free"], 
-      cost: "30"
-    )
-  end
-end
-
-######### User_event #########
-users_event1 = UsersEvent.create!(user: user1, event: Event.first, bookmarked:true, liked: true);
-users_event2 = UsersEvent.create!(user: user1, event: Event.second, bookmarked:true, liked: false);
-users_event1 = UsersEvent.create!(user: user1, event: Event.third, bookmarked:false, liked: true);
-users_event3 = UsersEvent.create!(user: user2, event: Event.first, bookmarked:true, liked: true);
+# ######### User_event #########
+# users_event1 = UsersEvent.create!(user: user1, event: Event.first, bookmarked:true, liked: true);
+# users_event2 = UsersEvent.create!(user: user1, event: Event.second, bookmarked:true, liked: false);
+# # users_event1 = UsersEvent.create!(user: user1, event: Event.third, bookmarked:false, liked: true);
+# users_event3 = UsersEvent.create!(user: user2, event: Event.first, bookmarked:true, liked: true);
 
 
-######### Message #########
-message1 = Message.create!(event: Event.first, user: user1, content: "I can't wait! Anyone else going??");  
-message2 = Message.create!(event: Event.first, user: user2, content: "I'll DEFINITELY be there!"); 
-message3 = Message.create!(event: Event.first, user: user3, content: "This looks super funnnnnn!!"); 
-message4 = Message.create!(event: Event.first, user: user4, content: "See you guys there!");
-message5 = Message.create!(event: Event.first, user: user1, content: "WAHOOOOOOO!!");  
-message6 = Message.create!(event: Event.first, user: user3, content: "Yeeeeeeeeey!!"); 
+# ######### Message #########
+# message1 = Message.create!(event: Event.first, user: user1, content: "I can't wait! Anyone else going??");  
+# message2 = Message.create!(event: Event.first, user: user2, content: "I'll DEFINITELY be there!"); 
+# message3 = Message.create!(event: Event.first, user: user3, content: "This looks super funnnnnn!!"); 
+# message4 = Message.create!(event: Event.first, user: user4, content: "See you guys there!");
+# message5 = Message.create!(event: Event.first, user: user1, content: "WAHOOOOOOO!!");  
+# message6 = Message.create!(event: Event.first, user: user3, content: "Yeeeeeeeeey!!"); 
 
-message7 = Message.create!(event: Event.second, user: user3, content: "Is this event good??");  
-message8 = Message.create!(event: Event.second, user: user1, content: "Last year's was amazing!"); 
-message9 = Message.create!(event: Event.second, user: user3, content: "I should go!"); 
-message10 = Message.create!(event: Event.second, user: user2, content: "Let me join!");
+# message7 = Message.create!(event: Event.second, user: user3, content: "Is this event good??");  
+# message8 = Message.create!(event: Event.second, user: user1, content: "Last year's was amazing!"); 
+# message9 = Message.create!(event: Event.second, user: user3, content: "I should go!"); 
+# message10 = Message.create!(event: Event.second, user: user2, content: "Let me join!");
 
 
 

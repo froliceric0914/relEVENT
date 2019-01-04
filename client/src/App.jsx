@@ -9,6 +9,7 @@ import UserLogin from "./UserLogin.jsx";
 import { bake_cookie, read_cookie, delete_cookie } from "sfcookies";
 import MyList from "./MyList.jsx";
 import Scroll from "./Scroll.jsx";
+import ReactDOM from "react-dom";
 
 //TODO: styling
 //TODO: need sanitize for user input
@@ -69,6 +70,15 @@ class App extends Component {
       });
   };
 
+  scrollToBottom = () => {
+    let messageList = document.getElementById("messageList");
+    const scrollHeight = messageList.scrollHeight;
+    const height = messageList.clientHeight;
+    const maxScrollTop = scrollHeight - height;
+    ReactDOM.findDOMNode(messageList).scrollTop =
+      maxScrollTop > 0 ? maxScrollTop : 0;
+  };
+
   componentWillMount() {
     this.state.user = read_cookie("userCookie");
     this.createSocket();
@@ -121,6 +131,10 @@ class App extends Component {
   }
 
   componentDidMount() {}
+
+  componentDidUpdate() {
+    this.scrollToBottom();
+  }
 
   searchEvent(keyword, category, location, localWithin) {
     this.setState({ listItemSelected: false });
@@ -198,10 +212,9 @@ class App extends Component {
       this.state.currentChatMessage,
       this.state.user.userID,
       this.state.eventId,
-      this.state.eventName,
-      this.state.imgUrl
+      this.state.event_name,
+      this.state.img_url
     );
-
     this.setState({
       currentChatMessage: ""
     });
@@ -398,6 +411,7 @@ class App extends Component {
       })
       .then(data => {
         if (data) {
+          console.log("message!", data);
           //  this.listUpdater(data);
           this.setState({ messages: data });
         }
@@ -407,6 +421,7 @@ class App extends Component {
       $("body .card-text .chatButton").css("background-color", "#ff9933");
       $("body .card-text .chatButton").text("Close Chat");
     }
+    this.scrollToBottom();
   }
 
   // when x Icon on an event from myList was clicked
@@ -418,9 +433,12 @@ class App extends Component {
 
   // Open user's MyList
   openMyList(event) {
-    $(".myList").animate({
-      width: "toggle"
-    });
+    // $(".myList").animate({
+    //   width: "toggle"
+    // });
+    $(".myList").is(":visible")
+      ? $(".myList").slideUp()
+      : $(".myList").slideDown();
   }
 
   // Open Chat space
@@ -437,6 +455,7 @@ class App extends Component {
       return;
     }
 
+    let eventId = event.target.name;
     let eventName = event.target.getAttribute("data-event-name");
     let imgUrl = event.target.getAttribute("data-img-url");
 
@@ -455,12 +474,6 @@ class App extends Component {
       $(event.target).css("background-color", "#ff9933");
       $(event.target).text("Close Chat");
 
-      this.setState({
-        eventId: event.target.name,
-        event_name: eventName,
-        img_url: imgUrl
-      });
-
       // retrieve messages that belong to an event requested
       fetch(`http://localhost:8080/events/${event.target.name}/messages`)
         .then(res => {
@@ -468,7 +481,12 @@ class App extends Component {
         })
         .then(data => {
           if (data) {
-            this.setState({ messages: data });
+            this.setState({
+              eventId: eventId,
+              event_name: eventName,
+              img_url: imgUrl,
+              messages: data
+            });
           }
         });
       return;
@@ -556,27 +574,20 @@ class App extends Component {
           </button>
         </nav>
 
-        <div className="userRegistration">
-          <UserRegistration
-            setUser={user => this.setState({ user })}
-            userState={this.state.user}
-          />
-        </div>
-
-        <div className="userLogin">
-          <UserLogin
-            setUser={user => this.setState({ user })}
-            setList={listItems => this.setState(listItems)}
-            userState={this.state.user} // render it in the nav
-          />
-        </div>
-
         <main>
           <div className="column">
-            <div className="searchPanel">
-              <SearchPanel
-                searchEvent={this.searchEvent}
-                categories={this.state.categories}
+            <div className="userRegistration">
+              <UserRegistration
+                setUser={user => this.setState({ user })}
+                userState={this.state.user}
+              />
+            </div>
+
+            <div className="userLogin">
+              <UserLogin
+                setUser={user => this.setState({ user })}
+                setList={listItems => this.setState(listItems)}
+                userState={this.state.user} // render it in the nav
               />
             </div>
 
@@ -596,37 +607,42 @@ class App extends Component {
 
               <div className="chatSpace">
                 <div className="stage">
-                  <Scroll width="100%" height="500px">
-                    <div
-                      className="chatSpaceHeader"
-                      style={{
-                        position: "sticky",
-                        top: "0",
-                        backgroundColor: "#fff"
-                      }}
-                    >
-                      <h1 style={{ margin: "0" }}>Chat</h1>
-                      <div className="closeX" onClick={this.closeChat}>
-                        x
+                  <Scroll width="100%" height="500px" idName="messageList">
+                    {/* <div id="messageList"> */}
+                    <div className="chatHeaderContainer">
+                      <div className="chatSpaceHeader">
+                        <h1>Chat</h1>
                       </div>
                     </div>
                     {/* <i id="closeX" className="fas fa-times fa-2x" onClick={this.closeChat}></i> */}
                     <div className="chat-logs">{messages}</div>
+                    {/* </div> */}
                   </Scroll>
 
-                  <input
-                    value={this.state.currentChatMessage}
-                    onChange={e => this.updateCurrentChatMessage(e)}
-                    type="text"
-                    placeholder="Enter your message..."
-                    className="chat-input"
-                  />
-                  <button
-                    onClick={e => this.handleSendEvent(e)}
-                    className="send"
-                  >
-                    Send
-                  </button>
+                  <div className="inputContainer">
+                    <input
+                      value={this.state.currentChatMessage}
+                      onChange={e => this.updateCurrentChatMessage(e)}
+                      type="text"
+                      placeholder="Type a message"
+                      className="chat-input"
+                    />
+                    <button
+                      onClick={e => this.handleSendEvent(e)}
+                      className="send"
+                    >
+                      {" "}
+                      Send
+                      <img
+                        src="./images/send-message.png"
+                        className="send-logo"
+                      />
+                    </button>
+                  </div>
+
+                  <div className="closeX" onClick={this.closeChat}>
+                    close chat
+                  </div>
                 </div>
               </div>
             </div>

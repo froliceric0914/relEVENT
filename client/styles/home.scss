@@ -120,114 +120,184 @@ main {
   color: red;
 }
 
+.icons {
+  font-size: 2rem;
+
+  i:hover {
+    cursor: pointer;
+  }
+
+  .fa-heart {
+    color: red;
+  }
+
+  .fa-bookmark {
+    color: green;
+  }
+}
+
+.iconSideError {
+  color: red;
+}
+
 //***************** chat *****************//
+
 .chatSpace {
-  background: green;
+  background-color: white;
   width: 100%;
-  height: 700px;
+  height: 100%;
   margin: 0 auto;
   display: none;
+  min-width: 0;
+  border-style: solid;
+  border-width: 2px;
+  border-color: #585859;
+  border-radius: 25px;
+  padding: 20px;
+  margin: 10px;
 
   .messageList {
     height: 100%;
   }
 }
 
-.stage {
-  height: 100%;
+.chatHeaderContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
 
-.right {
-  float: right;
+.chatSpaceHeader {
+  border-radius: 25px;
+  top: 0;
+  width: 50%;
+  margin: 0;
 }
 
 .closeX {
   font-size: 3rem;
+  width: 100%;
+  font-size: 13px;
+  text-decoration: underline;
+  padding-top: 7px;
+  text-align: right;
+  padding-top: 12px;
 }
 .closeX:hover {
   cursor: pointer;
   opacity: 0.8;
 }
 
+// .stage{
+//   height: 100%;
+//   border-width: 10px;
+//   border-color: black;
+//   border-radius: 25px;
+// }
+
 //**** chatbar ****//
-.chatbar {
-  background: gold;
-  position: fixed;
+
+.inputContainer {
   display: flex;
-  right: auto;
-  left: auto;
-  bottom: 0;
-  margin: 0 0 0 0;
+  justify-content: space-around;
+  align-items: center;
 }
 
-.chatbar-message,
-.chatbar-username {
-  display: block;
+.chat-input {
+  border-radius: 25px;
+  border-style: solid;
   height: 40px;
-  line-height: 40px;
-  margin: 5px;
-  padding: 0 9px;
+  padding-left: 50px;
+  border-color: #585859;
 }
 
-.chatbar-message {
-  flex: 8;
+.chat-input:focus {
+  outline: none;
 }
 
-.chatbar-username {
-  flex: 2;
+.send {
+  border-radius: 25px;
+  border-style: solid;
+  height: 30px;
+  border-width: 2px;
+  border-color: #585859;
+  margin-left: 15px;
+  width: 100px;
+  background-color: #dce6f7;
+}
+
+.send-logo {
+  height: 15px;
+  width: 15px;
+  padding-left: 4px;
+  padding-bottom: 2px;
+}
+
+.send:hover {
+  border-radius: 25px;
+  border-style: solid;
+  height: 30px;
+  background-color: #7ca8ef;
+  color: white;
+  margin-left: 15px;
+  width: 100px;
+}
+
+.send:focus {
+  outline: none;
+  border-radius: 25px;
+  border-style: solid;
+  height: 30px;
+  background-color: #dce6f7;
+  color: black;
+  margin-left: 15px;
+  width: 100px;
 }
 
 //**** message ****//
-.message {
-  display: flex;
-  padding: 0 5px;
+
+.chat-logs {
+  padding: 15px;
 }
 
-.notification {
-  font-style: italic;
-  padding: 5px 20px;
+.userMessageContainer {
+  padding: 5px;
 }
 
-.message-content,
-.message-username {
-  margin: 5px;
-  padding: 0 10px;
-  word-wrap: break-word;
+.messageContent {
+  overflow-wrap: break-word;
 }
 
-.message-content {
-  max-width: 80%;
-
-  .content-wrapper {
-    overflow: hidden;
-    border-radius: 20px;
-    padding: 10px 14px;
-    max-width: 80%;
-  }
-
-  img {
-    max-width: 100%;
-    margin: 0;
-    vertical-align: bottom;
-  }
+.userImage {
+  height: 30px;
+  width: 36px;
+  padding-right: 6px;
 }
 
-.message-username {
-  min-width: 20%;
-  max-width: 300px;
-  font-weight: 700;
-  padding: 10px;
+.messageTime {
+  font-size: 9px;
+  float: right;
 }
 
 //***************** myList *****************//
 
 .myList {
+  // box-sizing: border-box;
+  margin: 1rem;
   display: none;
+  position: fixed;
   background-color: white;
-  width: 40%;
+  width: 25%;
+  right: 10px;
+  top: 45px;
+  max-height: 70%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  z-index: 1;
   // text-align: center;
   h3 {
     padding: 0.2rem;
+    position: sticky;
   }
 
   .notify {
@@ -244,11 +314,21 @@ main {
     padding-left: 0;
   }
 
-  .img {
-    position: cover;
+  .event-title {
+    text-decoration: underline;
   }
-}
 
-.myList img:hover {
-  cursor: pointer;
+  // img{
+  //   position: cover;
+  //   opacity: 1;
+  // }
+
+  img:hover,
+  .event-title:hover {
+    cursor: pointer;
+  }
+
+  .listItem:hover {
+    background-color: #ddd;
+  }
 }
