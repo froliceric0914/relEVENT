@@ -37,89 +37,92 @@ class SearchPanel extends Component {
 
   render() {
     return (
-      <div className="container search-wrapper">
-        <div id="search-events" className="card card-body">
-          <div className="form-group">
-            <label for="event-name">Keyword</label>
-            <input
-              type="text"
-              id="event-name"
-              className="form-control"
-              onChange={e => {
-                this.setState({
-                  keyword: e.target.value
-                });
-              }}
-              value={this.state.keyword}
-              placeholder="all the fantastic starts from here"
-            />
-          </div>
+      <div className="s01">
+        <form>
+          <div className="inner-form">
+            <div className="input-field first-wrap">
+              <label for="event-name">Keyword</label>
+              <input
+                type="text"
+                id="event-name"
+                className="form-control"
+                onChange={e => {
+                  this.setState({
+                    keyword: e.target.value
+                  });
+                }}
+                value={this.state.keyword}
+                placeholder="all the fantastic starts from here"
+              />
+            </div>
 
-          <div className="form-group">
-            <label for="category">Category</label>
-            <select
-              className="form-control"
-              id="category"
-              onChange={e => {
-                this.setState({ category: e.target.value });
-              }}
-            >
-              {this.props.categories.map(categoryOption => {
-                return (
-                  <option value={categoryOption.id} key={categoryOption.id}>
-                    {categoryOption.name}
-                    {/* selected={} */}
-                  </option>
-                );
-              })}
-            </select>
-          </div>
+            <div className="input-field first-wrap">
+              <label for="category">Category</label>
+              <select
+                className="form-control"
+                id="category"
+                onChange={e => {
+                  this.setState({ category: e.target.value });
+                }}
+              >
+                <option value="">-</option>
+                {this.props.categories.map(categoryOption => {
+                  return (
+                    <option value={categoryOption.id} key={categoryOption.id}>
+                      {categoryOption.name}
+                      {/* selected={} */}
+                    </option>
+                  );
+                })}
+              </select>
+            </div>
 
-          <div className="form-group">
-            <label for="location">Location</label>
-            <input
-              type="text"
-              id="location"
-              className="form-control"
-              onChange={e => {
-                this.setState({
-                  location: e.target.value
-                });
-              }}
-              value={this.state.location}
-              placeholder="Please select a city"
-            />
-          </div>
+            <div className="input-field first-wrap">
+              <label for="location">Location</label>
+              <input
+                type="text"
+                id="location"
+                className="form-control"
+                onChange={e => {
+                  this.setState({
+                    location: e.target.value
+                  });
+                }}
+                value={this.state.location}
+                placeholder="Please select a city"
+              />
+            </div>
 
-          <div className="form-group">
-            <label for="localWithin">Within</label>
-            <input
-              type="text"
-              id="local-within"
-              onChange={e => {
-                this.setState({
-                  localWithin: e.target.value
-                });
-              }}
-              value={this.state.localWithin}
-              className="form-control"
-              placeholder="Please input km/mile"
-            />
-          </div>
+            <div className="input-field second-wrap">
+              <label for="localWithin">Within</label>
+              <input
+                type="text"
+                id="local-within"
+                onChange={e => {
+                  this.setState({
+                    localWithin: e.target.value
+                  });
+                }}
+                value={this.state.localWithin}
+                className="form-control"
+                placeholder="Please input km/mile"
+              />
+            </div>
 
-          <div className="form-group">
-            <button
-              onClick={this._handleSubmit}
-              type="submit"
-              className="mt-5 form-control btn btn-success"
-              id="submitBtn"
-            >
-              Search
-            </button>
+            <div className="input-field third-wrap">
+              <button
+                onClick={this._handleSubmit}
+                type="submit"
+                className="btn-search"
+                // id="submitBtn"
+              >
+                Search
+              </button>
+            </div>
           </div>
-        </div>
+        </form>
 
-        <div id="result" className="row mt-5" />
+        {/* <div id="result" className="row mt-5" /> */}
       </div>
     );
   }
