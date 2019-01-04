@@ -8,6 +8,7 @@ import * as ReactBootstrap from "react-bootstrap";
 const _clickHandler = e => {
   // console.log("thiddddd", e.target.parentElement.parentElement.parentElement);
 
+  // $(e.target.parentElement.parentElement.parentElement).toggleClass("test");
   $(e.target.parentElement.parentElement.parentElement).toggleClass("test");
 
   // ***** come back to dry this
