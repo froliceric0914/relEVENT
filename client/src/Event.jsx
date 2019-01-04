@@ -70,7 +70,7 @@ const Event = ({
 
   return (
     <div className="event-card col-6">
-      <div className="card m-5" style={{ width: "40rem", height: "60rem" }}>
+      <div className="card m-5" style={{ width: "40rem", height: "45rem" }}>
         <div
           className="card-img-top"
           className="event-card-body"
