@@ -15,19 +15,35 @@ body {
   padding: 0;
 }
 
+.flexC{
+  display: flex;
+  flex-direction: column;
+}
+
+.flexR{
+  display: flex;
+}
+
 /////////////////// navbar ///////////////////
 
 .navbar {
-  background: url("../images/torontoSkyline.jpg");
-  height: 300px;
+  // background: url("../images/torontoSkyline+.jpg") no-repeat;
+  background-color: rgb(15, 27, 198);
+  background-size: 100%;
+ background-position: cover;
+ width: 100%;
   left: 0;
-  padding: 0 10px;
+  padding: 0 20px 8px 20px;
   position: fixed;
   right: 0;
   top: 0;
   overflow: hidden;
   color: white;
   z-index: 1;
+  display: flex;
+  flex-flow: column ;
+  margin-bottom: 0;
+  border-radius: 0;
 
   a {
     color: #fff;
@@ -45,17 +61,39 @@ body {
   }
 }
 
-.navbar-brand {
+
+.navbar-content{
+  width: 100%;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  align-items: flex-end;
+  // line-height: 50px;
+  vertical-align: bottom;
+  padding-top: 0.5rem;
+}
+
+.title {
   font-family: "Ubuntu", sans-serif;
   color: inherit;
   display: block;
   float: left;
   font-weight: 700;
   font-size: 28px;
-  height: 60px;
-  line-height: 60px;
+  
   padding: 0 10px;
   text-decoration: none;
+}
+
+.enter{
+  padding: 5px;
+
+  div{
+    text-decoration: underline;
+  }
+
+  div:hover{
+    cursor: pointer;
+  }
 }
 
 .userRegistration {
@@ -84,9 +122,48 @@ main {
 
 //***************** search *****************//
 .searchPanel {
-  background-color: yellowgreen;
-  display: block;
+  width: 100%;
+  background-color: rgba(0,0,0,0.3);
+  border-radius: 0.5rem;
+  // padding: 5rem;
+  // margin: 5rem;
+
+  form {
+   
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+  }
+
+  .form-wrap {
+    padding: 1rem;
+    padding-top: 0;
+  }
+
+  label {
+    font-size: 1.1rem;
+    font-family: "Open Sans", sans-serif;
+    font-weight: 400;
+  }
+
+  .input-field {
+    margin: 1rem;
+  }
+
+  .btn-search {
+    margin-bottom: 0;
+    border-radius: 0.2rem;
+    background-color: green;
+    color: white;
+    border: 0px;
+  }
+
+  .third-wrap {
+    height: 100%;
+  }
 }
+
 
 .mainContent {
   width: 100%;

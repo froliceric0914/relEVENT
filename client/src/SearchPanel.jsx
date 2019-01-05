@@ -7,7 +7,7 @@ class SearchPanel extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      keyword: "drake",
+      keyword: "",
       category: "",
       location: "toronto",
       localWithin: "50km"
@@ -37,10 +37,10 @@ class SearchPanel extends Component {
 
   render() {
     return (
-      <div className="s01">
+      <div className="searchPanel">
         <form>
-          <div className="inner-form">
-            <div className="input-field first-wrap">
+          {/* <div className="inner-form"> */}
+            <div className="form-wrap">
               <label for="event-name">Keyword</label>
               <input
                 type="text"
@@ -52,11 +52,12 @@ class SearchPanel extends Component {
                   });
                 }}
                 value={this.state.keyword}
-                placeholder="all the fantastic starts from here"
+                placeholder="ex.market"
+                // placeholder="all the fantastic starts from here"
               />
             </div>
 
-            <div className="input-field second-wrap">
+            <div className="form-wrap">
               <label for="category">Category</label>
               <select
                 className="form-control"
@@ -77,7 +78,7 @@ class SearchPanel extends Component {
               </select>
             </div>
 
-            <div className="input-field second-wrap">
+            <div className=" form-wrap">
               <label for="location">Location</label>
               <input
                 type="text"
@@ -93,7 +94,7 @@ class SearchPanel extends Component {
               />
             </div>
 
-            <div className="input-field second-wrap">
+            <div className=" form-wrap">
               <label for="localWithin">Within</label>
               <input
                 type="text"
@@ -109,17 +110,17 @@ class SearchPanel extends Component {
               />
             </div>
 
-            <div className="input-field third-wrap">
+            <div className=" form-wrap">
               <button
                 onClick={this._handleSubmit}
-                type="submit"
+                // type="submit"
                 className="btn-search"
                 // id="submitBtn"
               >
                 Search
               </button>
             </div>
-          </div>
+          {/* </div> */}
         </form>
 
         {/* <div id="result" className="row mt-5" /> */}

@@ -141,6 +141,11 @@ class App extends Component {
     this.setState({ listItemSelected: false });
     this.closeChat();
 
+    console.log("keyword", keyword);
+    console.log("keycword", category);
+    console.log("keywlord", location);
+    console.log("keywllllord", localWithin);
+    
     const getURL = `https://www.eventbriteapi.com/v3/events/search/?q=${keyword}&expand=organizer,venue&sort_by=${
       this.state.orderby
     }&categories=${category}&location.address=${location}&location.within=${localWithin}&token=${
@@ -521,69 +526,74 @@ class App extends Component {
     return (
       <div>
         <nav className="navbar">
-          <a href="/" className="navbar-brand">
-            relEVENT
-          </a>
-          {this.state.user.username}
-          <button
-            style={{ display: this.state.user.status ? "none" : "block" }}
-            onClick={e => {
-              $(".userRegistration").toggle();
-            }}
-          >
-            register
-          </button>
-          &nbsp;
-          <button
-            style={{ display: this.state.user.status ? "none" : "block" }}
-            onClick={e => {
-              $(".userLogin").toggle();
-            }}
-          >
-            login
-          </button>
-          &nbsp;
-          <button
-            style={{ display: this.state.user.status ? "block" : "none" }}
-            onClick={e => {
-              delete_cookie("userCookie");
-              this.closeChat();
-              $(".myList").hide();
-              this.setState({
-                events: this.state.eventsTmp,
-                user: {
-                  status: false,
-                  username: null,
-                  userID: null
-                },
-                listItems: [],
-                listItemSelected: false,
-                currentChatMessage: "",
-                eventId: "0"
-              });
-            }}
-          >
-            logout
-          </button>
-          &nbsp;
-          <button>search</button>&nbsp;
-          <button
-            style={{ display: this.state.user.status ? "block" : "none" }}
-            onClick={this.openMyList}
-          >
-            Mylist
-          </button>
-          <div className="searchPanel">
+          <div className="navbar-content flexR">
+            <a href="/" className="title">
+              relEVENT
+            </a>
+            {this.state.user.username}
+
+            <div className="enter flexR"> 
+              <div
+                style={{ display: this.state.user.status ? "none" : "block" }}
+                onClick={e => {
+                  $(".userRegistration").toggle();
+                }}
+              >
+                register
+              </div>
+              /
+              <div
+                style={{ display: this.state.user.status ? "none" : "block" }}
+                onClick={e => {
+                  $(".userLogin").toggle();
+                }}
+              >
+                login
+              </div>
+            </div>
+         
+            {/* <button
+              style={{ display: this.state.user.status ? "block" : "none" }}
+              onClick={e => {
+                delete_cookie("userCookie");
+                this.closeChat();
+                $(".myList").hide();
+                this.setState({
+                  events: this.state.eventsTmp,
+                  user: {
+                    status: false,
+                    username: null,
+                    userID: null
+                  },
+                  listItems: [],
+                  listItemSelected: false,
+                  currentChatMessage: "",
+                  eventId: "0"
+                });
+              }}
+            >
+              logout
+            </button> */}
+  
+            
+            {/* <button
+              style={{ visibility: this.state.user.status ? "block" : "hidden" }}
+              onClick={this.openMyList}
+            >
+              Mylist
+            </button> */}
+          </div>
+          {/* <div className="searchPanel"> */}
             <SearchPanel
               searchEvent={this.searchEvent}
               categories={this.state.categories}
             />
-          </div>
+          {/* </div> */}
         </nav>
 
         <main>
           <div className="column">
-            <div className="userRegistration">
+            {/* <div className="userRegistration">
               <UserRegistration
                 setUser={user => this.setState({ user })}
                 userState={this.state.user}
@@ -596,7 +606,7 @@ class App extends Component {
                 setList={listItems => this.setState(listItems)}
                 userState={this.state.user} // render it in the nav
               />
-            </div>
+            </div> */}
 
             <div className="mainContent">
               <Scroll width="100%" height="700px">
