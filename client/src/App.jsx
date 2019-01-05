@@ -632,8 +632,9 @@ class App extends Component {
                         onKeyPress={e => this.newMessageFn(e)}
                         type="text"
                         placeholder="Type a message"
-                        className="chat-input"
+                        className="input"
                       />
+                      <span class="underline"></span>
                       <button
                         onClick={e => this.handleSendEvent(e)}
                         className="send"> Send
