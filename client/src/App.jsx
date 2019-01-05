@@ -633,7 +633,7 @@ class App extends Component {
                 <div className="stage">
                   <Scroll width="100%" height="500px" idName="messageList">
                     {/* <div id="messageList"> */}
-                    <div className="chatHeaderContainer">
+                    <div className="chatHeaderContainer"  style={{position: "sticky", top: "0", backgroundColor: "#fff"}}>
                       <div className="chatSpaceHeader">
                         <h1>Chat</h1>
                       </div>
