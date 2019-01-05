@@ -537,7 +537,9 @@ class App extends Component {
           <button
             style={{ display: this.state.user.status ? "none" : "block" }}
             onClick={e => {
-              $(".userLogin").toggle();
+              // console.log("click login", $(".login-wrapper"));
+              // $(".login-wrapper").style.display = "none";
+              document.querySelector(".login-wrapper").style.display = "flex";
             }}
           >
             login
@@ -590,7 +592,7 @@ class App extends Component {
               />
             </div>
 
-            <div className="userLogin">
+            <div className="login-wrapper">
               <UserLogin
                 setUser={user => this.setState({ user })}
                 setList={listItems => this.setState(listItems)}
