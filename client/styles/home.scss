@@ -145,6 +145,7 @@ main {
   border-style: solid;
   border-width: 2px;
   border-color: #585859;
+  background-image: linear-gradient(to bottom right, #7da8ed, pink);
   border-radius: 25px;
   padding: 20px;
   margin: 10px;
@@ -264,6 +265,8 @@ main {
 
 .chat-logs {
   padding: 15px;
+  background-color: white;
+  border-radius: 15px;
 }
 
 .userMessageContainer {
