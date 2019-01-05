@@ -1,5 +1,6 @@
 import React from "react";
 import * as ReactBootstrap from "react-bootstrap";
+import { Button, Icon } from "react-materialize";
 
 //This is an event info pane for an event.
 //TODO: add other values. img, description, venue, cost etc...
@@ -17,8 +18,6 @@ const _clickHandler = e => {
   //   .toggleClass("test");
 
   console.log("clicked");
-  //   .closest("card m-5 flip-card")
-  //   .addClass(".flip-card .flip-card-inner");
 };
 
 const Event = ({
@@ -36,7 +35,7 @@ const Event = ({
   if (event.logo && event.logo.url) {
     img = (
       <img
-        classNameName="img-fluid mb-2"
+        className="img-fluid mb-2"
         src={event.logo.url}
         style={{ borderTopLeftRadius: "10px", borderTopRightRadius: "10px" }}
       />
@@ -93,7 +92,7 @@ const Event = ({
     // <div className="event-card col-6">
     <div
       className="card m-5 flip-card"
-      style={{ width: "40rem", height: "45rem" }}
+      style={{ width: "40rem", height: "40rem" }}
     >
       <div className="flip-card-inner">
         <div className="flip-card-front">
@@ -120,8 +119,12 @@ const Event = ({
               Location: {event.venue.address.address_1}{" "}
             </span>
             <p className="card-text" />
-            <a href="#" className="btn btn-primary" onClick={_clickHandler}>
-              Description
+            <a
+              href="#"
+              className="btn btn-primary detailsButton"
+              onClick={_clickHandler}
+            >
+              Details
             </a>
             <div className="icons">
               <i
@@ -133,7 +136,7 @@ const Event = ({
                 className={likeclassName}
                 onClick={handleIconClick}
               />
-              <span>{likeCount}</span>
+              <span className="like-counter">{likeCount}</span>
               &nbsp;
               <i
                 data-on={bookmarkIcon}
@@ -144,14 +147,10 @@ const Event = ({
                 className={bookmarkclassName}
                 onClick={handleIconClick}
               />
+              <i className="fas fa-bookmark icon whiteBookmark " />
             </div>
             <div className="iconSideError" />
             <div className="iconSideMessage" />
-            <a
-              href={event.url}
-              target="_blank"
-              className="btn btn-primary btn-block mt-4"
-            />
             <button
               className="chatButton btn btn-danger btn-block mt-4"
               name={event.id}
@@ -179,8 +178,20 @@ const Event = ({
               ? event.description.text.substring(0, 300) + "..."
               : event.description.text}
           </p>
-          <a href="#" className="btn btn-primary" onClick={_clickHandler}>
-            flip!
+          <a
+            href={event.url}
+            target="_blank"
+            className="btn btn-primary btn-block mt-4 more-button"
+          >
+            {" "}
+            More
+          </a>
+          <a
+            href="#"
+            className="btn btn-primary backButton"
+            onClick={_clickHandler}
+          >
+            Back
           </a>
         </div>
       </div>
