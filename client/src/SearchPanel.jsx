@@ -41,7 +41,7 @@ class SearchPanel extends Component {
         <form>
           {/* <div className="inner-form"> */}
             <div className="form-wrap">
-              <label for="event-name">Keyword</label>
+              <label>Keyword</label>
               <input
                 type="text"
                 id="event-name"
@@ -52,13 +52,13 @@ class SearchPanel extends Component {
                   });
                 }}
                 value={this.state.keyword}
-                placeholder="ex.market"
+                placeholder="ex.festival"
                 // placeholder="all the fantastic starts from here"
               />
             </div>
 
             <div className="form-wrap">
-              <label for="category">Category</label>
+              <label>Category</label>
               <select
                 className="form-control"
                 id="category"
@@ -78,8 +78,37 @@ class SearchPanel extends Component {
               </select>
             </div>
 
+            {/* <div className="form-wrap">
+              <label>start-date</label>
+              <input
+                type="text"
+                id="start-date"
+                className="form-control"
+                onChange={e => {
+                  this.setState({
+                    keyword: e.target.value
+                  });
+                }}
+                value={this.state.start_date}
+              />
+            </div>
+            <div className="form-wrap">
+              <label>end-date</label>
+              <input
+                type="text"
+                id="end-date"
+                className="form-control"
+                onChange={e => {
+                  this.setState({
+                    keyword: e.target.value
+                  });
+                }}
+                value={this.state.end_date}
+              />
+            </div> */}
+
             <div className=" form-wrap">
-              <label for="location">Location</label>
+              <label>Location</label>
               <input
                 type="text"
                 id="location"
@@ -95,7 +124,7 @@ class SearchPanel extends Component {
             </div>
 
             <div className=" form-wrap">
-              <label for="localWithin">Within</label>
+              <label>Within</label>
               <input
                 type="text"
                 id="local-within"

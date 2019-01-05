@@ -530,11 +530,8 @@ class App extends Component {
             <a href="/" className="title">
               relEVENT
             </a>
-            {this.state.user.username}
-
-            <div className="enter flexR"> 
+            <div className="nav-right flexR enter" style={{ display: this.state.user.status ? "none" : "block" }}> 
               <div
-                style={{ display: this.state.user.status ? "none" : "block" }}
                 onClick={e => {
                   $(".userRegistration").toggle();
                 }}
@@ -575,13 +572,17 @@ class App extends Component {
               logout
             </button> */}
   
-            
-            {/* <button
-              style={{ visibility: this.state.user.status ? "block" : "hidden" }}
-              onClick={this.openMyList}
-            >
-              Mylist
-            </button> */}
+            <div className="nav-right flexR">
+               <div className="userName">{this.state.user.username}</div>
+               <button
+               className="btn-mylist"
+                style={{ visibility: this.state.user.status ? "block" : "hidden" }}
+                onClick={this.openMyList}
+               >
+                Mylist
+              </button>
+            </div>
+
           </div>
           {/* <div className="searchPanel"> */}
             <SearchPanel

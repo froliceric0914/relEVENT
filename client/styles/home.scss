@@ -27,11 +27,11 @@ body {
 /////////////////// navbar ///////////////////
 
 .navbar {
-  // background: url("../images/torontoSkyline+.jpg") no-repeat;
+  background: url("../images/torontoSkyline+.jpg") no-repeat;
   background-color: rgb(15, 27, 198);
   background-size: 100%;
- background-position: cover;
- width: 100%;
+  background-position: cover;
+  width: 100%;
   left: 0;
   padding: 0 20px 8px 20px;
   position: fixed;
@@ -59,6 +59,17 @@ body {
   button {
     color: #000;
   }
+
+  .btn-mylist {
+    border-radius: 0.3rem;
+    margin: 0.5rem;
+    height: 2.2rem;
+    font-size: 1.2rem;
+  }
+
+  .userName {
+    margin: 0.5rem;
+  }
 }
 
 
@@ -84,13 +95,16 @@ body {
   text-decoration: none;
 }
 
-.enter{
-  padding: 5px;
 
+.nav-right{
+  padding: 5px;
+  align-items: flex-end;
+}
+
+.enter {
   div{
     text-decoration: underline;
   }
-
   div:hover{
     cursor: pointer;
   }
@@ -125,11 +139,8 @@ main {
   width: 100%;
   background-color: rgba(0,0,0,0.3);
   border-radius: 0.5rem;
-  // padding: 5rem;
-  // margin: 5rem;
 
   form {
-   
     width: 100%;
     display: flex;
     justify-content: center;
@@ -159,9 +170,8 @@ main {
     border: 0px;
   }
 
-  .third-wrap {
-    height: 100%;
-  }
+ 
+
 }
 
 
@@ -176,6 +186,7 @@ main {
   background: white;
   margin-top: 10rem;
   min-width: 60%;
+  border-radius: 1rem;
 }
 
 .icons {
@@ -430,6 +441,7 @@ main {
   overflow-y: auto;
   overflow-x: hidden;
   z-index: 1;
+  border-radius: 0.3rem;
   // text-align: center;
   h3 {
     padding: 0.2rem;
