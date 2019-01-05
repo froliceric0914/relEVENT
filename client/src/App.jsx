@@ -57,6 +57,12 @@ class App extends Component {
   //   });
   // }
 
+  generateUserColor = (user_id) =>{
+    console.log("id is", user_id);
+    let hue = (user_id * 70) % 360;
+    return `hsl(${hue}, 90%, 50%)`
+  }
+
   getAllEventInDB = () => {
     fetch(`http://localhost:8080/events`)
       .then(res => {
