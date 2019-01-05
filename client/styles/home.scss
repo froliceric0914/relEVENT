@@ -176,10 +176,14 @@ main {
   padding-top: 7px;
   text-align: right;
   padding-top: 12px;
+  font-family: "Ubuntu", sans-serif;
+  color: #706f6f;
 }
 .closeX:hover{
    cursor: pointer;
    opacity: 0.8;
+   font-family: "Ubuntu", sans-serif;
+   color: #706f6f;
 }
 
 // .stage{
@@ -211,7 +215,8 @@ main {
   padding: 10px 0px;
   position: relative;
   top: 50%;
-  width: 200px;
+  width: 100%;
+  font-family: "Ubuntu", sans-serif;
 
   &:focus {
     outline: none;
@@ -220,10 +225,12 @@ main {
 
 input::-webkit-input-placeholder {
   color: #585859;
+  font-family: "Ubuntu", sans-serif;
 }
 
 input:focus::-webkit-input-placeholder {
   color: #585859;
+  font-family: "Ubuntu", sans-serif;
 }
 
 .input:focus+.underline {
@@ -255,6 +262,7 @@ input:focus::-webkit-input-placeholder {
   margin-left: 15px;
   width: 100px;
   background-color: #DCE6F7;
+  font-family: "Ubuntu", sans-serif;
 }
 
 .send-logo {
@@ -272,6 +280,7 @@ input:focus::-webkit-input-placeholder {
   color: white;
   margin-left: 15px;
   width: 100px;
+  font-family: "Ubuntu", sans-serif;
 }
 
 .send:focus {
@@ -283,6 +292,7 @@ input:focus::-webkit-input-placeholder {
   color: black;
   margin-left: 15px;
   width: 100px;
+  font-family: "Ubuntu", sans-serif;
 }
 
 
@@ -294,6 +304,7 @@ input:focus::-webkit-input-placeholder {
   flex-direction: row;
   align-items: center;
   font-weight: bolder;
+  font-family: "Ubuntu", sans-serif;
 }
 
 .chat-logs {
@@ -309,6 +320,7 @@ input:focus::-webkit-input-placeholder {
 .messageContent {
   overflow-wrap: break-word;
   padding-left: 38px;
+  font-family: "Ubuntu", sans-serif;
 }
 
 .userImage {
