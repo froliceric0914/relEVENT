@@ -118,6 +118,13 @@ main {
 
 }
 
+.event-description {
+  font-size: 18px;
+  padding: 10px;
+}
+
+
+//***************** event Card BUTTONS *****************//
 
 .detailsButton {
   position: absolute;
@@ -129,20 +136,23 @@ main {
 
 .card-image-top {
   z-index: 1000;
+  backface-visibility: hidden;
 }
 
 .backButton {
   position: absolute;
-  top: 16.7rem;
-  right: 1rem;
+  right: 2rem;
+  top: 2rem;
+  // left: 1.3rem;
   width: 7rem;
   height: 2.5rem;
 }
 
 .more-button {
   position: absolute;
-  top: 15.2rem;
-  left: 1rem;
+  right: 2rem;
+  top: 6rem;
+  // left: 1.3rem;
   width: 7rem;
   height: 2.5rem;
 }
@@ -153,10 +163,14 @@ main {
   position: absolute;
   bottom: 1.3rem;
   right: 1.3rem;
+  backface-visibility: hidden;
 }
+
+//***************** event Card ICONS *****************//
 
 .icons {
   font-size: 3rem;
+  backface-visibility: hidden;
 
   i:hover {
     cursor: pointer;
@@ -180,22 +194,20 @@ main {
 
   .fa-bookmark {
     color: green;
-    position: absolute;
+    position: fixed;
     font-size: 4rem;
-    // top: 18.5rem;
     line-height: 3rem;
-    position: absolute;
     top: 2rem;
     left: 1.3rem;
     width: 4rem;
     height: 4rem;
-    z-index: 2;
+    z-index: 1;
     text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
   }
 
   .whiteBookmark {
     color: white;
-    z-index: 1;
+    z-index: 0;
 
   }
 
@@ -209,14 +221,12 @@ main {
 //   padding: 3rem;
 //   column-gap: 10rem;
 //   border: 1rem solid black;
-//   width: 15rem;
-//   height: 30rem;
 // }
 
 //***************** event card *****************//
 
 .flip-card {
-  background-color: transparent;
+  // background-color: transparent;
   border: 0.5px solid white;
   perspective: 1000px;
   /* Remove this if you don't want the 3D effect */
@@ -232,7 +242,7 @@ main {
   transform-style: preserve-3d;
 }
 
-.test {
+.flip-action {
   transform: rotateY(180deg);
 }
 
@@ -248,6 +258,7 @@ main {
   width: 100%;
   height: 100%;
   backface-visibility: hidden;
+
 }
 
 /* Style the front side (fallback if image is missing) */
@@ -257,7 +268,7 @@ main {
 
 /* Style the back side */
 .flip-card-back {
-  background-color: whitesmoke;
+  background-color: white;
   transform: rotateY(180deg);
 }
 
