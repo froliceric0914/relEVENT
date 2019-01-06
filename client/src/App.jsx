@@ -642,7 +642,7 @@ class App extends Component {
 
         <main>
           <div className="column">
-            <div className="userRegistration">
+            {/* <div className="userRegistration">
               <UserRegistration
                 setUser={user => this.setState({ user })}
                 userState={this.state.user}
@@ -655,7 +655,7 @@ class App extends Component {
                 setList={listItems => this.setState(listItems)}
                 userState={this.state.user} // render it in the nav
               />
-            </div>
+            </div> */}
 
             <div className="mainContent">
               <Scroll width="100%" height="700px">

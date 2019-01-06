@@ -220,6 +220,10 @@ main {
     margin: 1rem;
   }
 
+  .form-control::placeholder {
+    color: #aaa;
+  }
+
   .btn-search {
     margin-bottom: 0;
     padding: 0.3rem 0.6rem;
