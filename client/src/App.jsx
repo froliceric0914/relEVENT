@@ -543,6 +543,7 @@ class App extends Component {
       );
     });
 
+    ///////////// nav bar before log-in ///////////////
     let outside = <div className="nav-right flexR enter" > 
     <div
       onClick={e => {
@@ -551,59 +552,74 @@ class App extends Component {
     >
       register
     </div>
-    /
+    &nbsp;/&nbsp;
     <div
       onClick={e => {
         $(".userLogin").toggle();
       }}
     >
-      login
+      log-in
     </div>
   </div>;
 
+  ///////////// nav bar before log-in ///////////////
   let inside = <div className="nav-right flexR">
 
   <div className="user_icon_nav" style={{backgroundColor: this.generateUserColor(this.state.user.userID)}} onClick={this.openLogOut}>
-  </div>
+      </div>
 
-  <div className="userName" onClick={this.openLogOut}>{this.state.user.username}
-  </div>
+      <div className="userName" onClick={this.openLogOut}>{this.state.user.username}
+      </div>
 
-  <div className="log-out"
-    onClick={e => {
-      delete_cookie("userCookie");
-      this.closeChat();
-      $(".myList").hide();
-      this.setState({
-        events: this.state.eventsTmp,
-        user: {
-          status: false,
-          username: null,
-          userID: null
-        },
-        listItems: [],
-        listItemSelected: false,
-        currentChatMessage: "",
-        eventId: "0"
-      });
-    }}
-  >
-    logout
-  </div>
+      <div className="log-out"
+        onClick={e => {
+          delete_cookie("userCookie");
+          this.closeChat();
+          $(".myList").hide();
+          this.setState({
+            events: this.state.eventsTmp,
+            user: {
+              status: false,
+              username: null,
+              userID: null
+            },
+            listItems: [],
+            listItemSelected: false,
+            currentChatMessage: "",
+            eventId: "0"
+          });
+        }}
+      >
+        log-out
+      </div>
 
-  {/* <div className="logOutPopUp">
-    log-out
-  </div> */}
+      {/* <div className="logOutPopUp">
+        log-out
+      </div> */}
 
-  <button
-   className="btn-mylist"
-    style={{ visibility: this.state.user.status ? "block" : "hidden" }}
-    onClick={this.openMyList}
-   >
-    Mylist
-  </button>
-</div>;
+      <button
+      className="btn-mylist"
+        style={{ visibility: this.state.user.status ? "block" : "hidden" }}
+        onClick={this.openMyList}
+      >
+        Mylist
+      </button>
+    </div>;
 
+
+    ////////////////////////////////////
+
+//     // cache the element you intend to target
+// const navBar = document.querySelector('.navbar');
+
+// // cache styles of sidebarElement inside cssStyles 
+// const cssStyles = getComputedStyle(navBar);
+
+// // retrieve the value of the --left-pos CSS variable
+// const cssVal = String(cssStyles.getPropertyValue('height')).trim(); 
+
+
+    ///////////// return ///////////////
     return (
       <div>
         <nav className="navbar">
@@ -611,6 +627,7 @@ class App extends Component {
             <a className="title">
               relEVENT
             </a>
+            {/* {cssVal} */}
             
           {this.state.user.status ? inside : outside}
 
@@ -625,7 +642,7 @@ class App extends Component {
 
         <main>
           <div className="column">
-            {/* <div className="userRegistration">
+            <div className="userRegistration">
               <UserRegistration
                 setUser={user => this.setState({ user })}
                 userState={this.state.user}
@@ -638,7 +655,7 @@ class App extends Component {
                 setList={listItems => this.setState(listItems)}
                 userState={this.state.user} // render it in the nav
               />
-            </div> */}
+            </div>
 
             <div className="mainContent">
               <Scroll width="100%" height="700px">

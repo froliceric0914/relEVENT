@@ -33,13 +33,14 @@ body {
 /////////////////// navbar ///////////////////
 
 .navbar {
-  background: url("../images/torontoSkyline+.jpg") no-repeat;
-  background-color: rgb(15, 27, 198);
-  background-size: 100%;
-  background-position: cover;
+  // background: url("../images/torontoSkyline+.jpg") no-repeat;
+    background: url("../images/toronto2.png") no-repeat;
+  background-size: cover;
+ background-position: center;
+  // background-position: right 0 bottom 5px;
   width: 100%;
   left: 0;
-  padding: 0 20px 8px 20px;
+  padding: 0 4rem 0.7rem;
   position: fixed;
   right: 0;
   top: 0;
@@ -91,7 +92,7 @@ body {
 }
 
 .title {
-  font-family: "Ubuntu", sans-serif;
+  // font-family: "Ubuntu", sans-serif;
   color: inherit;
   display: block;
   float: left;
@@ -105,6 +106,7 @@ body {
   // font-family: 'News Cycle', sans-serif;
   // font-family: 'Kalam', cursive;
   font-family: 'Amaranth', sans-serif;
+  letter-spacing: 0.1rem;
 }
 
 
@@ -114,6 +116,8 @@ body {
 }
 
 .enter{
+  margin: 0.5rem;
+
   div{
     text-decoration: underline;
   }
@@ -151,6 +155,13 @@ body {
 //   color: black;
 // }
 
+@media only screen and (max-width: 600px) {
+  .navbar { 
+    padding: 0 1rem 0.7rem 1rem;
+  }
+}
+
+///!!!!!! will be removed
 .userRegistration {
   margin-top: 60px;
   height: 100%;
@@ -186,6 +197,7 @@ main {
     display: flex;
     justify-content: center;
     align-items: flex-end;
+    padding: 0 1rem;
   }
 
   .form-wrap {
@@ -197,6 +209,7 @@ main {
     font-size: 1.1rem;
     font-family: "Open Sans", sans-serif;
     font-weight: 400;
+    margin-bottom: 0.1rem;
   }
 
   .input-field {
@@ -205,20 +218,27 @@ main {
 
   .btn-search {
     margin-bottom: 0;
+    padding-top: 0.4rem;
     border-radius: 0.2rem;
     background-color: green;
     color: white;
     border: 0px;
   }
 
- 
-
 }
-
-
 .mainContent {
   width: 100%;
   display: flex;
+}
+
+@media only screen and (max-width: 600px) {
+
+  .searchPanel{
+    .form-wrap {
+      padding: 0.5rem;
+      padding-top: 0;
+    }
+  }
 }
 
 //***************** event List *****************//
@@ -539,8 +559,8 @@ main {
   position: fixed;
   // background-color: white;
   width: 25%;
-  right: 10px;
-  top: 30px;
+  right: 1rem;
+  top: 3rem;
   max-height: 70%;
   overflow-y: auto;
   overflow-x: hidden;
@@ -592,10 +612,20 @@ main {
   }
 
   .notify {
-    padding: 0.3rem 0.6rem;
+    padding: 0 0.6rem;
   }
 
   .notify:hover {
     background-color: white;
+  }
+}
+
+@media only screen and (max-width: 420px) {
+  .myList { 
+    display:none;
+  }
+
+  .btn-mylist {
+    display:none;
   }
 }
