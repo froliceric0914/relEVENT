@@ -57,7 +57,6 @@
     "react-bootstrap": "^0.32.4",
     "react-cookie": "^3.0.8",
     "react-dom": "^15.4.2",
-    "react-materialize": "^2.6.0",
     "sass": "^1.15.2",
     "sfcookies": "^1.0.2"
   }

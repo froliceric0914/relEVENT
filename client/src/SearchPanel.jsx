@@ -7,7 +7,7 @@ class SearchPanel extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      keyword: "drake",
+      keyword: "",
       category: "",
       location: "toronto",
       localWithin: "50km"
@@ -29,19 +29,19 @@ class SearchPanel extends Component {
 
   _handleSubmit(e) {
     const { keyword, category, location, localWithin } = this.state;
-    console.log("categorty: ", this.state);
-    alert("click the search");
+    // console.log("categorty: ", this.state);
+    // alert("click the search");
     this.props.searchEvent(keyword, category, location, localWithin);
     //call this.props.searchEvent(e)
   }
 
   render() {
     return (
-      <div className="s01">
+      <div className="searchPanel">
         <form>
-          <div className="inner-form">
-            <div className="input-field first-wrap">
-              <label for="event-name">Keyword</label>
+          {/* <div className="inner-form"> */}
+            <div className="form-wrap">
+              <label>Keyword</label>
               <input
                 type="text"
                 id="event-name"
@@ -52,12 +52,13 @@ class SearchPanel extends Component {
                   });
                 }}
                 value={this.state.keyword}
-                placeholder="all the fantastic starts from here"
+                placeholder="ex.festival"
+                // placeholder="all the fantastic starts from here"
               />
             </div>
 
-            <div className="input-field second-wrap">
-              <label for="category">Category</label>
+            <div className="form-wrap">
+              <label>Category</label>
               <select
                 className="form-control"
                 id="category"
@@ -77,8 +78,37 @@ class SearchPanel extends Component {
               </select>
             </div>
 
-            <div className="input-field second-wrap">
-              <label for="location">Location</label>
+            {/* <div className="form-wrap">
+              <label>start-date</label>
+              <input
+                type="text"
+                id="start-date"
+                className="form-control"
+                onChange={e => {
+                  this.setState({
+                    keyword: e.target.value
+                  });
+                }}
+                value={this.state.start_date}
+              />
+            </div>
+            <div className="form-wrap">
+              <label>end-date</label>
+              <input
+                type="text"
+                id="end-date"
+                className="form-control"
+                onChange={e => {
+                  this.setState({
+                    keyword: e.target.value
+                  });
+                }}
+                value={this.state.end_date}
+              />
+            </div> */}
+
+            <div className=" form-wrap">
+              <label>Location</label>
               <input
                 type="text"
                 id="location"
@@ -93,8 +123,8 @@ class SearchPanel extends Component {
               />
             </div>
 
-            <div className="input-field second-wrap">
-              <label for="localWithin">Within</label>
+            <div className=" form-wrap">
+              <label>Within</label>
               <input
                 type="text"
                 id="local-within"
@@ -109,17 +139,17 @@ class SearchPanel extends Component {
               />
             </div>
 
-            <div className="input-field third-wrap">
+            <div className=" form-wrap">
               <button
                 onClick={this._handleSubmit}
-                type="submit"
+                // type="submit"
                 className="btn-search"
                 // id="submitBtn"
               >
                 Search
               </button>
             </div>
-          </div>
+          {/* </div> */}
         </form>
 
         {/* <div id="result" className="row mt-5" /> */}

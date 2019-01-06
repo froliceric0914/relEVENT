@@ -34,7 +34,7 @@ class UserLogin extends Component {
 
     // this.props.setComponentLogin({ showCompoenent: false });
     // console.log("showComponent:", this.props.setComponentLogin);
-    alert("Submit Login");
+    // alert("Submit Login");
 
     // console.log("userLoginInfo", { email, password });
     const user = fetch("http://localhost:8080/login", {

@@ -14,7 +14,7 @@ class UserRegistration extends Component {
 
   _handleSubmit = e => {
     const { email, username, password } = this.state;
-    alert("submit the form");
+    // alert("submit the form");
     const user = fetch("http://localhost:8080/users", {
       headers: {
         Accept: "application/json",

@@ -11,7 +11,7 @@ import MyList from "./MyList.jsx";
 import Scroll from "./Scroll.jsx";
 import ReactDOM from "react-dom";
 import * as ReactBootstrap from "react-bootstrap";
-import { Button, Icon } from "react-materialize";
+// import { Button, Icon } from "react-materialize";
 
 //TODO: styling
 //TODO: need sanitize for user input
@@ -58,6 +58,24 @@ class App extends Component {
   //   });
   // }
 
+    // Open logout
+  openLogOut = () =>{
+
+      $(".log-out").toggle();
+      // $(".myList").animate({
+      //   width: "toggle"
+      // });
+      // $(".log-out").is(":visible")
+      //   ? $(".myList").slideUp()
+      //   : $(".myList").slideDown();
+    }
+
+  generateUserColor = (user_id) =>{
+    // console.log("id is", user_id);
+    let hue = (user_id * 70) % 360;
+    return `hsl(${hue}, 90%, 50%)`
+  }
+
   getAllEventInDB = () => {
     fetch(`http://localhost:8080/events`)
       .then(res => {
@@ -103,7 +121,7 @@ class App extends Component {
         });
     }
     const url = fetch(
-      `https://www.eventbriteapi.com/v3/events/search/?q=&sort_by=date&location.address=toronto&start_date.keyword=today&expand=organizer,venue&token=${
+      `https://www.eventbriteapi.com/v3/events/search/?q=&sort_by=date&location.address=toronto&expand=organizer,venue&token=${
         process.env.TOKEN
       }`
     )
@@ -142,13 +160,17 @@ class App extends Component {
     this.setState({ listItemSelected: false });
     this.closeChat();
 
+    console.log("keyword", keyword);
+    console.log("keycword", category);
+    console.log("keywlord", location);
+    console.log("keywllllord", localWithin);
+    
     const getURL = `https://www.eventbriteapi.com/v3/events/search/?q=${keyword}&expand=organizer,venue&sort_by=${
       this.state.orderby
     }&categories=${category}&location.address=${location}&location.within=${localWithin}&token=${
       process.env.TOKEN
     }`;
     console.log("url", getURL);
-
     const url = fetch(getURL)
       .then(res => {
         return res.json();
@@ -158,7 +180,9 @@ class App extends Component {
         const results = data.events;
         //filter events with valid decription
         this.setState({ events: results.slice(0) });
+
       });
+    
   }
 
   // socket
@@ -207,6 +231,7 @@ class App extends Component {
     });
   }
 
+
   // function handleSendEvent to handle the onClick event and do the message sending
   handleSendEvent(event) {
     event.preventDefault();
@@ -220,6 +245,22 @@ class App extends Component {
     this.setState({
       currentChatMessage: ""
     });
+  }
+
+  newMessageFn(event) {
+    if (event.key === 'Enter') {
+      event.preventDefault();
+      this.chats.create(
+        this.state.currentChatMessage,
+        this.state.user.userID,
+        this.state.eventId,
+        this.state.event_name,
+        this.state.img_url
+      );
+      this.setState({
+        currentChatMessage: ""
+      });
+    }
   }
 
   handleIconClick(event) {
@@ -519,134 +560,172 @@ class App extends Component {
       );
     });
 
+    ///////////// nav bar before log-in ///////////////
+    let outside = <div className="nav-right flexR enter" > 
+    <div
+      onClick={e => {
+        document.querySelector(".registration-wrapper").style.display =
+          "flex";
+        console.log("click me");
+      }}
+    >
+      register
+    </div>
+    &nbsp;/&nbsp;
+    <div
+      onClick={e => {
+        // console.log("click login", $(".login-wrapper"));
+        // $(".login-wrapper").style.display = "none";
+        document.querySelector(".login-wrapper").style.display = "flex";
+      }}
+    >
+      log-in
+    </div>
+  </div>;
+
+  ///////////// nav bar before log-in ///////////////
+  let inside = <div className="nav-right flexR">
+
+  <div className="user_icon_nav" style={{backgroundColor: this.generateUserColor(this.state.user.userID)}} onClick={this.openLogOut}>
+      </div>
+
+      <div className="userName" onClick={this.openLogOut}>{this.state.user.username}
+      </div>
+
+      <div className="log-out"
+        onClick={e => {
+          delete_cookie("userCookie");
+          this.closeChat();
+          $(".myList").hide();
+          this.setState({
+            events: this.state.eventsTmp,
+            user: {
+              status: false,
+              username: null,
+              userID: null
+            },
+            listItems: [],
+            listItemSelected: false,
+            currentChatMessage: "",
+            eventId: "0"
+          });
+        }}
+      >
+        log-out
+      </div>
+
+      {/* <div className="logOutPopUp">
+        log-out
+      </div> */}
+
+      <button
+      className="btn-mylist"
+        style={{ visibility: this.state.user.status ? "block" : "hidden" }}
+        onClick={this.openMyList}
+      >
+        Mylist
+      </button>
+    </div>;
+
+
+    ////////////////////////////////////
+
+//     // cache the element you intend to target
+// const navBar = document.querySelector('.navbar');
+
+// // cache styles of sidebarElement inside cssStyles 
+// const cssStyles = getComputedStyle(navBar);
+
+// // retrieve the value of the --left-pos CSS variable
+// const cssVal = String(cssStyles.getPropertyValue('height')).trim(); 
+
+
+    ///////////// return ///////////////
     return (
       <div>
         <nav className="navbar">
-          <a href="/" className="navbar-brand">
-            relEVENT
-          </a>
-          {this.state.user.username}
-          <button
-            style={{ display: this.state.user.status ? "none" : "block" }}
-            onClick={e => {
-              document.querySelector(".registration-wrapper").style.display =
-                "flex";
-              console.log("click me");
-            }}
-          >
-            register
-          </button>
-          &nbsp;
-          <button
-            style={{ display: this.state.user.status ? "none" : "block" }}
-            onClick={e => {
-              document.querySelector(".login-wrapper").style.display = "flex";
-            }}
-          >
-            login
-          </button>
-          &nbsp;
-          <button
-            style={{ display: this.state.user.status ? "block" : "none" }}
-            onClick={e => {
-              delete_cookie("userCookie");
-              this.closeChat();
-              $(".myList").hide();
-              this.setState({
-                events: this.state.eventsTmp,
-                user: {
-                  status: false,
-                  username: null,
-                  userID: null
-                },
-                listItems: [],
-                listItemSelected: false,
-                currentChatMessage: "",
-                eventId: "0"
-              });
-            }}
-          >
-            logout
-          </button>
-          &nbsp;
-          <button>search</button>&nbsp;
-          <button
-            style={{ display: this.state.user.status ? "block" : "none" }}
-            onClick={this.openMyList}
-          >
-            Mylist
-          </button>
-          <div className="searchPanel">
+          <div className="navbar-content flexR">
+            <a className="title">
+              relEVENT
+            </a>
+            {/* {cssVal} */}
+            
+          {this.state.user.status ? inside : outside}
+
+          </div>
+          {/* <div className="searchPanel"> */}
             <SearchPanel
               searchEvent={this.searchEvent}
               categories={this.state.categories}
             />
-          </div>
+          {/* </div> */}
         </nav>
 
         <main>
           <div className="registration-wrapper">
-            <UserRegistration
-              setUser={user => this.setState({ user })}
-              userState={this.state.user}
-            />
-          </div>
+          <UserRegistration
+            setUser={user => this.setState({ user })}
+            userState={this.state.user}
+          />
+        </div>
 
-          <div className="login-wrapper">
-            <UserLogin
-              setUser={user => this.setState({ user })}
-              setList={listItems => this.setState(listItems)}
-              userState={this.state.user} // render it in the nav
-            />
-          </div>
+        <div className="login-wrapper">
+          <UserLogin
+            setUser={user => this.setState({ user })}
+            setList={listItems => this.setState(listItems)}
+            userState={this.state.user} // render it in the nav
+          />
+        </div>
 
-          <div className="mainContent">
-            <Scroll width="100%" height="700px">
-              <EventList
-                events={this.state.events}
-                searchEvent={this.searchEvent}
-                openChat={this.openChat}
-                handleIconClick={this.handleIconClick}
-                listItems={this.state.listItems}
-                listItemSelected={this.state.listItemSelected}
-                handleXIconOnEventClick={this.handleXIconOnEventClick}
-                allEvents={this.state.allEvents}
-              />
-            </Scroll>
+            <div className="mainContent">
+              <Scroll width="100%" height="700px">
+                <EventList
+                  events={this.state.events}
+                  searchEvent={this.searchEvent}
+                  openChat={this.openChat}
+                  handleIconClick={this.handleIconClick}
+                  listItems={this.state.listItems}
+                  listItemSelected={this.state.listItemSelected}
+                  handleXIconOnEventClick={this.handleXIconOnEventClick}
+                  allEvents={this.state.allEvents}
+                />
+              </Scroll>
 
-            <div className="chatSpace">
-              <div className="stage">
-                <Scroll width="100%" height="500px" idName="messageList">
-                  {/* <div id="messageList"> */}
-                  <div className="chatHeaderContainer">
-                    <div className="chatSpaceHeader">
-                      <h1>Chat</h1>
-                    </div>
-                  </div>
-                  {/* <i id="closeX" className="fas fa-times fa-2x" onClick={this.closeChat}></i> */}
-                  <div className="chat-logs">{messages}</div>
-                  {/* </div> */}
-                </Scroll>
+              <div className="chatSpace">
+                <div className="stage">
+               
+                    {/* <div id="messageList"> */}
+                    {/* <div className="chatHeaderContainer"  style={{position: "sticky", top: "0"}}>
+                      <div className="chatSpaceHeader">
+                        <h1>Chat</h1>
+                      </div>
+                    </div> */}
+                    <Scroll width="100%" height="500px" idName="messageList">
+                    {/* <i id="closeX" className="fas fa-times fa-2x" onClick={this.closeChat}></i> */}
+                    <div className="chat-logs">{messages}</div>
+                    {/* </div> */}
+                  </Scroll>
 
-                <div className="inputContainer">
-                  <input
-                    value={this.state.currentChatMessage}
-                    onChange={e => this.updateCurrentChatMessage(e)}
-                    type="text"
-                    placeholder="Type a message"
-                    className="chat-input"
-                  />
-                  <button
-                    onClick={e => this.handleSendEvent(e)}
-                    className="send"
-                  >
-                    {" "}
-                    Send
-                    <img
-                      src="./images/send-message.png"
-                      className="send-logo"
+                  <div className="inputContainer">
+                    <input
+                      value={this.state.currentChatMessage}
+                      onChange={e => this.updateCurrentChatMessage(e)}
+                      type="text"
+                      placeholder="Type a message"
+                      className="chat-input"
                     />
-                  </button>
+                    <button
+                      onClick={e => this.handleSendEvent(e)}
+                      className="send"
+                    >
+                      {" "}
+                      Send
+                      <img
+                        src="./images/send-message.png"
+                        className="send-logo"
+                      />
+                    </button>
+
                 </div>
 
                 <div className="closeX" onClick={this.closeChat}>
@@ -667,3 +746,4 @@ class App extends Component {
 }
 
 export default App;
+
