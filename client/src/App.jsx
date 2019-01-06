@@ -57,6 +57,18 @@ class App extends Component {
   //   });
   // }
 
+    // Open logout
+  openLogOut = () =>{
+
+      $(".log-out").toggle();
+      // $(".myList").animate({
+      //   width: "toggle"
+      // });
+      // $(".log-out").is(":visible")
+      //   ? $(".myList").slideUp()
+      //   : $(".myList").slideDown();
+    }
+
   generateUserColor = (user_id) =>{
     console.log("id is", user_id);
     let hue = (user_id * 70) % 360;
@@ -529,65 +541,76 @@ class App extends Component {
       );
     });
 
+    let outside = <div className="nav-right flexR enter" > 
+    <div
+      onClick={e => {
+        $(".userRegistration").toggle();
+      }}
+    >
+      register
+    </div>
+    /
+    <div
+      onClick={e => {
+        $(".userLogin").toggle();
+      }}
+    >
+      login
+    </div>
+  </div>;
+
+  let inside = <div className="nav-right flexR">
+
+  <div className="user_icon_nav" style={{backgroundColor: this.generateUserColor(this.state.user.userID)}} onClick={this.openLogOut}>
+  </div>
+
+  <div className="userName" onClick={this.openLogOut}>{this.state.user.username}
+  </div>
+
+  <div className="log-out"
+    onClick={e => {
+      delete_cookie("userCookie");
+      this.closeChat();
+      $(".myList").hide();
+      this.setState({
+        events: this.state.eventsTmp,
+        user: {
+          status: false,
+          username: null,
+          userID: null
+        },
+        listItems: [],
+        listItemSelected: false,
+        currentChatMessage: "",
+        eventId: "0"
+      });
+    }}
+  >
+    logout
+  </div>
+
+  {/* <div className="logOutPopUp">
+    log-out
+  </div> */}
+
+  <button
+   className="btn-mylist"
+    style={{ visibility: this.state.user.status ? "block" : "hidden" }}
+    onClick={this.openMyList}
+   >
+    Mylist
+  </button>
+</div>;
+
     return (
       <div>
         <nav className="navbar">
           <div className="navbar-content flexR">
-            <a href="/" className="title">
+            <a className="title">
               relEVENT
             </a>
-            <div className="nav-right flexR enter" style={{ display: this.state.user.status ? "none" : "block" }}> 
-              <div
-                onClick={e => {
-                  $(".userRegistration").toggle();
-                }}
-              >
-                register
-              </div>
-              /
-              <div
-                style={{ display: this.state.user.status ? "none" : "block" }}
-                onClick={e => {
-                  $(".userLogin").toggle();
-                }}
-              >
-                login
-              </div>
-            </div>
-         
-            {/* <button
-              style={{ display: this.state.user.status ? "block" : "none" }}
-              onClick={e => {
-                delete_cookie("userCookie");
-                this.closeChat();
-                $(".myList").hide();
-                this.setState({
-                  events: this.state.eventsTmp,
-                  user: {
-                    status: false,
-                    username: null,
-                    userID: null
-                  },
-                  listItems: [],
-                  listItemSelected: false,
-                  currentChatMessage: "",
-                  eventId: "0"
-                });
-              }}
-            >
-              logout
-            </button> */}
-  
-            <div className="nav-right flexR">
-               <div className="userName">{this.state.user.username}</div>
-               <button
-               className="btn-mylist"
-                style={{ visibility: this.state.user.status ? "block" : "hidden" }}
-                onClick={this.openMyList}
-               >
-                Mylist
-              </button>
-            </div>
+            
+          {this.state.user.status ? inside : outside}
 
           </div>
           {/* <div className="searchPanel"> */}

@@ -39,10 +39,10 @@ const ListItem = ({
     // </div>
 
     //horizontal layout
-    <div className="listItem">
-        <div className=" row">
+    <div className="listItem img-thumbnail">
+        <div className="row">
           <div className="col-md-5">
-            <img className="img-fluid mb-0" src={listItem.event.logo_url}
+            <img className="img-fluid " src={listItem.event.logo_url}
             data-id={eventId} onClick={handleListItemClick} />
           </div>
           <div className="col-md-7 list-txt">
