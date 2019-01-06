@@ -135,8 +135,8 @@ const Event = ({
                     overflow: "hidden"
                   }}
                 >
-                  {event.name.text.substring(45)
-                    ? event.name.text.substring(0, 45) + " ..."
+                  {event.name.text.substring(40)
+                    ? event.name.text.substring(0, 40) + " ..."
                     : event.name.text}
                 </h2>
                 <h3 className="card-text text-left">{properDate}</h3>
@@ -209,7 +209,7 @@ const Event = ({
             >
               {img}
             </div>
-            <p className="event-description">
+            <p className="event-description shadow-sm p-3 rounded">
               {event.description.text.substring(300)
                 ? event.description.text.substring(0, 300) + "..."
                 : event.description.text}
