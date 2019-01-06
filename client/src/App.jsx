@@ -566,6 +566,7 @@ class App extends Component {
           </button>
           &nbsp;
           <button>search</button>&nbsp;
+
           <button
             style={{ display: this.state.user.userID ? "block" : "none" }}
             onClick={this.openMyList}
@@ -577,6 +578,11 @@ class App extends Component {
 
         <main>
           <div className="column">
+
+          <SearchPanel
+             searchEvent={this.searchEvent}
+             categories={this.state.categories}
+           />
 
           <div className="userRegistration">
             <UserRegistration
