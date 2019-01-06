@@ -11,6 +11,7 @@ import MyList from "./MyList.jsx";
 import Scroll from "./Scroll.jsx";
 import ReactDOM from "react-dom";
 import * as ReactBootstrap from "react-bootstrap";
+// import { Button, Icon } from "react-materialize";
 
 //TODO: styling
 //TODO: need sanitize for user input
@@ -170,7 +171,6 @@ class App extends Component {
       process.env.TOKEN
     }`;
     console.log("url", getURL);
-
     const url = fetch(getURL)
       .then(res => {
         return res.json();
@@ -180,7 +180,9 @@ class App extends Component {
         const results = data.events;
         //filter events with valid decription
         this.setState({ events: results.slice(0) });
+
       });
+    
   }
 
   // socket

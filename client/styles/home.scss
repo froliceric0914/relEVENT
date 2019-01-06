@@ -221,7 +221,7 @@ main {
   display: flex;
 }
 
-//***************** event *****************//
+//***************** event List *****************//
 
 .eventList {
   background: white;
@@ -230,8 +230,62 @@ main {
   border-radius: 1rem;
 }
 
+//***************** event Card *****************//
+
+.flip-card-front {
+  position: relative;
+}
+
+.title-date-location {
+  width: 28rem;
+  padding-top: 1rem;
+}
+
+.card-body {
+  padding-top: 0em;
+  padding-bottom: 0em;
+
+}
+
+
+.detailsButton {
+  position: absolute;
+  top: 16.7rem;
+  left: 1rem;
+  width: 7rem;
+  height: 2.5rem;
+}
+
+.card-image-top {
+  z-index: 1000;
+}
+
+.backButton {
+  position: absolute;
+  top: 16.7rem;
+  right: 1rem;
+  width: 7rem;
+  height: 2.5rem;
+}
+
+.more-button {
+  position: absolute;
+  top: 15.2rem;
+  left: 1rem;
+  width: 7rem;
+  height: 2.5rem;
+}
+
+.chatButton {
+  width: 8rem;
+  height: 4rem;
+  position: absolute;
+  bottom: 1.3rem;
+  right: 1.3rem;
+}
+
 .icons {
-  font-size: 2rem;
+  font-size: 3rem;
 
   i:hover {
     cursor: pointer;
@@ -239,16 +293,47 @@ main {
 
   .fa-heart {
     color: red;
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
+    font-size: 4rem;
+    position: absolute;
+    bottom: 7rem;
+    right: 5rem;
+  }
+
+  .like-counter {
+    font-size: 2rem;
+    position: absolute;
+    bottom: 7rem;
+    right: 1.7rem;
   }
 
   .fa-bookmark {
     color: green;
+    position: absolute;
+    font-size: 4rem;
+    // top: 18.5rem;
+    line-height: 3rem;
+    position: absolute;
+    top: 2rem;
+    left: 1.3rem;
+    width: 4rem;
+    height: 4rem;
+    z-index: 2;
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
   }
+
+  .whiteBookmark {
+    color: white;
+    z-index: 1;
+
+  }
+
 }
 
 .iconSideError {
   color: red;
 }
+
 // .event-card {
 //   padding: 3rem;
 //   column-gap: 10rem;
@@ -256,26 +341,6 @@ main {
 //   width: 15rem;
 //   height: 30rem;
 // }
-
-.icons {
-  font-size: 2rem;
-
-  i:hover {
-    cursor: pointer;
-  }
-
-  .fa-heart {
-    color: red;
-  }
-
-  .fa-bookmark {
-    color: green;
-  }
-}
-
-.iconSideError {
-  color: red;
-}
 
 //***************** event card *****************//
 
@@ -301,9 +366,6 @@ main {
 }
 
 /* Do an horizontal flip when you move the mouse over the flip box container */
-// .flip-card:hover .flip-card-inner {
-//   transform: rotateY(180deg);
-// }
 
 /* Position the front and back side */
 .flip-card-front,
@@ -371,6 +433,7 @@ main {
   text-align: right;
   padding-top: 12px;
 }
+
 .closeX:hover {
   cursor: pointer;
   opacity: 0.8;
@@ -493,10 +556,10 @@ main {
 
 
 
-  .fa-heart {
-    color: red;
-    font-size: 1rem;
-  }
+  // .fa-heart {
+  //   color: red;
+  //   font-size: 1rem;
+  // }
 
   .list-txt {
     font-size: 1.2rem;

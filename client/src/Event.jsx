@@ -1,5 +1,6 @@
 import React from "react";
 import * as ReactBootstrap from "react-bootstrap";
+// import { Button, Icon } from "react-materialize";
 
 //This is an event info pane for an event.
 //TODO: add other values. img, description, venue, cost etc...
@@ -17,8 +18,6 @@ const _clickHandler = e => {
   //   .toggleClass("test");
 
   console.log("clicked");
-  //   .closest("card m-5 flip-card")
-  //   .addClass(".flip-card .flip-card-inner");
 };
 
 const Event = ({
@@ -36,15 +35,26 @@ const Event = ({
   if (event.logo && event.logo.url) {
     img = (
       <img
-        classNameName="img-fluid mb-2"
+        className="img-fluid"
         src={event.logo.url}
         style={{ borderTopLeftRadius: "10px", borderTopRightRadius: "10px" }}
       />
     );
     img_url = event.logo.url;
   } else {
-    img = <div />;
-    img_url = "";
+    img = (
+      <img
+        className="img-fluid"
+        style={{
+          backgroundColor: "#ddd",
+          width: "600px",
+          height: "200px",
+          borderTopLeftRadius: "10px",
+          borderTopRightRadius: "10px"
+        }}
+      />
+    );
+    // img_url = "";
   }
 
   let likeIcon = "false";
@@ -89,17 +99,24 @@ const Event = ({
     }
   }
 
+  // let img_style;
+
+  // if (event.logo.url != null) {
+  //   img_style = { backgroundImage: `url(${event.logo.url})` };
+  //   console.log("iii", img_style);
+  // }
+
   return (
     // <div className="event-card col-6">
     <div
       className="card m-5 flip-card"
-      style={{ width: "40rem", height: "45rem" }}
+      style={{ width: "40rem", height: "32rem" }}
     >
       <div className="flip-card-inner">
         <div className="flip-card-front">
           <div
             className="card-img-top"
-            className="event-card-body"
+            className="event-card-body pb-10"
             style={{ overflow: "hidden" }}
             alt="Card image cap"
             onClick={_clickHandler}
@@ -107,21 +124,33 @@ const Event = ({
             {img}
           </div>
           <div className="card-body">
-            <h3 className="card-title">
-              {event.name.text.substring(35)
-                ? event.name.text.substring(0, 35) + "..."
-                : event.name.text}
-            </h3>
-            <span className="badge badge-secondary">
-              Date & Time: {event.start.local}{" "}
-            </span>
-            <br />{" "}
-            <span className="badge badge-secondary">
-              Location: {event.venue.address.address_1}{" "}
-            </span>
-            <p className="card-text" />
-            <a href="#" className="btn btn-primary" onClick={_clickHandler}>
-              Description
+            <div className="title-date-location">
+              <h2
+                className="card-title text-left"
+                style={{
+                  fontWeight: "600",
+                  height: "4.8rem",
+                  overflow: "hidden"
+                }}
+              >
+                {event.name.text.substring(45)
+                  ? event.name.text.substring(0, 45) + " ..."
+                  : event.name.text}
+              </h2>
+              <h3 className="card-text text-left">{event.start.local} </h3>
+              <h3 className="card-text text-left">
+                {event.venue.address.address_1
+                  ? event.venue.address.address_1.substring(0, 25)
+                  : ""}
+              </h3>
+            </div>
+            {/* <p className="card-text" /> */}
+            <a
+              href="#"
+              className="btn btn-primary detailsButton"
+              onClick={_clickHandler}
+            >
+              Details
             </a>
             <div className="icons">
               <i
@@ -133,7 +162,7 @@ const Event = ({
                 className={likeclassName}
                 onClick={handleIconClick}
               />
-              <span>{likeCount}</span>
+              <span className="like-counter">{likeCount}</span>
               &nbsp;
               <i
                 data-on={bookmarkIcon}
@@ -144,14 +173,10 @@ const Event = ({
                 className={bookmarkclassName}
                 onClick={handleIconClick}
               />
+              <i className="fas fa-bookmark icon whiteBookmark " />
             </div>
             <div className="iconSideError" />
             <div className="iconSideMessage" />
-            <a
-              href={event.url}
-              target="_blank"
-              className="btn btn-primary btn-block mt-4"
-            />
             <button
               className="chatButton btn btn-danger btn-block mt-4"
               name={event.id}
@@ -168,19 +193,31 @@ const Event = ({
           <div
             className="card-img-top"
             className="event-card-body"
+            style={{ overflow: "hidden" }}
             onClick={_clickHandler}
             alt="Card image cap"
           >
             {img}
           </div>
-          <p className="lead text-info">Event Information:</p>
           <p>
             {event.description.text.substring(300)
               ? event.description.text.substring(0, 300) + "..."
               : event.description.text}
           </p>
-          <a href="#" className="btn btn-primary" onClick={_clickHandler}>
-            flip!
+          <a
+            href={event.url}
+            target="_blank"
+            className="btn btn-primary btn-block mt-4 more-button"
+          >
+            {" "}
+            More
+          </a>
+          <a
+            href="#"
+            className="btn btn-primary backButton"
+            onClick={_clickHandler}
+          >
+            Back
           </a>
         </div>
       </div>
