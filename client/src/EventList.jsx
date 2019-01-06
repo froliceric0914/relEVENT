@@ -16,7 +16,7 @@ const EventList = ({
   return (
     <div className="eventList row">
       {events.map(event => {
-       return (
+        return (
           <Event
             key={event.id}
             event={event}

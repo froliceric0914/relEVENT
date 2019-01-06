@@ -564,7 +564,9 @@ class App extends Component {
     let outside = <div className="nav-right flexR enter" > 
     <div
       onClick={e => {
-        $(".userRegistration").toggle();
+        document.querySelector(".registration-wrapper").style.display =
+          "flex";
+        console.log("click me");
       }}
     >
       register
@@ -660,21 +662,20 @@ class App extends Component {
         </nav>
 
         <main>
-          <div className="column">
-            {/* <div className="userRegistration">
-              <UserRegistration
-                setUser={user => this.setState({ user })}
-                userState={this.state.user}
-              />
-            </div> */}
+          <div className="registration-wrapper">
+          <UserRegistration
+            setUser={user => this.setState({ user })}
+            userState={this.state.user}
+          />
+        </div>
 
-            <div className="login-wrapper">
-              <UserLogin
-                setUser={user => this.setState({ user })}
-                setList={listItems => this.setState(listItems)}
-                userState={this.state.user} // render it in the nav
-              />
-            </div> 
+        <div className="login-wrapper">
+          <UserLogin
+            setUser={user => this.setState({ user })}
+            setList={listItems => this.setState(listItems)}
+            userState={this.state.user} // render it in the nav
+          />
+        </div>
 
             <div className="mainContent">
               <Scroll width="100%" height="700px">
@@ -724,15 +725,16 @@ class App extends Component {
                         className="send-logo"
                       />
                     </button>
-                  </div>
 
-                  <div className="closeX" onClick={this.closeChat}>
-                    close chat
-                  </div>
+                </div>
+
+                <div className="closeX" onClick={this.closeChat}>
+                  close chat
                 </div>
               </div>
             </div>
           </div>
+
           <MyList
             listItems={this.state.listItems}
             handleListItemClick={this.handleListItemClick}

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { bake_cookie, read_cookie, delete_cookie } from "sfcookies";
-import "../styles/userLogin.scss";
+// import "../styles/userLogin.scss";
 //submit a form of the user name&password
 //TODO: import the api function(route. method,callback)
 class UserLogin extends Component {
@@ -34,7 +34,7 @@ class UserLogin extends Component {
 
     // this.props.setComponentLogin({ showCompoenent: false });
     // console.log("showComponent:", this.props.setComponentLogin);
-    alert("Submit Login");
+    // alert("Submit Login");
 
     // console.log("userLoginInfo", { email, password });
     const user = fetch("http://localhost:8080/login", {
@@ -60,9 +60,6 @@ class UserLogin extends Component {
         bake_cookie("userCookie", this.props.userState);
         console.log("login-user: ", read_cookie("userCookie"));
       });
-    //call the props and change the state of user in app.js
-    // this.props.UserLogin(email, username, password);
-    // $(".userLogin").slideUp();
     document.querySelector(".login-wrapper").style.display = "none";
   };
 
@@ -94,7 +91,6 @@ class UserLogin extends Component {
         <h2 for="user-password">Password</h2>
         <input
           type="text"
-          // id="login-username"
           className="form-user"
           onChange={e => {
             this.setState({
