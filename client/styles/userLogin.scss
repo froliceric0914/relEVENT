@@ -17,26 +17,10 @@
   opacity: 0.7;
 }
 
-// .loginbox {
-//   width: 320px;
-//   height: 420px;
-//   background: #000;
-//   color: #fff;
-//   top: 50%;
-//   left: 50%;
-//   position: absolute;
-//   transform: translate(-50%, -50%);
-//   box-sizing: border-box;
-//   padding: 70px 30px;
-// }
 .loginbox {
   background: url("../images/background-login.jpg");
-  //   height: 400px;
-  //   width: 500px;
   width: 350px;
   height: 400px;
-  //   top: 50%;
-  //   left: 50%;
   background-color: white;
   text-align: center;
   padding: 20px;
@@ -47,17 +31,13 @@
 
 h1 {
   margin: 40px 0 10px 0;
-  //   padding: 0 0 10px;
   text-align: center;
   font-size: 25px;
 }
 
 h2 {
   margin: 10px;
-
-  //   padding: 0 0 10px;
   text-align: left;
-  //   font-size: 22px;
 }
 .avatar {
   width: 100px;
@@ -102,16 +82,6 @@ h2 {
   background: #ffc107;
   color: #000;
 }
-// .loginbox a {
-//   text-decoration: none;
-//   font-size: 12px;
-//   line-height: 20px;
-//   color: darkgrey;
-// }
-
-// .loginbox a:hover {
-//   color: #ffc107;
-// }
 
 .close {
   position: absolute;
