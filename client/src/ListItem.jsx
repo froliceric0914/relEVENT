@@ -41,7 +41,7 @@ const ListItem = ({
     //horizontal layout
     <div className="listItem img-thumbnail">
         <div className="row">
-          <div className="col-md-5">
+          <div className="col-md-5 list-img">
             <img className="img-fluid " src={listItem.event.logo_url}
             data-id={eventId} onClick={handleListItemClick} />
           </div>
