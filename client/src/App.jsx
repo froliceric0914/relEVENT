@@ -644,12 +644,12 @@ class App extends Component {
 
         <main>
           <div className="column">
-            <div className="userRegistration">
+            {/* <div className="userRegistration">
               <UserRegistration
                 setUser={user => this.setState({ user })}
                 userState={this.state.user}
               />
-            </div>
+            </div> */}
 
             <div className="login-wrapper">
               <UserLogin
