@@ -16,8 +16,8 @@ const EventList = ({
   return (
     <div className="eventList row">
       {events.map(event => {
-        return {
-          /* <Event
+        return (
+          <Event
             key={event.id}
             event={event}
             openChat={openChat}
@@ -26,8 +26,8 @@ const EventList = ({
             listItemSelected={listItemSelected}
             handleXIconOnEventClick={handleXIconOnEventClick}
             allEvents={allEvents}
-          /> */
-        };
+          />
+        );
       })}
     </div>
   );
