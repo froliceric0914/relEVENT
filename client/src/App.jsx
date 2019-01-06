@@ -71,7 +71,7 @@ class App extends Component {
     }
 
   generateUserColor = (user_id) =>{
-    console.log("id is", user_id);
+    // console.log("id is", user_id);
     let hue = (user_id * 70) % 360;
     return `hsl(${hue}, 90%, 50%)`
   }
@@ -555,7 +555,9 @@ class App extends Component {
     &nbsp;/&nbsp;
     <div
       onClick={e => {
-        $(".userLogin").toggle();
+        // console.log("click login", $(".login-wrapper"));
+        // $(".login-wrapper").style.display = "none";
+        document.querySelector(".login-wrapper").style.display = "flex";
       }}
     >
       log-in
@@ -649,13 +651,13 @@ class App extends Component {
               />
             </div>
 
-            {/* <div className="userLogin">
+            <div className="login-wrapper">
               <UserLogin
                 setUser={user => this.setState({ user })}
                 setList={listItems => this.setState(listItems)}
                 userState={this.state.user} // render it in the nav
               />
-            </div> */}
+            </div> 
 
             <div className="mainContent">
               <Scroll width="100%" height="700px">
@@ -724,3 +726,4 @@ class App extends Component {
 }
 
 export default App;
+

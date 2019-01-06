@@ -17,7 +17,9 @@ const _clickHandler = e => {
   //   .parentsUntil($(".flip-card-inner"))
   //   .toggleClass("test");
 
-  console.log("clicked");
+  // console.log("clicked");
+  //   .closest("card m-5 flip-card")
+  //   .addClass(".flip-card .flip-card-inner");
 };
 
 const Event = ({

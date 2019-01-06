@@ -29,8 +29,8 @@ class SearchPanel extends Component {
 
   _handleSubmit(e) {
     const { keyword, category, location, localWithin } = this.state;
-    console.log("categorty: ", this.state);
-    alert("click the search");
+    // console.log("categorty: ", this.state);
+    // alert("click the search");
     this.props.searchEvent(keyword, category, location, localWithin);
     //call this.props.searchEvent(e)
   }
