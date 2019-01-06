@@ -5,7 +5,12 @@ import React, {Component} from 'react';
 
 class Message extends Component {
 
+
+
   render() {
+
+    let date = new Date(this.props.message.created_at);
+    let stringDate = date.toString().substring(0, 25);
 
     let isCurrentUser = this.props.user_id === this.props.message.user.id
     return (
@@ -13,13 +18,14 @@ class Message extends Component {
       // we will adjust about user colour later
 
       <div className="userMessageContainer" style={{color: isCurrentUser ? "blue" : "#000"}}>
-        <img src="./images/user-image-2.png" className="userImage"></img>
-        {this.props.message.user.username}
-        {isCurrentUser ?
-        "  (You):   " : ""}
-         &nbsp;
-        <p className="messageTime">2019-01-4</p>
-        <p className="messageContent">{this.props.message.content}</p>
+        <div className="messageInfoContainer">
+          <img src="./images/user-image-2.png" className="userImage"></img>
+          {this.props.message.user.username}
+          {isCurrentUser ? "  (You):   " : ""}
+        </div>
+           &nbsp;
+          <p className="messageContent">{this.props.message.content}</p>
+          <p className="messageTime">{stringDate}</p>
       </div>
     );
  }

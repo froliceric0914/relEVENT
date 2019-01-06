@@ -231,6 +231,7 @@ class App extends Component {
     });
   }
 
+
   // function handleSendEvent to handle the onClick event and do the message sending
   handleSendEvent(event) {
     event.preventDefault();
@@ -244,6 +245,22 @@ class App extends Component {
     this.setState({
       currentChatMessage: ""
     });
+  }
+
+  newMessageFn(event) {
+    if (event.key === 'Enter') {
+      event.preventDefault();
+      this.chats.create(
+        this.state.currentChatMessage,
+        this.state.user.userID,
+        this.state.eventId,
+        this.state.event_name,
+        this.state.img_url
+      );
+      this.setState({
+        currentChatMessage: ""
+      });
+    }
   }
 
   handleIconClick(event) {
@@ -675,13 +692,14 @@ class App extends Component {
 
               <div className="chatSpace">
                 <div className="stage">
-                  <Scroll width="100%" height="500px" idName="messageList">
+               
                     {/* <div id="messageList"> */}
-                    <div className="chatHeaderContainer"  style={{position: "sticky", top: "0", backgroundColor: "#fff"}}>
+                    {/* <div className="chatHeaderContainer"  style={{position: "sticky", top: "0"}}>
                       <div className="chatSpaceHeader">
                         <h1>Chat</h1>
                       </div>
-                    </div>
+                    </div> */}
+                    <Scroll width="100%" height="500px" idName="messageList">
                     {/* <i id="closeX" className="fas fa-times fa-2x" onClick={this.closeChat}></i> */}
                     <div className="chat-logs">{messages}</div>
                     {/* </div> */}
