@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { bake_cookie, read_cookie, delete_cookie } from "sfcookies";
+// import "../styles/userLogin.scss";
 //submit a form of the user name&password
 //TODO: import the api function(route. method,callback)
 class UserLogin extends Component {
@@ -59,54 +60,53 @@ class UserLogin extends Component {
         bake_cookie("userCookie", this.props.userState);
         console.log("login-user: ", read_cookie("userCookie"));
       });
-    //call the props and change the state of user in app.js
-    // this.props.UserLogin(email, username, password);
-    $(".userLogin").slideUp();
+    document.querySelector(".login-wrapper").style.display = "none";
   };
 
   render() {
     return (
-      <div claseName="container login-wrappers">
-        <div className="login-form">
-          <label for="user-email">Email</label>
-          <input
-            type="email"
-            id="login-rmail"
-            className="form-user"
-            onChange={e => {
-              this.setState({
-                email: e.target.value
-              });
-            }}
-            value={this.state.email}
-          />
+      <div className="loginbox">
+        <h1>User Login</h1>
+        <img src="../images/avatar-login.png" className="avatar" />
+        <div
+          className="close"
+          onClick={e => {
+            document.querySelector(".login-wrapper").style.display = "none";
+          }}
+        >
+          +
         </div>
-
-        <div className="login-form">
-          <label for="user-password">Password</label>
-          <input
-            type="text"
-            id="login-username"
-            className="form-user"
-            onChange={e => {
-              this.setState({
-                password: e.target.value
-              });
-            }}
-            value={this.state.password}
-          />
-        </div>
-
-        <div className="form-group">
-          <button
-            onClick={this._handleSubmit}
-            type="submit"
-            className="mt-5 form-control btn btn-success"
-            id="submitBtn"
-          >
-            Login in
-          </button>
-        </div>
+        <h2 for="user-email">Email</h2>
+        <input
+          type="email"
+          // id="login-rmail"
+          className="form-user"
+          onChange={e => {
+            this.setState({
+              email: e.target.value
+            });
+          }}
+          value={this.state.email}
+        />
+        <h2 for="user-password">Password</h2>
+        <input
+          type="text"
+          className="form-user"
+          onChange={e => {
+            this.setState({
+              password: e.target.value
+            });
+          }}
+          value={this.state.password}
+        />
+        <button
+          onClick={this._handleSubmit}
+          type="submit"
+          className="submitBtn"
+          id="submitBtn"
+        >
+          Login in
+        </button>
       </div>
     );
   }

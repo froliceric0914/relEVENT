@@ -35,67 +35,69 @@ class UserRegistration extends Component {
         });
         bake_cookie("userCookie", this.props.userState);
       });
-    $(".userRegistration").slideUp();
+    document.querySelector(".registration-wrapper").style.display = "none";
   };
 
   render() {
     return (
-      <div className="container registration-wrappers">
-        <div className="registration-form">
-          <label for="user-name">Username</label>
-          <input
-            type="text"
-            id="login-username"
-            className="form-user"
-            onChange={e => {
-              this.setState({
-                username: e.target.value
-              });
-            }}
-            value={this.state.username}
-          />
+      <div className="registrationbox">
+        <h1>User Registration</h1>
+        <img src="../images/avatar-login.png" className="avatar" />
+
+        <div
+          className="close"
+          onClick={e => {
+            document.querySelector(".registration-wrapper").style.display =
+              "none";
+          }}
+        >
+          +
         </div>
 
-        <div className="registration-form">
-          <label for="user-email">Email</label>
-          <input
-            type="email"
-            id="login-rmail"
-            className="form-user"
-            onChange={e => {
-              this.setState({
-                email: e.target.value
-              });
-            }}
-            value={this.state.email}
-          />
-        </div>
+        <h2>Username</h2>
+        <input
+          type="text"
+          className="form-user"
+          onChange={e => {
+            this.setState({
+              username: e.target.value
+            });
+          }}
+          value={this.state.username}
+        />
 
-        <div className="registration-form">
-          <label for="user-password">Password</label>
-          <input
-            type="text"
-            id="login-username"
-            className="form-user"
-            onChange={e => {
-              this.setState({
-                password: e.target.value
-              });
-            }}
-            value={this.state.password}
-          />
-        </div>
+        <h2>Email</h2>
+        <input
+          type="email"
+          className="form-user"
+          onChange={e => {
+            this.setState({
+              email: e.target.value
+            });
+          }}
+          value={this.state.email}
+        />
 
-        <div className="form-group">
-          <button
-            onClick={this._handleSubmit}
-            type="submit"
-            className="mt-5 form-control btn btn-success"
-            id="submitBtn"
-          >
-            Register
-          </button>
-        </div>
+        <h2>Password</h2>
+        <input
+          type="text"
+          className="form-user"
+          onChange={e => {
+            this.setState({
+              password: e.target.value
+            });
+          }}
+          value={this.state.password}
+        />
+
+        <button
+          onClick={this._handleSubmit}
+          type="submit"
+          className="submitBtn"
+          id="submitBtn"
+        >
+          Register
+        </button>
       </div>
     );
   }

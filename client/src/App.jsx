@@ -529,7 +529,9 @@ class App extends Component {
           <button
             style={{ display: this.state.user.status ? "none" : "block" }}
             onClick={e => {
-              $(".userRegistration").toggle();
+              document.querySelector(".registration-wrapper").style.display =
+                "flex";
+              console.log("click me");
             }}
           >
             register
@@ -538,7 +540,7 @@ class App extends Component {
           <button
             style={{ display: this.state.user.status ? "none" : "block" }}
             onClick={e => {
-              $(".userLogin").toggle();
+              document.querySelector(".login-wrapper").style.display = "flex";
             }}
           >
             login
@@ -583,78 +585,77 @@ class App extends Component {
         </nav>
 
         <main>
-          <div className="column">
-            <div className="userRegistration">
-              <UserRegistration
-                setUser={user => this.setState({ user })}
-                userState={this.state.user}
+          <div className="registration-wrapper">
+            <UserRegistration
+              setUser={user => this.setState({ user })}
+              userState={this.state.user}
+            />
+          </div>
+
+          <div className="login-wrapper">
+            <UserLogin
+              setUser={user => this.setState({ user })}
+              setList={listItems => this.setState(listItems)}
+              userState={this.state.user} // render it in the nav
+            />
+          </div>
+
+          <div className="mainContent">
+            <Scroll width="100%" height="700px">
+              <EventList
+                events={this.state.events}
+                searchEvent={this.searchEvent}
+                openChat={this.openChat}
+                handleIconClick={this.handleIconClick}
+                listItems={this.state.listItems}
+                listItemSelected={this.state.listItemSelected}
+                handleXIconOnEventClick={this.handleXIconOnEventClick}
+                allEvents={this.state.allEvents}
               />
-            </div>
+            </Scroll>
 
-            <div className="userLogin">
-              <UserLogin
-                setUser={user => this.setState({ user })}
-                setList={listItems => this.setState(listItems)}
-                userState={this.state.user} // render it in the nav
-              />
-            </div>
-
-            <div className="mainContent">
-              <Scroll width="100%" height="700px">
-                <EventList
-                  events={this.state.events}
-                  searchEvent={this.searchEvent}
-                  openChat={this.openChat}
-                  handleIconClick={this.handleIconClick}
-                  listItems={this.state.listItems}
-                  listItemSelected={this.state.listItemSelected}
-                  handleXIconOnEventClick={this.handleXIconOnEventClick}
-                  allEvents={this.state.allEvents}
-                />
-              </Scroll>
-
-              <div className="chatSpace">
-                <div className="stage">
-                  <Scroll width="100%" height="500px" idName="messageList">
-                    {/* <div id="messageList"> */}
-                    <div className="chatHeaderContainer">
-                      <div className="chatSpaceHeader">
-                        <h1>Chat</h1>
-                      </div>
+            <div className="chatSpace">
+              <div className="stage">
+                <Scroll width="100%" height="500px" idName="messageList">
+                  {/* <div id="messageList"> */}
+                  <div className="chatHeaderContainer">
+                    <div className="chatSpaceHeader">
+                      <h1>Chat</h1>
                     </div>
-                    {/* <i id="closeX" className="fas fa-times fa-2x" onClick={this.closeChat}></i> */}
-                    <div className="chat-logs">{messages}</div>
-                    {/* </div> */}
-                  </Scroll>
+                  </div>
+                  {/* <i id="closeX" className="fas fa-times fa-2x" onClick={this.closeChat}></i> */}
+                  <div className="chat-logs">{messages}</div>
+                  {/* </div> */}
+                </Scroll>
 
-                  <div className="inputContainer">
-                    <input
-                      value={this.state.currentChatMessage}
-                      onChange={e => this.updateCurrentChatMessage(e)}
-                      type="text"
-                      placeholder="Type a message"
-                      className="chat-input"
+                <div className="inputContainer">
+                  <input
+                    value={this.state.currentChatMessage}
+                    onChange={e => this.updateCurrentChatMessage(e)}
+                    type="text"
+                    placeholder="Type a message"
+                    className="chat-input"
+                  />
+                  <button
+                    onClick={e => this.handleSendEvent(e)}
+                    className="send"
+                  >
+                    {" "}
+                    Send
+                    <img
+                      src="./images/send-message.png"
+                      className="send-logo"
                     />
-                    <button
-                      onClick={e => this.handleSendEvent(e)}
-                      className="send"
-                    >
-                      {" "}
-                      Send
-                      <img
-                        src="./images/send-message.png"
-                        className="send-logo"
-                      />
-                    </button>
-                  </div>
+                  </button>
+                </div>
 
-                  <div className="closeX" onClick={this.closeChat}>
-                    close chat
-                  </div>
+                <div className="closeX" onClick={this.closeChat}>
+                  close chat
                 </div>
               </div>
             </div>
           </div>
+
           <MyList
             listItems={this.state.listItems}
             handleListItemClick={this.handleListItemClick}
