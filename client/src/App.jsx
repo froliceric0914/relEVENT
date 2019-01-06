@@ -622,7 +622,7 @@ class App extends Component {
                   {/* <div id="messageList"> */}
                   <div className="chatHeaderContainer">
                     <div className="chatSpaceHeader">
-                      <h1>Chat</h1>
+                      <h1>Event Chat</h1>
                     </div>
                 </div>
                   {/* <i id="closeX" className="fas fa-times fa-2x" onClick={this.closeChat}></i> */}
