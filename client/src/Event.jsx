@@ -99,13 +99,6 @@ const Event = ({
     }
   }
 
-  // let img_style;
-
-  // if (event.logo.url != null) {
-  //   img_style = { backgroundImage: `url(${event.logo.url})` };
-  //   console.log("iii", img_style);
-  // }
-
   return (
     // <div className="event-card col-6">
     <div
@@ -133,7 +126,7 @@ const Event = ({
                   overflow: "hidden"
                 }}
               >
-                {event.name.text.substring(45)
+                {!event.name.text? "": event.name.text.substring(45)
                   ? event.name.text.substring(0, 45) + " ..."
                   : event.name.text}
               </h2>
@@ -200,7 +193,7 @@ const Event = ({
             {img}
           </div>
           <p>
-            {event.description.text.substring(300)
+            {!event.description.text? "": event.description.text.substring(300)
               ? event.description.text.substring(0, 300) + "..."
               : event.description.text}
           </p>

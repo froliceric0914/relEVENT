@@ -121,7 +121,7 @@ class App extends Component {
         });
     }
     const url = fetch(
-      `https://www.eventbriteapi.com/v3/events/search/?q=&sort_by=date&location.address=toronto&start_date.keyword=today&expand=organizer,venue&token=${
+      `https://www.eventbriteapi.com/v3/events/search/?q=&sort_by=date&location.address=toronto&expand=organizer,venue&token=${
         process.env.TOKEN
       }`
     )
@@ -642,14 +642,14 @@ class App extends Component {
 
         <main>
           <div className="column">
-            {/* <div className="userRegistration">
+            <div className="userRegistration">
               <UserRegistration
                 setUser={user => this.setState({ user })}
                 userState={this.state.user}
               />
             </div>
 
-            <div className="userLogin">
+            {/* <div className="userLogin">
               <UserLogin
                 setUser={user => this.setState({ user })}
                 setList={listItems => this.setState(listItems)}

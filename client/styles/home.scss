@@ -21,6 +21,10 @@ body {
   padding: 0;
 }
 
+button:focus {
+  outline: none;
+}
+
 .flexC{
   display: flex;
   flex-direction: column;
@@ -184,7 +188,7 @@ body {
 
 /////////////////// main ///////////////////
 main {
-  margin-top: 121.5px;
+  margin-top: 10rem;
   background: #fff;
   display: flex;
   height: 100%;
@@ -567,17 +571,16 @@ main {
   margin: 1rem;
   display: none;
   position: fixed;
-  // background-color: white;
   width: 25%;
   right: 1rem;
-  top: 4rem;
+  top: 3.5rem;
   max-height: 70%;
   overflow-y: auto;
   overflow-x: hidden;
   z-index: 1;
   border-radius: 0.3rem;
   padding-right: 1rem;
-  font-size: 0.8rem; //for making list gaps
+  font-size: 0.9rem; //for making list gaps
  
   // text-align: center;
   h3 {
@@ -610,9 +613,10 @@ main {
   }
 
   .listItem {
-    // background-color: #eee;
+    background-color: whitesmoke;
     // box-shadow: 3px 3px 6px 2px  rgba(0, 0, 0, 0.2);
   }
+  
   .listItem:hover {
     background-color: #ddd;
   }
@@ -628,7 +632,7 @@ main {
   }
 
   .notify:hover {
-    background-color: white;
+    background-color: whitesmoke;
   }
 }
 
@@ -640,6 +644,10 @@ main {
 
 @media only screen and (max-width: 420px) {
   .myList { 
+    display:none;
+  }
+
+  .listItem {
     display:none;
   }
 
