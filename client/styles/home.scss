@@ -34,9 +34,10 @@ body {
 
 .navbar {
   // background: url("../images/torontoSkyline+.jpg") no-repeat;
-    background: url("../images/toronto2.png") no-repeat;
+  background: url("../images/toronto4.png") no-repeat;
   background-size: cover;
- background-position: center;
+  background-position: center;
+  background-origin: border-box;
   // background-position: right 0 bottom 5px;
   width: 100%;
   left: 0;
@@ -211,14 +212,16 @@ main {
     font-weight: 400;
     margin-bottom: 0.1rem;
   }
-
+  
   .input-field {
     margin: 1rem;
   }
 
   .btn-search {
     margin-bottom: 0;
+    padding: 0.3rem 0.6rem;
     padding-top: 0.4rem;
+    font-size: 1.3rem;
     border-radius: 0.2rem;
     background-color: green;
     color: white;
