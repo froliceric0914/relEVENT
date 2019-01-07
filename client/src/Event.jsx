@@ -58,7 +58,7 @@ const Event = ({
   let likeIcon = "false";
   let bookmarkIcon = "false";
   let likeclassName = "far fa-heart icon";
-  let bookmarkclassName = "far fa-bookmark icon";
+  let bookmarkclassName = "far fa-plus-circle icon";
   let likeCount = 0;
 
   allEvents.forEach(item => {
@@ -75,7 +75,7 @@ const Event = ({
         likeclassName = "fas fa-heart icon";
       }
       if (bookmarkIcon === true) {
-        bookmarkclassName = "fas fa-bookmark icon";
+        bookmarkclassName = "fas fa-plus-circle icon";
       }
     }
   });
@@ -174,7 +174,7 @@ const Event = ({
                 className={bookmarkclassName}
                 onClick={handleIconClick}
               />
-              <i className="fas fa-bookmark icon whiteBookmark " />
+              <i className="fas fa-plus-circle icon whiteBookmark " />
             </div>
             <div className="iconSideError" />
             <div className="iconSideMessage" />
