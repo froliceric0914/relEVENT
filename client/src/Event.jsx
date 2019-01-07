@@ -114,7 +114,7 @@ const Event = ({
       className="card m-5 flip-card"
       style={{ width: "40rem", height: "32rem" }}
     >
-      <div className="flip-card-inner">
+      <div className="flip-card-inner hoverable">
         <div className="flip-card-front">
           <div
             className="card-img-top"
@@ -148,7 +148,7 @@ const Event = ({
             </div>
 
             <a
-              className="btn btn-primary detailsButton"
+              className="btn btn-primary detailsButton text-white"
               onClick={_clickHandler}
             >
               Details
