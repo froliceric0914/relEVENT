@@ -1,10 +1,9 @@
 @import url("https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,700");
 @import url("https://fonts.googleapis.com/css?family=Ubuntu");
 @import url("https://cdnjs.cloudflare.com/ajax/libs/normalize/4.2.0/normalize.min.css");
-@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400i');
+@import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400i");
 
-
-@import url('https://fonts.googleapis.com/css?family=Amaranth:400i|Kalam|News+Cycle|Source+Sans+Pro:400,400i');
+@import url("https://fonts.googleapis.com/css?family=Amaranth:400i|Kalam|News+Cycle|Source+Sans+Pro:400,400i");
 
 $navbar-height: 40px;
 
@@ -25,12 +24,12 @@ button:focus {
   outline: none;
 }
 
-.flexC{
+.flexC {
   display: flex;
   flex-direction: column;
 }
 
-.flexR{
+.flexR {
   display: flex;
 }
 
@@ -42,7 +41,8 @@ button:focus {
   background-size: cover;
   background-position: center;
   background-origin: border-box;
-  // background-position: right 0 bottom 5px;
+  background-position: right 0 bottom 5px;
+  height: 150px;
   width: 100%;
   left: 0;
   padding: 0 4rem 0.7rem;
@@ -53,7 +53,7 @@ button:focus {
   color: white;
   z-index: 1;
   display: flex;
-  flex-flow: column ;
+  flex-flow: column;
   margin-bottom: 0;
   border-radius: 0;
 
@@ -85,8 +85,7 @@ button:focus {
   }
 }
 
-
-.navbar-content{
+.navbar-content {
   width: 100%;
   flex-flow: row wrap;
   justify-content: space-between;
@@ -103,43 +102,41 @@ button:focus {
   float: left;
   // font-weight: 700;
   font-size: 35px;
-  
+
   padding: 0 10px;
   text-decoration: none;
 
   // font-family: 'Source Sans Pro', sans-serif;
   // font-family: 'News Cycle', sans-serif;
   // font-family: 'Kalam', cursive;
-  font-family: 'Amaranth', sans-serif;
+  font-family: "Amaranth", sans-serif;
   letter-spacing: 0.1rem;
 }
 
-
-.nav-right{
+.nav-right {
   padding: 5px;
   align-items: flex-end;
 }
 
-.enter{
+.enter {
   margin: 0.5rem;
 
-  div{
+  div {
     text-decoration: underline;
   }
-  div:hover{
+  div:hover {
     cursor: pointer;
   }
 }
 
-.log-out{
+.log-out {
   text-decoration: underline;
   margin: 0.5rem 1rem;
 }
 
-.log-out:hover{
+.log-out:hover {
   cursor: pointer;
 }
-
 
 .user_icon_nav {
   width: 1.2rem;
@@ -147,7 +144,6 @@ button:focus {
   border-radius: 50%;
   margin: 0.8rem 0rem;
 }
-
 
 // .logOutPopUp {
 //   position: fixed;
@@ -161,7 +157,7 @@ button:focus {
 // }
 
 @media only screen and (max-width: 600px) {
-  .navbar { 
+  .navbar {
     padding: 0 1rem 0.7rem 1rem;
   }
 }
@@ -187,7 +183,7 @@ main {
 //***************** search *****************//
 .searchPanel {
   width: 100%;
-  background-color: rgba(0,0,0,0.3);
+  background-color: rgba(0, 0, 0, 0.3);
   border-radius: 0.5rem;
 
   form {
@@ -209,7 +205,7 @@ main {
     font-weight: 400;
     margin-bottom: 0.1rem;
   }
-  
+
   .input-field {
     margin: 1rem;
   }
@@ -228,7 +224,6 @@ main {
     color: white;
     border: 0px;
   }
-
 }
 .mainContent {
   width: 100%;
@@ -237,8 +232,7 @@ main {
 }
 
 @media only screen and (max-width: 600px) {
-
-  .searchPanel{
+  .searchPanel {
     .form-wrap {
       padding: 0.5rem;
       padding-top: 0;
@@ -269,9 +263,7 @@ main {
 .card-body {
   padding-top: 0em;
   padding-bottom: 0em;
-
 }
-
 
 .detailsButton {
   position: absolute;
@@ -350,9 +342,7 @@ main {
   .whiteBookmark {
     color: white;
     z-index: 1;
-
   }
-
 }
 
 .iconSideError {
@@ -462,11 +452,11 @@ main {
   font-family: "Ubuntu", sans-serif;
   color: #706f6f;
 }
-.closeX:hover{
-   cursor: pointer;
-   opacity: 0.8;
-   font-family: "Ubuntu", sans-serif;
-   color: #706f6f;
+.closeX:hover {
+  cursor: pointer;
+  opacity: 0.8;
+  font-family: "Ubuntu", sans-serif;
+  color: #706f6f;
 }
 
 // .stage{
@@ -513,7 +503,7 @@ input:focus::-webkit-input-placeholder {
   font-family: "Ubuntu", sans-serif;
 }
 
-.input:focus+.underline {
+.input:focus + .underline {
   transform: scale(1);
 }
 
@@ -540,7 +530,7 @@ input:focus::-webkit-input-placeholder {
   border-color: #585859;
   margin-left: 15px;
   width: 100px;
-  background-color: #DCE6F7;
+  background-color: #dce6f7;
   font-family: "Ubuntu", sans-serif;
 }
 
@@ -631,13 +621,13 @@ input:focus::-webkit-input-placeholder {
   border-radius: 0.3rem;
   padding-right: 1rem;
   font-size: 0.9rem; //for making list gaps
- 
+
   // text-align: center;
   h3 {
     padding: 0.2rem;
     position: sticky;
   }
-  
+
   .fa-heart {
     color: red;
     font-size: 1rem;
@@ -666,13 +656,12 @@ input:focus::-webkit-input-placeholder {
     background-color: whitesmoke;
     // box-shadow: 3px 3px 6px 2px  rgba(0, 0, 0, 0.2);
   }
-  
+
   .listItem:hover {
     background-color: #ddd;
   }
 
   .listItem img:hover {
-
   }
 
   .notify {
@@ -686,22 +675,22 @@ input:focus::-webkit-input-placeholder {
   }
 }
 
-@media only screen and (min-width: 768px){
+@media only screen and (min-width: 768px) {
   .col-md-5 {
     padding-right: 0;
   }
 }
 
 @media only screen and (max-width: 420px) {
-  .myList { 
-    display:none;
+  .myList {
+    display: none;
   }
 
   .listItem {
-    display:none;
+    display: none;
   }
 
   .btn-mylist {
-    display:none;
+    display: none;
   }
 }

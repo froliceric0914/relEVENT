@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { bake_cookie, read_cookie, delete_cookie } from "sfcookies";
+import { bake_cookie } from "sfcookies";
 import PasswordMask from "react-password-mask";
 
 class UserRegistration extends Component {
@@ -15,7 +15,7 @@ class UserRegistration extends Component {
 
   _handleSubmit = e => {
     const { email, username, password } = this.state;
-    // alert("submit the form");
+    // send the state info to backend
     const user = fetch("http://localhost:8080/users", {
       headers: {
         Accept: "application/json",
