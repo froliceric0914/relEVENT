@@ -1,14 +1,15 @@
 import React, { Component } from "react";
 import { bake_cookie, read_cookie, delete_cookie } from "sfcookies";
+import PasswordMask from "react-password-mask";
 
 class UserRegistration extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      email: "eric11111@eric.com",
-      username: "ericcool1",
-      password: "1234567"
+      email: "",
+      username: "",
+      password: ""
     };
   }
 
@@ -57,7 +58,7 @@ class UserRegistration extends Component {
         <h2>Username</h2>
         <input
           type="text"
-          className="form-user"
+          className="form-user-registration"
           onChange={e => {
             this.setState({
               username: e.target.value
@@ -69,7 +70,7 @@ class UserRegistration extends Component {
         <h2>Email</h2>
         <input
           type="email"
-          className="form-user"
+          className="form-user-registration"
           onChange={e => {
             this.setState({
               email: e.target.value
@@ -79,9 +80,9 @@ class UserRegistration extends Component {
         />
 
         <h2>Password</h2>
-        <input
+        <PasswordMask
           type="text"
-          className="form-user"
+          className="form-user-registration-1"
           onChange={e => {
             this.setState({
               password: e.target.value

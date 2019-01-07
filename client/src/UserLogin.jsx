@@ -1,15 +1,12 @@
 import React, { Component } from "react";
-import { bake_cookie, read_cookie, delete_cookie } from "sfcookies";
-// import "../styles/userLogin.scss";
-//submit a form of the user name&password
-//TODO: import the api function(route. method,callback)
+import PasswordMask from "react-password-mask";
 class UserLogin extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      email: "eric11111@eric.com",
-      password: "1234567"
+      email: "",
+      password: ""
     };
     // this._handleSubmit = this._handleSubmit.bind(this);
   }
@@ -80,7 +77,7 @@ class UserLogin extends Component {
         <input
           type="email"
           // id="login-rmail"
-          className="form-user"
+          className="form-user-login"
           onChange={e => {
             this.setState({
               email: e.target.value
@@ -88,10 +85,9 @@ class UserLogin extends Component {
           }}
           value={this.state.email}
         />
-        <h2 for="user-password">Password</h2>
-        <input
+        <h2>Password</h2>
+        <PasswordMask
           type="text"
-          className="form-user"
           onChange={e => {
             this.setState({
               password: e.target.value
