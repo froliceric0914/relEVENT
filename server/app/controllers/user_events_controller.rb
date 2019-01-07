@@ -85,7 +85,7 @@
 
       user_events_list = UsersEvent.where(
         user_id: params[:user_id]
-      )
+      ).order('id DESC')
       render json: user_events_list
 
       # update only ver ===========================
@@ -108,7 +108,7 @@
       # this finds the users events
       user_events = UsersEvent.where(
         user_id: params[:user_id]
-      )
+      ).order('id DESC')
 
       # if you need to get events matched
       # =====================================
