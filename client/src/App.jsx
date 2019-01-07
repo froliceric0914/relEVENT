@@ -47,16 +47,6 @@ class App extends Component {
     this.handleXIconOnEventClick = this.handleXIconOnEventClick.bind(this);
   }
 
-  // logout() {
-  //   delete_cookie("userCookie");
-  //   this.setState({
-  //     user: {
-  //       status: false,
-  //       username: null,
-  //       userID: null
-  //     }
-  //   });
-  // }
 
   generateUserColor = (user_id) =>{
     // console.log("id is", user_id);
@@ -309,7 +299,6 @@ class App extends Component {
             this.getAllEventInDB();
           }
         });
-    
   }
 
   handleListItemClick(event) {
@@ -374,12 +363,10 @@ class App extends Component {
 
   // Open user's MyList
   openMyList(event) {
-    // $(".myList").animate({
-    //   width: "toggle"
-    // });
     $(".myList").is(":visible")
-      ? $(".myList").slideUp()
-      : $(".myList").slideDown();
+      ? $(".myList").slideUp() && $(".btn-mylist").removeClass("mylist-on") && $(".btn-mylist").text("MyList")
+
+      :  $(".myList").slideDown() && $(".btn-mylist").addClass("mylist-on") && $(".btn-mylist").text("Close");
   }
 
   // Open Chat space
