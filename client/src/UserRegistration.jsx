@@ -29,14 +29,24 @@ class UserRegistration extends Component {
       })
       .then(data => {
         console.log("user data from backend", data);
-        this.props.setUser({
-          status: true,
-          username: data.object.username,
-          userID: data.object.id
-        });
-        bake_cookie("userCookie", this.props.userState);
+        switch (data.status) {
+          case "ok":
+            this.props.setUser({
+              status: true,
+              username: data.object.username,
+              userID: data.object.id
+            });
+            bake_cookie("userCookie", this.props.userState);
+            document.querySelector(".registration-wrapper").style.display =
+              "none";
+
+            break;
+          case 500:
+            alert("please iout the right info");
+            console.log("wrong");
+            break;
+        }
       });
-    document.querySelector(".registration-wrapper").style.display = "none";
   };
 
   render() {
