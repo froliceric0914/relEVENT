@@ -286,6 +286,7 @@ main {
   // padding-left: 2.5rem;
   // padding-right: 2.5rem;
   // padding-bottom: 2.5rem;
+  overflow: hidden;
   border: whitesmoke solid 0.5px;
   margin-top: 2rem;
   margin-left: 1rem;
@@ -367,8 +368,9 @@ main {
     right: 1.7rem;
   }
 
-  .fa-bookmark {
-    color: green;
+  .fa-plus-circle {
+    color: orange;
+    background: white;
     position: fixed;
     font-size: 4rem;
     line-height: 3rem;
@@ -380,7 +382,7 @@ main {
     text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
   }
 
-  .whiteBookmark {
+  .white-bookmark {
     color: white;
     z-index: 0;
 
