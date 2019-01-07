@@ -368,7 +368,7 @@ class App extends Component {
   openChatFromList = () =>{
     //open chat space
       $(".chatSpace").show();
-      $(".chatButton").css("background-color", "#dc3545");
+      $(".chatButton").css("background-color", "#ff9933");
       $(".chatButton").text("Close Chat"); 
   }
 
