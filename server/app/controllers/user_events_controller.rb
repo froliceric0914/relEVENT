@@ -36,19 +36,9 @@
     #   # end
     # end
 
-    def update
-
-      # @event = Event.find_by(
-      #   external_event_id: params[:event_id], 
-      # )
-      # user_events = UsersEvent.find_by(user_id: params[:user_id], event_id: @event.id)
-      # user_events.update(bookmarked: params[:bookmarked],
-      # liked: params[:liked])
-
-      # user_events_list = UsersEvent.where(
-      #   user_id: params[:user_id]
-      # )
-      # render json: user_events_list
+    def update 
+      
+      # handle create, edit, delete
 
       @category = Category.first
       # byebug
@@ -63,7 +53,7 @@
       )
 
       user_event = UsersEvent.find_by(user_id: params[:user_id], event_id: @event.id)
-#  byebug
+
       if user_event
 
         # put
@@ -97,6 +87,20 @@
         user_id: params[:user_id]
       )
       render json: user_events_list
+
+      # update only ver ===========================
+      # @event = Event.find_by(
+      #   external_event_id: params[:event_id], 
+      # )
+      # user_events = UsersEvent.find_by(user_id: params[:user_id], event_id: @event.id)
+      # user_events.update(bookmarked: params[:bookmarked],
+      # liked: params[:liked])
+
+      # user_events_list = UsersEvent.where(
+      #   user_id: params[:user_id]
+      # )
+      # render json: user_events_list
+      # ===================================
       
     end  
 
@@ -118,20 +122,21 @@
     end
 
     # to send back json, switched to use this route from destloy 
-    def remove
+    # no use decided to do iconclick handling with put
+    # def remove
 
-      @event = Event.find_by!(external_event_id: params[:id])
+    #   @event = Event.find_by!(external_event_id: params[:id])
 
-      user_events = UsersEvent.where('user_id = ? AND event_id = ?', params[:user_id], @event.id)
-      # destory needs an ID to delete 
-      UsersEvent.destroy(user_events.first.id)
+    #   user_events = UsersEvent.where('user_id = ? AND event_id = ?', params[:user_id], @event.id)
+    #   # destory needs an ID to delete 
+    #   UsersEvent.destroy(user_events.first.id)
 
-      user_events = UsersEvent.where(
-        user_id: params[:user_id]
-      )
-      render json: user_events
+    #   user_events = UsersEvent.where(
+    #     user_id: params[:user_id]
+    #   )
+    #   render json: user_events
 
-    end
+    # end
 
     # currently no use since this return 204 with no data
     def destroy
