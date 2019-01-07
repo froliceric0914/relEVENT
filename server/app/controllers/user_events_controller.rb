@@ -2,12 +2,56 @@
 
   class UserEventsController < ApplicationController
 
-    def create
-      puts "here!"
+    # no use. use put for all icon click transaction
+    # def create
+    #   puts "here!"
 
-      # currently no use, so just assign first one 
-      @category = Category.first
+    #   # currently no use, so just assign first one 
+    #   @category = Category.first
     
+    #   @event = Event.find_by(
+    #     external_event_id: params[:event_id], 
+    #   ) || Event.create!(
+    #     external_event_id: params[:event_id], 
+    #     like_count: 0, 
+    #     name: params[:event_name],
+    #     logo_url: params[:img_url],
+    #     category: @category
+    #   )
+
+    #   @user = User.find_by!(id: params[:user_id])
+
+    #   user_event = UsersEvent.create!(
+    #     user_id: @user.id,
+    #     event_id: @event.id,
+    #     bookmarked: params[:bookmarked],
+    #     liked: params[:liked]
+    #   )
+
+    #   # if user_event
+    #   #   render json: user_event
+    #   # else
+    #   #   head :unprocessable_entity
+    #   #   # render json: {message: "entry already exists"}
+    #   # end
+    # end
+
+    def update
+
+      # @event = Event.find_by(
+      #   external_event_id: params[:event_id], 
+      # )
+      # user_events = UsersEvent.find_by(user_id: params[:user_id], event_id: @event.id)
+      # user_events.update(bookmarked: params[:bookmarked],
+      # liked: params[:liked])
+
+      # user_events_list = UsersEvent.where(
+      #   user_id: params[:user_id]
+      # )
+      # render json: user_events_list
+
+      @category = Category.first
+      # byebug
       @event = Event.find_by(
         external_event_id: params[:event_id], 
       ) || Event.create!(
@@ -18,41 +62,42 @@
         category: @category
       )
 
-      @user = User.find_by!(id: params[:user_id])
+      user_event = UsersEvent.find_by(user_id: params[:user_id], event_id: @event.id)
+#  byebug
+      if user_event
 
-      user_events = UsersEvent.create!(
-        user_id: @user.id,
-        event_id: @event.id,
-        bookmarked: params[:bookmarked],
-        liked: params[:liked]
-      )
-      # byebug
+        # put
+        if params[:selected] == "like"
+          user_event.update(
+          liked: !user_event[:liked])
+        else
+          user_event.update(bookmarked: !user_event[:bookmarked],
+          )
+        end
 
-      user_events_list = UsersEvent.where(
-        user_id: params[:user_id]
-      )
+        #delete
+        if user_event[:bookmarked] == false && user_event[:liked] == false
+          UsersEvent.destroy(user_event.id)
+        end
 
-      if user_events
-        render json: user_events_list
       else
-        head :unprocessable_entity
-        # render json: {message: "entry already exists"}
-      end
-    end
+        # create
+        @user = User.find_by!(id: params[:user_id])
 
-    def update
-      @event = Event.find_by(
-        external_event_id: params[:event_id], 
-      )
-      user_events = UsersEvent.find_by(user_id: params[:user_id], event_id: @event.id)
-      user_events.update(bookmarked: params[:bookmarked],
-      liked: params[:liked])
+        user_event = UsersEvent.create!(
+          user_id: @user.id,
+          event_id: @event.id,
+          bookmarked: params[:bookmarked],
+          liked: params[:liked]
+        )
+
+      end
 
       user_events_list = UsersEvent.where(
         user_id: params[:user_id]
       )
       render json: user_events_list
-
+      
     end  
 
     def events 

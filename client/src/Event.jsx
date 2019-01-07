@@ -101,6 +101,16 @@ const Event = ({
     }
   }
 
+
+
+ 
+
+  var eventInfo = { 
+    id: event.id,
+    event_name: event.name.text,
+    img_url: img_url
+ };
+
   return (
     // <div className="event-card col-6">
     <div

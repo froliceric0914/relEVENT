@@ -58,18 +58,6 @@ class App extends Component {
   //   });
   // }
 
-    // Open logout
-  openLogOut = () =>{
-
-      $(".log-out").toggle();
-      // $(".myList").animate({
-      //   width: "toggle"
-      // });
-      // $(".log-out").is(":visible")
-      //   ? $(".myList").slideUp()
-      //   : $(".myList").slideDown();
-    }
-
   generateUserColor = (user_id) =>{
     // console.log("id is", user_id);
     let hue = (user_id * 70) % 360;
@@ -264,11 +252,14 @@ class App extends Component {
   }
 
   handleIconClick(event) {
+   
+    console.log("clicked");
     let selectedIcon = event.target.getAttribute("data-name");
 
     // Selecting other icon. Be careful if you change layout
     let otherIcon = $(event.target).siblings(".icon")[0];
 
+    // user was not logged_in
     if (!this.state.user.userID) {
       // request log-in
       $(".iconSideError").text(
@@ -281,115 +272,27 @@ class App extends Component {
       return;
     }
 
-    let currentIconStatus = event.target.getAttribute("data-on");
-    let otherIconStatus = otherIcon.getAttribute("data-on");
+    // let currentIconStatus = event.target.getAttribute("data-on");
+    // let otherIconStatus = otherIcon.getAttribute("data-on");
 
     let selectedEventId = event.target.getAttribute("data-id");
     let eventName = event.target.getAttribute("data-event-name");
     let imgUrl = event.target.getAttribute("data-img-url");
 
+    // let info = {
+    //   event_id: selectedEventId,
+    //   liked: false,
+    //   bookmarked: false,
+    //   event_name: eventName,
+    //   img_url: imgUrl
+    // }
+
     let liked = false;
     let bookmarked = false;
-
-    // if current icon was on
-    if (currentIconStatus === "true") {
-      $(event.target).removeClass("fas");
-      $(event.target).addClass("far");
-      event.target.setAttribute("data-on", "false");
-
-      // if both icons became off :remove
-      if (otherIconStatus === "false") {
-        console.log("remove");
-
-        fetch(
-          `http://localhost:8080/users/${
-            this.state.user.userID
-          }/user_events/${selectedEventId}`,
-          {
-            headers: {
-              Accept: "application/json",
-              "Content-Type": "application/json"
-            },
-            method: "PUT",
-            body: JSON.stringify({
-              event_id: selectedEventId,
-              liked: liked,
-              bookmarked: bookmarked
-            })
-          }
-        )
-          .then(res => {
-            return res.json();
-          })
-          .then(data => {
-            if (data) {
-              this.setState({ listItems: data });
-              this.getAllEventInDB();
-            }
-          });
-      }
-
-      // if current icon was off
-    } else {
-      $(event.target).removeClass("far");
-      $(event.target).addClass("fas");
-      event.target.setAttribute("data-on", "true");
-
-      // other one was off :create
-      if (otherIconStatus === "false") {
-        console.log("create");
-
-        //create users_events
-        selectedIcon === "like" ? (liked = true) : (bookmarked = true);
-
-        fetch(
-          `http://localhost:8080/users/${this.state.user.userID}/user_events`,
-          {
-            headers: {
-              Accept: "application/json",
-              "Content-Type": "application/json"
-            },
-            method: "POST",
-            body: JSON.stringify({
-              event_id: selectedEventId,
-              liked: liked,
-              bookmarked: bookmarked,
-              event_name: eventName,
-              img_url: imgUrl
-            })
-          }
-        )
-          .then(res => {
-            return res.json();
-          })
-          .then(data => {
-            if (data) {
-              this.setState({ listItems: data });
-              this.getAllEventInDB();
-            }
-          });
-
-        return;
-      }
-    }
-
-    // other one was on :put
-    console.log("update");
-
-    if (selectedIcon === "like") {
-      //  liked = !currentIconStatus  if you can set boolean. need refactor
-      liked = currentIconStatus === "true" ? "false" : "true";
-      bookmarked = otherIconStatus;
-    } else {
-      //  bookmarked = !currentIconStatus  if you can set boolean. need refactor
-      bookmarked = currentIconStatus === "true" ? "false" : "true";
-      liked = otherIconStatus;
-    }
+    selectedIcon === "like" ? liked = true : bookmarked = true;
 
     fetch(
-      `http://localhost:8080/users/${
-        this.state.user.userID
-      }/user_events/${selectedEventId}`,
+      `http://localhost:8080/users/${this.state.user.userID}/user_events/${selectedEventId}`,
       {
         headers: {
           Accept: "application/json",
@@ -399,20 +302,346 @@ class App extends Component {
         body: JSON.stringify({
           event_id: selectedEventId,
           liked: liked,
-          bookmarked: bookmarked
+          bookmarked: bookmarked,
+          event_name: eventName,
+          img_url: imgUrl,
+          selected: selectedIcon
         })
-      }
-    )
-      .then(res => {
+      }).then(res => {
+
+      // if found
+      if (res.status === 200){
         return res.json();
-      })
+      }
+      // if not found , create
+      // this.createUserEventInDB(info, selectedIcon);
+    })
       .then(data => {
-        if (data) {
-          this.setState({ listItems: data });
-          this.getAllEventInDB();
-        }
-      });
+          if (data) {
+            this.setState({ listItems: data });
+            this.getAllEventInDB();
+          }
+        });
+    
+
+    // // Check existence of user event
+        
+    // fetch(`http://localhost:8080/users/${this.state.user.userID}/user_events/${selectedEventId}`)
+    // .then(res => {
+
+    //   // if found
+    //   if (res.status === 200){
+    //     return res.json();
+    //   }
+    //   // if not found , create
+    //   this.createUserEventInDB(info, selectedIcon);
+    // })
+    // .then(data => {
+    //   console.log("this is data!!",data);
+    //   if (data) {
+    //     console.log("you got  data!!",data);
+    //   }
+    // });
+
+
+    // // Selecting other icon. Be careful if you change layout
+    // let otherIcon = $(event.target).siblings(".icon")[0];
+
+    // if (!this.state.user.userID) {
+    //   // request log-in
+    //   $(".iconSideError").text(
+    //     `You need log-in or register to use ${selectedIcon} function`
+    //   );
+    //   setTimeout(function() {
+    //     $(".iconSideError").text("");
+    //   }, 3000);
+
+    //   return;
+    // }
+
+    // let currentIconStatus = event.target.getAttribute("data-on");
+    // let otherIconStatus = otherIcon.getAttribute("data-on");
+
+    // let selectedEventId = event.target.getAttribute("data-id");
+    // let eventName = event.target.getAttribute("data-event-name");
+    // let imgUrl = event.target.getAttribute("data-img-url");
+
+    // let liked = false;
+    // let bookmarked = false;
+
+    // // if current icon was on
+    // if (currentIconStatus === "true") {
+    //   $(event.target).removeClass("fas");
+    //   $(event.target).addClass("far");
+    //   event.target.setAttribute("data-on", "false");
+
+    //   // if both icons became off :remove
+    //   if (otherIconStatus === "false") {
+    //     console.log("remove");
+
+    //     fetch(
+    //       `http://localhost:8080/users/${
+    //         this.state.user.userID
+    //       }/user_events/${selectedEventId}`,
+    //       {
+    //         headers: {
+    //           Accept: "application/json",
+    //           "Content-Type": "application/json"
+    //         },
+    //         method: "PUT",
+    //         body: JSON.stringify({
+    //           event_id: selectedEventId,
+    //           liked: liked,
+    //           bookmarked: bookmarked
+    //         })
+    //       }
+    //     )
+    //       .then(res => {
+    //         return res.json();
+    //       })
+    //       .then(data => {
+    //         if (data) {
+    //           this.setState({ listItems: data });
+    //           this.getAllEventInDB();
+    //         }
+    //       });
+    //   }
+
+    //   // if current icon was off
+    // } else {
+    //   $(event.target).removeClass("far");
+    //   $(event.target).addClass("fas");
+    //   event.target.setAttribute("data-on", "true");
+
+    //   // other one was off :create
+    //   if (otherIconStatus === "false") {
+    //     console.log("create");
+
+    //     //create users_events
+    //     selectedIcon === "like" ? (liked = true) : (bookmarked = true);
+
+    //     fetch(
+    //       `http://localhost:8080/users/${this.state.user.userID}/user_events`,
+    //       {
+    //         headers: {
+    //           Accept: "application/json",
+    //           "Content-Type": "application/json"
+    //         },
+    //         method: "POST",
+    //         body: JSON.stringify({
+    //           event_id: selectedEventId,
+    //           liked: liked,
+    //           bookmarked: bookmarked,
+    //           event_name: eventName,
+    //           img_url: imgUrl
+    //         })
+    //       }
+    //     )
+    //       .then(res => {
+    //         return res.json();
+    //       })
+    //       .then(data => {
+    //         if (data) {
+    //           this.setState({ listItems: data });
+    //           this.getAllEventInDB();
+    //         }
+    //       });
+
+    //     return;
+    //   }
+    // }
+
+    // // other one was on :put
+    // console.log("update");
+
+    // if (selectedIcon === "like") {
+    //   //  liked = !currentIconStatus  if you can set boolean. need refactor
+    //   liked = currentIconStatus === "true" ? "false" : "true";
+    //   bookmarked = otherIconStatus;
+    // } else {
+    //   //  bookmarked = !currentIconStatus  if you can set boolean. need refactor
+    //   bookmarked = currentIconStatus === "true" ? "false" : "true";
+    //   liked = otherIconStatus;
+    // }
+
+    // fetch(
+    //   `http://localhost:8080/users/${
+    //     this.state.user.userID
+    //   }/user_events/${selectedEventId}`,
+    //   {
+    //     headers: {
+    //       Accept: "application/json",
+    //       "Content-Type": "application/json"
+    //     },
+    //     method: "PUT",
+    //     body: JSON.stringify({
+    //       event_id: selectedEventId,
+    //       liked: liked,
+    //       bookmarked: bookmarked
+    //     })
+    //   }
+    // )
+    //   .then(res => {
+    //     return res.json();
+    //   })
+    //   .then(data => {
+    //     if (data) {
+    //       this.setState({ listItems: data });
+    //       this.getAllEventInDB();
+    //     }
+    //   });
   }
+
+  // handleIconClick(event) {
+  //   let selectedIcon = event.target.getAttribute("data-name");
+
+  //   // Selecting other icon. Be careful if you change layout
+  //   let otherIcon = $(event.target).siblings(".icon")[0];
+
+  //   if (!this.state.user.userID) {
+  //     // request log-in
+  //     $(".iconSideError").text(
+  //       `You need log-in or register to use ${selectedIcon} function`
+  //     );
+  //     setTimeout(function() {
+  //       $(".iconSideError").text("");
+  //     }, 3000);
+
+  //     return;
+  //   }
+
+  //   let currentIconStatus = event.target.getAttribute("data-on");
+  //   let otherIconStatus = otherIcon.getAttribute("data-on");
+
+  //   let selectedEventId = event.target.getAttribute("data-id");
+  //   let eventName = event.target.getAttribute("data-event-name");
+  //   let imgUrl = event.target.getAttribute("data-img-url");
+
+  //   let liked = false;
+  //   let bookmarked = false;
+
+  //   // if current icon was on
+  //   if (currentIconStatus === "true") {
+  //     $(event.target).removeClass("fas");
+  //     $(event.target).addClass("far");
+  //     event.target.setAttribute("data-on", "false");
+
+  //     // if both icons became off :remove
+  //     if (otherIconStatus === "false") {
+  //       console.log("remove");
+
+  //       fetch(
+  //         `http://localhost:8080/users/${
+  //           this.state.user.userID
+  //         }/user_events/${selectedEventId}`,
+  //         {
+  //           headers: {
+  //             Accept: "application/json",
+  //             "Content-Type": "application/json"
+  //           },
+  //           method: "PUT",
+  //           body: JSON.stringify({
+  //             event_id: selectedEventId,
+  //             liked: liked,
+  //             bookmarked: bookmarked
+  //           })
+  //         }
+  //       )
+  //         .then(res => {
+  //           return res.json();
+  //         })
+  //         .then(data => {
+  //           if (data) {
+  //             this.setState({ listItems: data });
+  //             this.getAllEventInDB();
+  //           }
+  //         });
+  //     }
+
+  //     // if current icon was off
+  //   } else {
+  //     $(event.target).removeClass("far");
+  //     $(event.target).addClass("fas");
+  //     event.target.setAttribute("data-on", "true");
+
+  //     // other one was off :create
+  //     if (otherIconStatus === "false") {
+  //       console.log("create");
+
+  //       //create users_events
+  //       selectedIcon === "like" ? (liked = true) : (bookmarked = true);
+
+  //       fetch(
+  //         `http://localhost:8080/users/${this.state.user.userID}/user_events`,
+  //         {
+  //           headers: {
+  //             Accept: "application/json",
+  //             "Content-Type": "application/json"
+  //           },
+  //           method: "POST",
+  //           body: JSON.stringify({
+  //             event_id: selectedEventId,
+  //             liked: liked,
+  //             bookmarked: bookmarked,
+  //             event_name: eventName,
+  //             img_url: imgUrl
+  //           })
+  //         }
+  //       )
+  //         .then(res => {
+  //           return res.json();
+  //         })
+  //         .then(data => {
+  //           if (data) {
+  //             this.setState({ listItems: data });
+  //             this.getAllEventInDB();
+  //           }
+  //         });
+
+  //       return;
+  //     }
+  //   }
+
+  //   // other one was on :put
+  //   console.log("update");
+
+  //   if (selectedIcon === "like") {
+  //     //  liked = !currentIconStatus  if you can set boolean. need refactor
+  //     liked = currentIconStatus === "true" ? "false" : "true";
+  //     bookmarked = otherIconStatus;
+  //   } else {
+  //     //  bookmarked = !currentIconStatus  if you can set boolean. need refactor
+  //     bookmarked = currentIconStatus === "true" ? "false" : "true";
+  //     liked = otherIconStatus;
+  //   }
+
+  //   fetch(
+  //     `http://localhost:8080/users/${
+  //       this.state.user.userID
+  //     }/user_events/${selectedEventId}`,
+  //     {
+  //       headers: {
+  //         Accept: "application/json",
+  //         "Content-Type": "application/json"
+  //       },
+  //       method: "PUT",
+  //       body: JSON.stringify({
+  //         event_id: selectedEventId,
+  //         liked: liked,
+  //         bookmarked: bookmarked
+  //       })
+  //     }
+  //   )
+  //     .then(res => {
+  //       return res.json();
+  //     })
+  //     .then(data => {
+  //       if (data) {
+  //         this.setState({ listItems: data });
+  //         this.getAllEventInDB();
+  //       }
+  //     });
+  // }
 
   handleListItemClick(event) {
     let selectedEventId = event.target.getAttribute("data-id");
