@@ -581,26 +581,29 @@ class App extends Component {
 
               <div className="chatSpace">
                 <div className="stage">
-               
-                    {/* <div id="messageList"> */}
-                    {/* <div className="chatHeaderContainer"  style={{position: "sticky", top: "0"}}>
-                      <div className="chatSpaceHeader">
-                        <h1>Chat</h1>
-                      </div>
-                    </div> */}
-                    <Scroll width="100%" height="500px" idName="messageList">
-                    <div className="chat-logs">{messages}</div>
-                  </Scroll>
+                  <Scroll width="100%" height="500px" idName="messageList">
+                  {/* <div id="messageList"> */}
+                  <div className="chatHeaderContainer">
+                    <div className="chatSpaceHeader">
+                      {/* <h1>Event Chat</h1> */}
+                    </div>
+                </div>
+                  {/* <i id="closeX" className="fas fa-times fa-2x" onClick={this.closeChat}></i> */}
+                      <div className="chat-logs">{messages}</div>
+                  {/* </div> */}
+                </Scroll>
 
-                  <div className="inputContainer">
-                    <input
-                      value={this.state.currentChatMessage}
-                      onChange={e => this.updateCurrentChatMessage(e)}
-                      type="text"
-                      placeholder="Type a message"
-                      className="chat-input"
-                    />
-                    <button
+                    <div className="inputContainer">
+
+                      <input
+                        value={this.state.currentChatMessage}
+                        onChange={e => this.updateCurrentChatMessage(e)}
+                        onKeyPress={e => this.newMessageFn(e)}
+                        type="text"
+                        placeholder="Type a message"
+                        className="input"
+                      />
+                                          <button
                       onClick={e => this.handleSendEvent(e)}
                       className="send"
                     >
@@ -608,8 +611,7 @@ class App extends Component {
                       Send
                       <img
                         src="./images/send-message.png"
-                        className="send-logo"
-                      />
+                        className="send-logo"></img>
                     </button>
 
                 </div>
