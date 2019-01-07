@@ -364,8 +364,10 @@ class App extends Component {
   // Open user's MyList
   openMyList(event) {
     $(".myList").is(":visible")
+      // close list
       ? $(".myList").slideUp() && $(".btn-mylist").removeClass("mylist-on") && $(".btn-mylist").text("MyList")
 
+      // open list
       :  $(".myList").slideDown() && $(".btn-mylist").addClass("mylist-on") && $(".btn-mylist").text("Close");
   }
 
