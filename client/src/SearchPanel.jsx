@@ -28,6 +28,7 @@ class SearchPanel extends Component {
   // }
 
   _handleSubmit(e) {
+    e.preventDefault();
     const { keyword, category, location, localWithin } = this.state;
     // console.log("categorty: ", this.state);
     // alert("click the search");
