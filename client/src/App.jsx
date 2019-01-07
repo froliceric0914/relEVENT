@@ -137,11 +137,6 @@ class App extends Component {
   searchEvent(keyword, category, location, localWithin) {
     this.setState({ listItemSelected: false });
     this.closeChat();
-
-    console.log("keyword", keyword);
-    console.log("keycword", category);
-    console.log("keywlord", location);
-    console.log("keywllllord", localWithin);
     
     const getURL = `https://www.eventbriteapi.com/v3/events/search/?q=${keyword}&expand=organizer,venue&sort_by=${
       this.state.orderby
@@ -310,6 +305,8 @@ class App extends Component {
     this.setState({ listItemSelected: true });
     this.setState({ eventId: selectedEventId });
 
+
+
     console.log("retrieve user list");
     // retrieve user_event data
     fetch(`http://localhost:8080/users/${this.state.user.userID}/events`)
@@ -346,12 +343,9 @@ class App extends Component {
           this.setState({ messages: data });
         }
       });
-
-    if ($(".chatSpace").is(":visible")) {
-      $("body .card-text .chatButton").css("background-color", "#ff9933");
-      $("body .card-text .chatButton").text("Close Chat");
-    }
+   
     this.scrollToBottom();
+    this.openChatFromList();
   }
 
   // when x Icon on an event from myList was clicked
@@ -371,7 +365,14 @@ class App extends Component {
       :  $(".myList").slideDown() && $(".btn-mylist").addClass("mylist-on") && $(".btn-mylist").text("Close");
   }
 
-  // Open Chat space
+  openChatFromList = () =>{
+    //open chat space
+      $(".chatSpace").show();
+      $(".chatButton").css("background-color", "#dc3545");
+      $(".chatButton").text("Close Chat"); 
+  }
+
+  // Open Chat space from search
   openChat(event) {
     if (!this.state.user.userID) {
       // request log-in
@@ -393,7 +394,7 @@ class App extends Component {
       width: "toggle"
     });
 
-    var target = $(event.target.parentElement.parentElement.parentElement);
+    var target = $(event.target.parentElement.parentElement.parentElement.parentElement);
 
     target.siblings().toggle();
 
@@ -438,6 +439,8 @@ class App extends Component {
       $(".card-text .chatButton").text("Chat");
       $(".card").show();
     }
+    this.setState({ listItemSelected: false });
+    this.setState({ events: this.state.eventsTmp });
   }
 
   render() {
@@ -540,12 +543,10 @@ class App extends Component {
           {this.state.user.status ? inside : outside}
 
           </div>
-          {/* <div className="searchPanel"> */}
             <SearchPanel
               searchEvent={this.searchEvent}
               categories={this.state.categories}
             />
-          {/* </div> */}
         </nav>
 
         <main>
@@ -588,9 +589,7 @@ class App extends Component {
                       </div>
                     </div> */}
                     <Scroll width="100%" height="500px" idName="messageList">
-                    {/* <i id="closeX" className="fas fa-times fa-2x" onClick={this.closeChat}></i> */}
                     <div className="chat-logs">{messages}</div>
-                    {/* </div> */}
                   </Scroll>
 
                   <div className="inputContainer">
@@ -615,9 +614,9 @@ class App extends Component {
 
                 </div>
 
-                <div className="closeX" onClick={this.closeChat}>
+                {/* <div className="closeX" onClick={this.closeChat}>
                   close chat
-                </div>
+                </div> */}
               </div>
             </div>
           </div>

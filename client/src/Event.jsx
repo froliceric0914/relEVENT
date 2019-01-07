@@ -80,22 +80,6 @@ const Event = ({
     }
   });
 
-  // if item was selected from a list, show close icon to back to search
-  let xIcon;
-  if (listItemSelected) {
-    xIcon = (
-      <div
-        className="closeX right"
-        name="back to search result"
-        onClick={handleXIconOnEventClick}
-      >
-        x
-      </div>
-    );
-    {
-      /* <i id="closeX" classNameName="fas fa-times fa-2x" onClick={this.closeChat}></i> */
-    }
-  }
 
   let date = event.start.local.toString();
   let longDate = new Date(date);
@@ -108,6 +92,7 @@ const Event = ({
   //   console.log("iii", img_style);
   // }
 
+  let chatButtonText = !listItemSelected? "Chat": "Close Chat"
   return (
     // <div className="event-card col-4">
     <div
@@ -183,11 +168,13 @@ const Event = ({
               name={event.id}
               data-event-name={event.name.text}
               data-img-url={img_url}
-              onClick={openChat}
+              onClick={listItemSelected? handleXIconOnEventClick:openChat}
               target="_blank"
+              style={{backgroundColor:listItemSelected?"#ff9933":""}}
             >
-              Chat
+             {chatButtonText}
             </button>
+            
           </div>
         </div>
         <div
@@ -222,6 +209,7 @@ const Event = ({
             {" "}
             More
           </a>
+  
           <button
             className="btn btn-primary backButton"
             onClick={_clickHandler2}

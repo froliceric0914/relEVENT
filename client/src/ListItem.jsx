@@ -39,14 +39,14 @@ const ListItem = ({
     // </div>
 
     //horizontal layout
-    <div className="listItem img-thumbnail">
+    <div className="listItem img-thumbnail" data-id={eventId} onClick={handleListItemClick}>
         <div className="row">
           <div className="col-md-5 list-img">
             <img className="img-fluid " src={listItem.event.logo_url}
             data-id={eventId} onClick={handleListItemClick} />
           </div>
           <div className="col-md-7 list-txt">
-            <div className="event-title"  data-id={eventId} onClick={handleListItemClick} >
+            <div className="event-title"   >
               {!listItem.event.name?"":listItem.event.name.substring(25) ? listItem.event.name.substring(0, 25)+ "..." : listItem.event.name}
             </div>
             <i className={likeClass} />
