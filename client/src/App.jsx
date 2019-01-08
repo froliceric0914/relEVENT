@@ -47,12 +47,11 @@ class App extends Component {
     this.handleXIconOnEventClick = this.handleXIconOnEventClick.bind(this);
   }
 
-
-  generateUserColor = (user_id) =>{
+  generateUserColor = user_id => {
     // console.log("id is", user_id);
     let hue = (user_id * 70) % 360;
-    return `hsl(${hue}, 90%, 50%)`
-  }
+    return `hsl(${hue}, 90%, 50%)`;
+  };
 
   getAllEventInDB = () => {
     fetch(`http://localhost:8080/events`)
@@ -153,9 +152,7 @@ class App extends Component {
         const results = data.events;
         //filter events with valid decription
         this.setState({ events: results.slice(0) });
-
       });
-    
   }
 
   // socket
@@ -204,7 +201,6 @@ class App extends Component {
     });
   }
 
-
   // function handleSendEvent to handle the onClick event and do the message sending
   handleSendEvent(event) {
     event.preventDefault();
@@ -221,7 +217,7 @@ class App extends Component {
   }
 
   newMessageFn(event) {
-    if (event.key === 'Enter') {
+    if (event.key === "Enter") {
       event.preventDefault();
       this.chats.create(
         this.state.currentChatMessage,
@@ -237,7 +233,6 @@ class App extends Component {
   }
 
   handleIconClick(event) {
-   
     // console.log("clicked");
     let selectedIcon = event.target.getAttribute("data-name");
 
@@ -263,10 +258,12 @@ class App extends Component {
 
     let liked = false;
     let bookmarked = false;
-    selectedIcon === "like" ? liked = true : bookmarked = true;
+    selectedIcon === "like" ? (liked = true) : (bookmarked = true);
 
     fetch(
-      `http://localhost:8080/users/${this.state.user.userID}/user_events/${selectedEventId}`,
+      `http://localhost:8080/users/${
+        this.state.user.userID
+      }/user_events/${selectedEventId}`,
       {
         headers: {
           Accept: "application/json",
@@ -281,19 +278,19 @@ class App extends Component {
           img_url: imgUrl,
           selected: selectedIcon
         })
-      }).then(res => {
-
-      if (res.status === 200){
-        return res.json();
       }
-
+    )
+      .then(res => {
+        if (res.status === 200) {
+          return res.json();
+        }
       })
       .then(data => {
-          if (data) {
-            this.setState({ listItems: data });
-            this.getAllEventInDB();
-          }
-        });
+        if (data) {
+          this.setState({ listItems: data });
+          this.getAllEventInDB();
+        }
+      });
   }
 
   handleListItemClick(event) {
@@ -358,18 +355,21 @@ class App extends Component {
   // Open user's MyList
   openMyList(event) {
     $(".myList").is(":visible")
-      // close list
-      ? $(".myList").slideUp() && $(".btn-mylist").removeClass("mylist-on") && $(".btn-mylist").text("MyList")
-
-      // open list
-      :  $(".myList").slideDown() && $(".btn-mylist").addClass("mylist-on") && $(".btn-mylist").text("Close");
+      ? // close list
+        $(".myList").slideUp() &&
+        $(".btn-mylist").removeClass("mylist-on") &&
+        $(".btn-mylist").text("MyList")
+      : // open list
+        $(".myList").slideDown() &&
+        $(".btn-mylist").addClass("mylist-on") &&
+        $(".btn-mylist").text("Close");
   }
 
   openChatFromList = () =>{
     //open chat space
       $(".chatSpace").show();
       $(".chatButton").css("background-color", "#ff9933");
-      $(".chatButton").text("Close Chat"); 
+      $(".chatButton").text("Close"); 
   }
 
   // Open Chat space from search
@@ -403,7 +403,7 @@ class App extends Component {
     // When a chat space was not open
     if (!$(check).is(":visible")) {
       $(event.target).css("background-color", "#ff9933");
-      $(event.target).text("Close Chat");
+      $(event.target).text("Close");
 
       // retrieve messages that belong to an event requested
       fetch(`http://localhost:8080/events/${event.target.name}/messages`)
@@ -451,97 +451,102 @@ class App extends Component {
     });
 
     ///////////// nav bar before log-in ///////////////
-    let outside = <div className="nav-right flexR enter" > 
-    <div
-      onClick={e => {
-        document.querySelector(".registration-wrapper").style.display =
-          "flex";
-        console.log("click me");
-      }}
-    >
-      register
-    </div>
-    &nbsp;/&nbsp;
-    <div
-      onClick={e => {
-        // console.log("click login", $(".login-wrapper"));
-        // $(".login-wrapper").style.display = "none";
-        document.querySelector(".login-wrapper").style.display = "flex";
-      }}
-    >
-      log-in
-    </div>
-  </div>;
-
-  ///////////// nav bar before log-in ///////////////
-  let inside = <div className="nav-right flexR">
-
-  <div className="user_icon_nav" style={{backgroundColor: this.generateUserColor(this.state.user.userID)}} onClick={this.openLogOut}>
+    let outside = (
+      <div className="nav-right flexR enter">
+        <div
+          onClick={e => {
+            document.querySelector(".registration-wrapper").style.display =
+              "flex";
+            console.log("click me");
+          }}
+        >
+          register
+        </div>
+        &nbsp;/&nbsp;
+        <div
+          onClick={e => {
+            // console.log("click login", $(".login-wrapper"));
+            // $(".login-wrapper").style.display = "none";
+            document.querySelector(".login-wrapper").style.display = "flex";
+          }}
+        >
+          log-in
+        </div>
       </div>
+    );
 
-      <div className="userName" onClick={this.openLogOut}>{this.state.user.username}
-      </div>
+    ///////////// nav bar before log-in ///////////////
+    let inside = (
+      <div className="nav-right flexR">
+        <div
+          className="user_icon_nav"
+          style={{
+            backgroundColor: this.generateUserColor(this.state.user.userID)
+          }}
+          onClick={this.openLogOut}
+        />
 
-      <div className="log-out"
-        onClick={e => {
-          delete_cookie("userCookie");
-          this.closeChat();
-          $(".myList").hide();
-          this.setState({
-            events: this.state.eventsTmp,
-            user: {
-              status: false,
-              username: null,
-              userID: null
-            },
-            listItems: [],
-            listItemSelected: false,
-            currentChatMessage: "",
-            eventId: "0"
-          });
-        }}
-      >
-        log-out
-      </div>
+        <div className="userName" onClick={this.openLogOut}>
+          {this.state.user.username}
+        </div>
 
-      {/* <div className="logOutPopUp">
+        <div
+          className="log-out"
+          onClick={e => {
+            delete_cookie("userCookie");
+            this.closeChat();
+            $(".myList").hide();
+            this.setState({
+              events: this.state.eventsTmp,
+              user: {
+                status: false,
+                username: null,
+                userID: null
+              },
+              listItems: [],
+              listItemSelected: false,
+              currentChatMessage: "",
+              eventId: "0"
+            });
+          }}
+        >
+          log-out
+        </div>
+
+        {/* <div className="logOutPopUp">
         log-out
       </div> */}
 
-      <button
-      className="btn-mylist"
-        style={{ visibility: this.state.user.status ? "block" : "hidden" }}
-        onClick={this.openMyList}
-      >
-        Mylist
-      </button>
-    </div>;
-
+        <button
+          className="btn-mylist"
+          style={{ visibility: this.state.user.status ? "block" : "hidden" }}
+          onClick={this.openMyList}
+        >
+          Mylist
+        </button>
+      </div>
+    );
 
     ////////////////////////////////////
 
-//     // cache the element you intend to target
-// const navBar = document.querySelector('.navbar');
+    //     // cache the element you intend to target
+    // const navBar = document.querySelector('.navbar');
 
-// // cache styles of sidebarElement inside cssStyles 
-// const cssStyles = getComputedStyle(navBar);
+    // // cache styles of sidebarElement inside cssStyles
+    // const cssStyles = getComputedStyle(navBar);
 
-// // retrieve the value of the --left-pos CSS variable
-// const cssVal = String(cssStyles.getPropertyValue('height')).trim(); 
-
+    // // retrieve the value of the --left-pos CSS variable
+    // const cssVal = String(cssStyles.getPropertyValue('height')).trim();
 
     ///////////// return ///////////////
     return (
       <div>
         <nav className="navbar">
           <div className="navbar-content flexR">
-            <a className="title">
-              relEVENT
-            </a>
+            <a className="title">relEVENT</a>
             {/* {cssVal} */}
-            
-          {this.state.user.status ? inside : outside}
 
+            {this.state.user.status ? inside : outside}
           </div>
             <SearchPanel
               searchEvent={this.searchEvent}
@@ -551,19 +556,19 @@ class App extends Component {
 
         <main>
           <div className="registration-wrapper">
-          <UserRegistration
-            setUser={user => this.setState({ user })}
-            userState={this.state.user}
-          />
-        </div>
+            <UserRegistration
+              setUser={user => this.setState({ user })}
+              userState={this.state.user}
+            />
+          </div>
 
-        <div className="login-wrapper">
-          <UserLogin
-            setUser={user => this.setState({ user })}
-            setList={listItems => this.setState(listItems)}
-            userState={this.state.user} // render it in the nav
-          />
-        </div>
+          <div className="login-wrapper">
+            <UserLogin
+              setUser={user => this.setState({ user })}
+              setList={listItems => this.setState(listItems)}
+              userState={this.state.user} // render it in the nav
+            />
+          </div>
 
             <div className="mainContent">
               <Scroll width="100%" height="700px">
@@ -634,4 +639,3 @@ class App extends Component {
 }
 
 export default App;
-

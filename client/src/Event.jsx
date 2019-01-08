@@ -58,7 +58,7 @@ const Event = ({
   let likeIcon = "false";
   let bookmarkIcon = "false";
   let likeclassName = "far fa-heart icon";
-  let bookmarkclassName = "far fa-plus-circle icon";
+  let bookmarkclassName = "fas fa-plus-circle icon";
   let likeCount = 0;
 
   allEvents.forEach(item => {
@@ -92,7 +92,7 @@ const Event = ({
   //   console.log("iii", img_style);
   // }
 
-  let chatButtonText = !listItemSelected? "Chat": "Close Chat"
+  let chatButtonText = !listItemSelected? "Chat": "Close"
   return (
     // <div className="event-card col-4">
     <div
@@ -159,7 +159,7 @@ const Event = ({
                 className={bookmarkclassName}
                 onClick={handleIconClick}
               />
-              <i className="fas fa-plus-circle icon whiteBookmark " />
+              {/* <i className="fas fa-plus-circle icon whiteBookmark " /> */}
             </div>
             <div className="iconSideError" />
             <div className="iconSideMessage" />
@@ -197,8 +197,8 @@ const Event = ({
             {img}
           </div>
           <p className="event-description shadow-sm p-3 rounded">
-            {!event.description.text? "": event.description.text.substring(300)
-              ? event.description.text.substring(0, 300) + "..."
+            {event.description.text.substring(290)
+              ? event.description.text.substring(0, 290) + "..."
               : event.description.text}
           </p>
           <a

@@ -13,7 +13,7 @@ $navbar-height: 40px;
 body {
   background: white;
   color: black;
-  font-family: "Ubuntu", sans-serif; //"Poppins", sans-serif;
+  font-family: "Open Sans", sans-serif;
   font-size: 14px;
   margin: 70px 0;
   box-sizing: border-box;
@@ -185,12 +185,11 @@ button:focus {
 
 /////////////////// main ///////////////////
 main {
-  padding-top: 10rem;
+  margin-top: 10rem;
   background: #fff;
   display: flex;
   height: 100%;
 }
-
 
 //***************** search *****************//
 .searchPanel {
@@ -226,14 +225,7 @@ main {
     color: #aaa;
   }
 
-  .btn-search:hover {
-    transform: scale(1.1);
-    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
-    transition: all 0.2s ease-in-out;
-  }
-
   .btn-search {
-    transition: all 0.2s ease-in-out;
     margin-bottom: 0;
     padding: 0.3rem 0.6rem;
     padding-top: 0.4rem;
@@ -266,9 +258,12 @@ main {
 
 .eventList {
   background: white;
+  margin-top: 5rem;
   min-width: 40%;
   display: flex;
-  justify-content: center;
+  justify-content: space-evenly;
+  // justify-content: space-between;
+
 }
 
 //***************** event Card *****************//
@@ -278,16 +273,8 @@ main {
 }
 
 .btn {
-  font-family: "Ubuntu", sans-serif;
-  transition: all 0.2s ease-in-out;
+  font-family: 'Amaranth', sans-serif;
 }
-
-.btn:hover {
-  transform: scale(1.1);
-  box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
-  transition: all 0.2s ease-in-out;
-}
-
 
 .title-date-location {
   width: 28rem;
@@ -302,10 +289,11 @@ main {
 
 .event-description {
   font-size: 16px;
-  overflow: hidden;
+  // padding-left: 2.5rem;
+  // padding-right: 2.5rem;
+  // padding-bottom: 2.5rem;
   border: whitesmoke solid 0.5px;
-  height: 20rem;
-  margin-top: 1rem;
+  margin-top: 2rem;
   margin-left: 1rem;
   margin-right: 1rem;
   text-align: left;
@@ -317,7 +305,7 @@ main {
 .detailsButton {
   position: absolute;
   top: 16.7rem;
-  left: 1.7rem;
+  left: 1rem;
   width: 7rem;
   height: 2.5rem;
 }
@@ -347,7 +335,6 @@ main {
 
 .card-title {
   margin-left: 0;
-  margin-bottom: 0;
 }
 
 .chatButton {
@@ -355,8 +342,8 @@ main {
   width: 8rem;
   height: 4rem;
   position: absolute;
-  bottom: 1.1rem;
-  right: 1.5rem;
+  bottom: 1.3rem;
+  right: 1.3rem;
   backface-visibility: hidden;
 }
 
@@ -366,14 +353,8 @@ main {
   font-size: 3rem;
   backface-visibility: hidden;
 
-
-
-
   i:hover {
     cursor: pointer;
-    transform: scale(1.1);
-    text-shadow: 3px 3px 3px rgba(0, 0, 0, 0.5);
-    transition: all 0.2s ease-in-out;
   }
 
   .fa-heart {
@@ -382,34 +363,33 @@ main {
     font-size: 4rem;
     position: absolute;
     bottom: 7rem;
-    right: 5.2rem;
-    transition: all 0.2s ease-in-out;
+    right: 5rem;
   }
 
   .like-counter {
     font-size: 2rem;
     position: absolute;
-    bottom: 6.3rem;
+    bottom: 7rem;
     right: 1.7rem;
-    text-align: right;
   }
 
-  .fa-plus-circle {
-    text-indent: -0.5rem;
-    color: orange;
-    backface-visibility: hidden;
-    background: white;
-    border-radius: 50%;
+  .fa-bookmark {
+    color: green;
     position: fixed;
     font-size: 4rem;
-    line-height: 3.3rem;
+    line-height: 3rem;
     top: 2rem;
-    left: 2rem;
-    width: 3.3rem;
-    height: 3.3rem;
+    left: 1.3rem;
+    width: 4rem;
+    height: 4rem;
     z-index: 1;
     text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
-    transition: all 0.2s ease-in-out;
+  }
+
+  .whiteBookmark {
+    color: white;
+    z-index: 0;
+
   }
 
 }
@@ -463,8 +443,9 @@ main {
 
 .flip-card:hover {
   opacity: 1;
-  transition: all 0.3s ease-in-out;
-  transform: scale(1.2);
+  transition: all 0.5s ease-in-out;
+  // transition: transform 0.3s ease-in-out;
+  transform: scale(1.3);
 }
 
 
