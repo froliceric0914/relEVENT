@@ -586,13 +586,13 @@ class App extends Component {
 
             <div className="chatSpace">
               <div className="stage">
-                {/* <div id="messageList"> */}
-                {/* <div className="chatHeaderContainer"  style={{position: "sticky", top: "0"}}>
-                      <div className="chatSpaceHeader">
-                        <h1>Chat</h1>
-                      </div>
-                    </div> */}
                 <Scroll width="100%" height="500px" idName="messageList">
+                  {/* <div id="messageList"> */}
+                  <div className="chatHeaderContainer">
+                    <div className="chatSpaceHeader">
+                      <h1>Event Chat</h1>
+                    </div>
+                  </div>
                   {/* <i id="closeX" className="fas fa-times fa-2x" onClick={this.closeChat}></i> */}
                   <div className="chat-logs">{messages}</div>
                   {/* </div> */}
