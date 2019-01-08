@@ -548,6 +548,23 @@ main {
   color: #706f6f;
 }
 
+.message-content {
+  max-width: 80%;
+
+ .content-wrapper{
+   overflow: hidden;
+   border-radius: 20px;
+   padding: 10px 14px;
+   max-width: 80%;
+ }
+
+ img{
+   max-width: 100%;
+   margin: 0;
+   vertical-align: bottom;
+ }
+}
+
 // .stage{
 //   height: 100%;
 //   border-width: 10px;
