@@ -130,6 +130,7 @@ button:focus {
   div {
     text-decoration: underline;
   }
+
   div:hover {
     cursor: pointer;
   }
@@ -196,7 +197,7 @@ main {
     width: 100%;
     display: flex;
     justify-content: center;
-    align-items: flex-end;
+    // align-items: flex-end; // this puts the category dropdown out of alignment
     padding: 0 1rem;
   }
 
@@ -236,6 +237,7 @@ main {
     background-color: green;
     color: white;
     border: 0px;
+    margin-top: 2rem;
   }
 }
 
@@ -551,18 +553,18 @@ main {
 .message-content {
   max-width: 80%;
 
- .content-wrapper{
-   overflow: hidden;
-   border-radius: 20px;
-   padding: 10px 14px;
-   max-width: 80%;
- }
+  .content-wrapper {
+    overflow: hidden;
+    border-radius: 20px;
+    padding: 10px 14px;
+    max-width: 80%;
+  }
 
- img{
-   max-width: 100%;
-   margin: 0;
-   vertical-align: bottom;
- }
+  img {
+    max-width: 100%;
+    margin: 0;
+    vertical-align: bottom;
+  }
 }
 
 // .stage{
@@ -609,7 +611,7 @@ input:focus::-webkit-input-placeholder {
   font-family: "Ubuntu", sans-serif;
 }
 
-.input:focus + .underline {
+.input:focus+.underline {
   transform: scale(1);
 }
 
