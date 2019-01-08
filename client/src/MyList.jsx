@@ -1,5 +1,5 @@
 import React from "react";
-import ListItem from './ListItem.jsx';
+import ListItem from "./ListItem.jsx";
 import Scroll from "./Scroll.jsx";
 
 //This is an event info pane for an event.
@@ -8,25 +8,31 @@ import Scroll from "./Scroll.jsx";
 //TODO: add styling
 
 const MyList = ({ listItems, handleListItemClick }) => {
-
   return (
-
     <div className="myList">
-    <Scroll>
-        {/* <h3>Your event list</h3> */}
-        {listItems.length?
-        listItems.map((listItem) => {
-          if (listItem.bookmarked){
-            return <ListItem  key={listItem.id} listItem={listItem} handleListItemClick={handleListItemClick}/>;
+      {/* <Scroll> */}
+      {/* <h3>Your event list</h3> */}
+      {listItems.length ? (
+        listItems.map(listItem => {
+          if (listItem.bookmarked) {
+            return (
+              <ListItem
+                key={listItem.id}
+                listItem={listItem}
+                handleListItemClick={handleListItemClick}
+              />
+            );
           }
+        })
+      ) : (
+        <div className="img-thumbnail listItem notify">
+          {" "}
+          You don't have any items yet.
+        </div>
+      )}
 
-        }):<div className="img-thumbnail listItem notify"> You don't have any items yet.</div>}
-        
-      </Scroll>
-
+      {/* </Scroll> */}
     </div>
-
-
   );
 };
 

@@ -150,7 +150,6 @@ class SearchPanel extends Component {
                 Search
               </button>
             </div>
-          {/* </div> */}
         </form>
 
         {/* <div id="result" className="row mt-5" /> */}

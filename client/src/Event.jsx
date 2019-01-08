@@ -201,7 +201,7 @@ const Event = ({
             {img}
           </div>
           <p className="event-description shadow-sm p-3 rounded">
-            {event.description.text.substring(290)
+            {!event.description.text? "" :event.description.text.substring(290)
               ? event.description.text.substring(0, 290) + "..."
               : event.description.text}
           </p>

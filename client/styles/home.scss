@@ -84,8 +84,8 @@ button:focus {
   }
 
   .mylist-on {
-    background-color: #7ca8ef;
-    color: white;
+    background-color: #8c63a7;
+    color: rgb(255, 255, 255);
     padding: 0 0.97rem;
   }
 
@@ -134,6 +134,7 @@ button:focus {
   div {
     text-decoration: underline;
   }
+
   div:hover {
     cursor: pointer;
   }
@@ -200,7 +201,7 @@ main {
     width: 100%;
     display: flex;
     justify-content: center;
-    align-items: flex-end;
+    // align-items: flex-end; // this puts the category dropdown out of alignment
     padding: 0 1rem;
   }
 
@@ -240,6 +241,7 @@ main {
     background-color: green;
     color: white;
     border: 0px;
+    margin-top: 2rem;
   }
 }
 
@@ -563,18 +565,18 @@ main {
 .message-content {
   max-width: 80%;
 
- .content-wrapper{
-   overflow: hidden;
-   border-radius: 20px;
-   padding: 10px 14px;
-   max-width: 80%;
- }
+  .content-wrapper {
+    overflow: hidden;
+    border-radius: 20px;
+    padding: 10px 14px;
+    max-width: 80%;
+  }
 
- img{
-   max-width: 100%;
-   margin: 0;
-   vertical-align: bottom;
- }
+  img {
+    max-width: 100%;
+    margin: 0;
+    vertical-align: bottom;
+  }
 }
 
 // .stage{
@@ -621,7 +623,7 @@ input:focus::-webkit-input-placeholder {
   font-family: "Ubuntu", sans-serif;
 }
 
-.input:focus + .underline {
+.input:focus+.underline {
   transform: scale(1);
 }
 
@@ -732,13 +734,16 @@ input:focus::-webkit-input-placeholder {
   width: 25%;
   right: 1rem;
   top: 3.5rem;
-  max-height: 70%;
+  max-height: 60%;
   overflow-y: auto;
   overflow-x: hidden;
   z-index: 1;
   border-radius: 0.3rem;
   padding-right: 1rem;
   font-size: 0.9rem; //for making list gaps
+  // padding-right: 17px;
+  // box-sizing: content-box;
+  // overflow-y: scroll;
 
   // text-align: center;
   h3 {
