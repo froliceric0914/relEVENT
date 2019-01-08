@@ -6,11 +6,12 @@ import Message from "./Message.jsx";
 // import MessageList from "./MessageList.jsx";
 import UserRegistration from "./UserRegistration.jsx";
 import UserLogin from "./UserLogin.jsx";
-import { bake_cookie, read_cookie, delete_cookie } from "sfcookies";
+import { read_cookie, delete_cookie } from "sfcookies";
 import MyList from "./MyList.jsx";
 import Scroll from "./Scroll.jsx";
 import ReactDOM from "react-dom";
 import * as ReactBootstrap from "react-bootstrap";
+
 // import { Button, Icon } from "react-materialize";
 
 //TODO: styling

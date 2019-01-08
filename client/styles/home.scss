@@ -1,10 +1,9 @@
 @import url("https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,700");
 @import url("https://fonts.googleapis.com/css?family=Ubuntu");
 @import url("https://cdnjs.cloudflare.com/ajax/libs/normalize/4.2.0/normalize.min.css");
-@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400i');
+@import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400i");
 
-
-@import url('https://fonts.googleapis.com/css?family=Amaranth:400i|Kalam|News+Cycle|Source+Sans+Pro:400,400i');
+@import url("https://fonts.googleapis.com/css?family=Amaranth:400i|Kalam|News+Cycle|Source+Sans+Pro:400,400i");
 
 $navbar-height: 40px;
 
@@ -42,7 +41,8 @@ button:focus {
   background-size: cover;
   background-position: center;
   background-origin: border-box;
-  // background-position: right 0 bottom 5px;
+  background-position: right 0 bottom 5px;
+  height: 150px;
   width: 100%;
   left: 0;
   padding: 0 4rem 0.7rem;
@@ -91,7 +91,6 @@ button:focus {
   }
 }
 
-
 .navbar-content {
   width: 100%;
   flex-flow: row wrap;
@@ -116,10 +115,9 @@ button:focus {
   // font-family: 'Source Sans Pro', sans-serif;
   // font-family: 'News Cycle', sans-serif;
   // font-family: 'Kalam', cursive;
-  font-family: 'Amaranth', sans-serif;
+  font-family: "Amaranth", sans-serif;
   letter-spacing: 0.1rem;
 }
-
 
 .nav-right {
   padding: 5px;
@@ -132,7 +130,6 @@ button:focus {
   div {
     text-decoration: underline;
   }
-
   div:hover {
     cursor: pointer;
   }
@@ -147,14 +144,12 @@ button:focus {
   cursor: pointer;
 }
 
-
 .user_icon_nav {
   width: 1.2rem;
   height: 1.2rem;
   border-radius: 50%;
   margin: 0.8rem 0rem;
 }
-
 
 // .logOutPopUp {
 //   position: fixed;
@@ -185,12 +180,11 @@ button:focus {
 
 /////////////////// main ///////////////////
 main {
-  padding-top: 10rem;
+  padding-top: 11rem;
   background: #fff;
   display: flex;
   height: 100%;
 }
-
 
 //***************** search *****************//
 .searchPanel {
@@ -243,7 +237,6 @@ main {
     color: white;
     border: 0px;
   }
-
 }
 
 .mainContent {
@@ -253,7 +246,6 @@ main {
 }
 
 @media only screen and (max-width: 600px) {
-
   .searchPanel {
     .form-wrap {
       padding: 0.5rem;
@@ -288,7 +280,6 @@ main {
   transition: all 0.2s ease-in-out;
 }
 
-
 .title-date-location {
   width: 28rem;
   padding-top: 0.5rem;
@@ -297,7 +288,6 @@ main {
 .card-body {
   padding-top: 0em;
   padding-bottom: 0em;
-
 }
 
 .event-description {
@@ -310,7 +300,6 @@ main {
   margin-right: 1rem;
   text-align: left;
 }
-
 
 //***************** event Card BUTTONS *****************//
 
@@ -365,9 +354,6 @@ main {
 .icons {
   font-size: 3rem;
   backface-visibility: hidden;
-
-
-
 
   i:hover {
     cursor: pointer;
@@ -439,13 +425,12 @@ main {
   // transition: opacity 0.3s ease-in;
   transition: transform 0.3s ease-in-out;
 
-
   /* Remove this if you don't want the 3D effect */
 }
 
 .card-text {
   color: dimgrey;
-  margin-top: .5rem;
+  margin-top: 0.5rem;
 }
 
 //  this is for stretching the image of the event card
@@ -461,7 +446,7 @@ main {
   width: 100%;
   height: 100%;
   text-align: center;
-  transition: transform .75s ease-in-out;
+  transition: transform 0.75s ease-in-out;
   transform-style: preserve-3d;
 }
 
@@ -470,7 +455,6 @@ main {
   transition: all 0.3s ease-in-out;
   transform: scale(1.2);
 }
-
 
 .flip-action {
   transform: rotateY(180deg);
@@ -488,7 +472,6 @@ main {
   width: 100%;
   height: 100%;
   backface-visibility: hidden;
-
 }
 
 /* Style the front side (fallback if image is missing) */
@@ -502,13 +485,11 @@ main {
   transform: rotateY(180deg);
 }
 
-
 .flip-card-front .flip-card-back:hover {
   opacity: 1;
   transition: all 0.5s ease-in-out;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
-
 
 //***************** chat *****************//
 
@@ -611,7 +592,7 @@ input:focus::-webkit-input-placeholder {
   font-family: "Ubuntu", sans-serif;
 }
 
-.input:focus+.underline {
+.input:focus + .underline {
   transform: scale(1);
 }
 
@@ -638,7 +619,7 @@ input:focus::-webkit-input-placeholder {
   border-color: #585859;
   margin-left: 15px;
   width: 100px;
-  background-color: #DCE6F7;
+  background-color: #dce6f7;
   font-family: "Ubuntu", sans-serif;
 }
 
@@ -768,8 +749,6 @@ input:focus::-webkit-input-placeholder {
   .listItem:hover {
     background-color: #ddd;
   }
-
-  .listItem img:hover {}
 
   .notify {
     width: 100%;

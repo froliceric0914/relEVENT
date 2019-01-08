@@ -48,12 +48,22 @@ h2 {
   font-weight: bold;
 }
 
-.form-user {
+input,
+.form-user-registration {
   width: 100%;
   margin-bottom: 30px;
+  border: none;
+  border-bottom: 1px solid #fff;
+  background: transparent;
+  outline: none;
+  height: 40px;
+  color: #fff;
+  font-size: 16px;
 }
 
-.form-user {
+input {
+  width: 100%;
+  margin-bottom: 30px;
   border: none;
   border-bottom: 1px solid #fff;
   background: transparent;
@@ -68,7 +78,7 @@ h2 {
   outline: none;
   height: 40px;
   background: #fb2525;
-  color: #fff;
+  color: black;
   font-size: 18px;
   border-radius: 20px;
 }
