@@ -89,7 +89,7 @@ const Event = ({
     properDate = longDate.toString().substring(0, 10);
   }
 
-
+  let errorMessage = `iconSideError ${event.id}`
   // let img_style;
 
   // if (event.logo.url != null) {
@@ -166,8 +166,7 @@ const Event = ({
               />
               {/* <i className="fas fa-plus-circle icon whiteBookmark " /> */}
             </div>
-            <div className="iconSideError" />
-            <div className="iconSideMessage" />
+            <div className={errorMessage} />
             <button
               className="chatButton btn btn-danger btn-block mt-4"
               name={event.id}
@@ -214,7 +213,7 @@ const Event = ({
             {" "}
             More
           </a>
-  
+     
           <button
             className="btn btn-primary backButton"
             onClick={_clickHandler2}

@@ -5,9 +5,13 @@
 
 @import url("https://fonts.googleapis.com/css?family=Amaranth:400i|Kalam|News+Cycle|Source+Sans+Pro:400,400i");
 
-$navbar-height: 40px;
 
 /////////////////// universal ///////////////////
+
+.stop-scrolling {
+  height: 100%;
+  overflow: hidden;
+ }
 
 body {
   background: white;
@@ -180,7 +184,7 @@ button:focus {
 
 /////////////////// main ///////////////////
 main {
-  padding-top: 11rem;
+  padding-top: 13rem;
   background: #fff;
   display: flex;
   height: 100%;
@@ -406,6 +410,14 @@ main {
 
 .iconSideError {
   color: red;
+  position: absolute;
+  top: 0.5rem;
+  right:1.3rem;
+  text-shadow:
+  -0.8px -0.8px 0 rgba(255, 255, 255, 1),  
+   0.8px -0.8px 0  rgba(255, 255, 255, 1), 
+   -0.8px 0.8px 0  rgba(255, 255, 255, 1), 
+    0.8px 0.8px 0  rgba(255, 255, 255, 1), 
 }
 
 // .event-card {

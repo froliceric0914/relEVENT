@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { bake_cookie, read_cookie, delete_cookie } from "sfcookies";
 import PasswordMask from "react-password-mask";
 class UserLogin extends Component {
   constructor(props) {
@@ -61,6 +62,7 @@ class UserLogin extends Component {
         bake_cookie("userCookie", this.props.userState);
         console.log("login-user: ", read_cookie("userCookie"));
         document.querySelector(".login-wrapper").style.display = "none";
+        $("body").removeClass("stop-scrolling");
       });
   };
 
@@ -73,6 +75,7 @@ class UserLogin extends Component {
           className="close"
           onClick={e => {
             document.querySelector(".login-wrapper").style.display = "none";
+            $("body").removeClass("stop-scrolling");
           }}
         >
           +

@@ -234,26 +234,28 @@ class App extends Component {
   }
 
   handleIconClick(event) {
-    // console.log("clicked");
+
     let selectedIcon = event.target.getAttribute("data-name");
-
-    // Selecting other icon. Be careful if you change layout
-    let otherIcon = $(event.target).siblings(".icon")[0];
-
+    let tmp = selectedIcon;
+     if(selectedIcon === "bookmark"){
+       tmp = "add list"
+     }
+    let selectedEventId = event.target.getAttribute("data-id");
     // user was not logged_in
     if (!this.state.user.userID) {
       // request log-in
-      $(".iconSideError").text(
-        `You need log-in or register to use ${selectedIcon} function`
+      $(`.${selectedEventId}`).text(
+        
+        `You need log-in or register to use ${tmp} function`
       );
       setTimeout(function() {
-        $(".iconSideError").text("");
+        $(`.${selectedEventId}`).text("");
       }, 3000);
 
       return;
     }
 
-    let selectedEventId = event.target.getAttribute("data-id");
+   
     let eventName = event.target.getAttribute("data-event-name");
     let imgUrl = event.target.getAttribute("data-img-url");
 
@@ -375,9 +377,12 @@ class App extends Component {
 
   // Open Chat space from search
   openChat(event) {
+
+    let eventId = event.target.name;
+
     if (!this.state.user.userID) {
       // request log-in
-      $(".iconSideError").text(
+      $(`.${eventId}`).text(
         "You need log-in or register to use chat function"
       );
       setTimeout(function() {
@@ -387,7 +392,7 @@ class App extends Component {
       return;
     }
 
-    let eventId = event.target.name;
+
     let eventName = event.target.getAttribute("data-event-name");
     let imgUrl = event.target.getAttribute("data-img-url");
 
@@ -458,6 +463,7 @@ class App extends Component {
           onClick={e => {
             document.querySelector(".registration-wrapper").style.display =
               "flex";
+              $("body").addClass("stop-scrolling");
             console.log("click me");
           }}
         >
@@ -469,6 +475,7 @@ class App extends Component {
             // console.log("click login", $(".login-wrapper"));
             // $(".login-wrapper").style.display = "none";
             document.querySelector(".login-wrapper").style.display = "flex";
+            $("body").addClass("stop-scrolling");
           }}
         >
           log-in

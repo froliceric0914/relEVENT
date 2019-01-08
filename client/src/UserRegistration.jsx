@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { bake_cookie } from "sfcookies";
+import { bake_cookie, read_cookie, delete_cookie } from "sfcookies";
 import PasswordMask from "react-password-mask";
 
 class UserRegistration extends Component {
@@ -40,6 +40,7 @@ class UserRegistration extends Component {
         });
         bake_cookie("userCookie", this.props.userState);
         document.querySelector(".registration-wrapper").style.display = "none";
+        $("body").removeClass("stop-scrolling");
       });
   };
 
@@ -54,6 +55,7 @@ class UserRegistration extends Component {
           onClick={e => {
             document.querySelector(".registration-wrapper").style.display =
               "none";
+              $("body").removeClass("stop-scrolling");
           }}
         >
           +
