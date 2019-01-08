@@ -101,7 +101,7 @@ class UserLogin extends Component {
           className="submitBtn"
           id="submitBtn"
         >
-          Login in
+          Login
         </button>
       </div>
     );

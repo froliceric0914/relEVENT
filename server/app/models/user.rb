@@ -5,11 +5,13 @@ class User < ApplicationRecord
   has_many :messages
 
   validates :username, presence: true,  uniqueness: true 
-  validates :email, presence: true, uniqueness: { case_sensitive: false }
+  validates :email, presence: true, format: { with: URI::MailTo::EMAIL_REGEXP, message: "only allows valid emails" }, uniqueness: { case_sensitive: false }
   validates :password, length: { minimum: 7 }, confirmation: true
 
+
+
   def self.authenticate_with_credentials(email, password)
-      user = User.find_by_email(email) 
+      user = User.find_by_email(email)
       # puts user
 
       if user && user.authenticate(password)

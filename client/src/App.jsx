@@ -48,28 +48,6 @@ class App extends Component {
     this.handleXIconOnEventClick = this.handleXIconOnEventClick.bind(this);
   }
 
-  // logout() {
-  //   delete_cookie("userCookie");
-  //   this.setState({
-  //     user: {
-  //       status: false,
-  //       username: null,
-  //       userID: null
-  //     }
-  //   });
-  // }
-
-  // Open logout
-  openLogOut = () => {
-    $(".log-out").toggle();
-    // $(".myList").animate({
-    //   width: "toggle"
-    // });
-    // $(".log-out").is(":visible")
-    //   ? $(".myList").slideUp()
-    //   : $(".myList").slideDown();
-  };
-
   generateUserColor = user_id => {
     // console.log("id is", user_id);
     let hue = (user_id * 70) % 360;
@@ -180,7 +158,6 @@ class App extends Component {
         const results = data.events;
         //filter events with valid decription
         this.setState({ events: results.slice(0) });
-        console.log("search data", data);
       });
   }
 
@@ -262,11 +239,13 @@ class App extends Component {
   }
 
   handleIconClick(event) {
+    // console.log("clicked");
     let selectedIcon = event.target.getAttribute("data-name");
 
     // Selecting other icon. Be careful if you change layout
     let otherIcon = $(event.target).siblings(".icon")[0];
 
+    // user was not logged_in
     if (!this.state.user.userID) {
       // request log-in
       $(".iconSideError").text(
@@ -279,110 +258,13 @@ class App extends Component {
       return;
     }
 
-    let currentIconStatus = event.target.getAttribute("data-on");
-    let otherIconStatus = otherIcon.getAttribute("data-on");
-
     let selectedEventId = event.target.getAttribute("data-id");
     let eventName = event.target.getAttribute("data-event-name");
     let imgUrl = event.target.getAttribute("data-img-url");
 
     let liked = false;
     let bookmarked = false;
-
-    // if current icon was on
-    if (currentIconStatus === "true") {
-      $(event.target).removeClass("fas");
-      $(event.target).addClass("far");
-      event.target.setAttribute("data-on", "false");
-
-      // if both icons became off :remove
-      if (otherIconStatus === "false") {
-        console.log("remove");
-
-        fetch(
-          `http://localhost:8080/users/${
-            this.state.user.userID
-          }/user_events/${selectedEventId}`,
-          {
-            headers: {
-              Accept: "application/json",
-              "Content-Type": "application/json"
-            },
-            method: "PUT",
-            body: JSON.stringify({
-              event_id: selectedEventId,
-              liked: liked,
-              bookmarked: bookmarked
-            })
-          }
-        )
-          .then(res => {
-            return res.json();
-          })
-          .then(data => {
-            if (data) {
-              this.setState({ listItems: data });
-              this.getAllEventInDB();
-            }
-          });
-      }
-
-      // if current icon was off
-    } else {
-      $(event.target).removeClass("far");
-      $(event.target).addClass("fas");
-      event.target.setAttribute("data-on", "true");
-
-      // other one was off :create
-      if (otherIconStatus === "false") {
-        console.log("create");
-
-        //create users_events
-        selectedIcon === "like" ? (liked = true) : (bookmarked = true);
-
-        fetch(
-          `http://localhost:8080/users/${this.state.user.userID}/user_events`,
-          {
-            headers: {
-              Accept: "application/json",
-              "Content-Type": "application/json"
-            },
-            method: "POST",
-            body: JSON.stringify({
-              event_id: selectedEventId,
-              liked: liked,
-              bookmarked: bookmarked,
-              event_name: eventName,
-              img_url: imgUrl
-            })
-          }
-        )
-          .then(res => {
-            return res.json();
-          })
-          .then(data => {
-            if (data) {
-              this.setState({ listItems: data });
-              this.getAllEventInDB();
-            }
-          });
-
-        return;
-      }
-    }
-
-    // other one was on :put
-    console.log("update");
-
-    if (selectedIcon === "like") {
-      //  liked = !currentIconStatus  if you can set boolean. need refactor
-      liked = currentIconStatus === "true" ? "false" : "true";
-      bookmarked = otherIconStatus;
-    } else {
-      //  bookmarked = !currentIconStatus  if you can set boolean. need refactor
-      bookmarked = currentIconStatus === "true" ? "false" : "true";
-      liked = otherIconStatus;
-    }
+    selectedIcon === "like" ? (liked = true) : (bookmarked = true);
 
     fetch(
       `http://localhost:8080/users/${
@@ -397,12 +279,17 @@ class App extends Component {
         body: JSON.stringify({
           event_id: selectedEventId,
           liked: liked,
-          bookmarked: bookmarked
+          bookmarked: bookmarked,
+          event_name: eventName,
+          img_url: imgUrl,
+          selected: selectedIcon
         })
       }
     )
       .then(res => {
-        return res.json();
+        if (res.status === 200) {
+          return res.json();
+        }
       })
       .then(data => {
         if (data) {
@@ -474,12 +361,15 @@ class App extends Component {
 
   // Open user's MyList
   openMyList(event) {
-    // $(".myList").animate({
-    //   width: "toggle"
-    // });
     $(".myList").is(":visible")
-      ? $(".myList").slideUp()
-      : $(".myList").slideDown();
+      ? // close list
+        $(".myList").slideUp() &&
+        $(".btn-mylist").removeClass("mylist-on") &&
+        $(".btn-mylist").text("MyList")
+      : // open list
+        $(".myList").slideDown() &&
+        $(".btn-mylist").addClass("mylist-on") &&
+        $(".btn-mylist").text("Close");
   }
 
   // Open Chat space
