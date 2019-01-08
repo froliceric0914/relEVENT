@@ -19,9 +19,9 @@ class SessionsController < ApplicationController
       else
         render :json =>
         {
-          :status => 'User login was unsuccessful',
-          :message => @user.errors.full_messages.to_sentence,
-          :object => @user
+          :status => 500,
+          :message => 'Unsuccessful Login' # @user.errors.full_messages.to_sentence,
+          # :object => @user
         }.to_json
     end
   end

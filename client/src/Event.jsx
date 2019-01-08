@@ -75,7 +75,7 @@ const Event = ({
         likeclassName = "fas fa-heart icon";
       }
       if (bookmarkIcon === true) {
-        bookmarkclassName = "fas fa-plus-circle icon";
+        bookmarkclassName = "fas fa-plus-circle icon red-plus";
       }
     }
   });

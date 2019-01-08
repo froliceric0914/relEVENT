@@ -418,6 +418,10 @@ main {
     transition: all 0.2s ease-in-out;
   }
 
+  .red-plus {
+    color: red;
+  }
+
 }
 
 .iconSideError {
@@ -436,9 +440,9 @@ main {
   // background-color: transparent;
   border: 0.5px solid white;
   perspective: 1000px;
-  opacity: 0.8;
+  // opacity: 0.8;
   transition: transform 1s ease-in-out;
-  transition: opacity 0.3s ease-in;
+  // transition: opacity 0.3s ease-in;
   transition: transform 0.3s ease-in-out;
 
 

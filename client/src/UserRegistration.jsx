@@ -28,14 +28,18 @@ class UserRegistration extends Component {
       })
       .then(data => {
         console.log("user data from backend", data);
+        if (data.status == "User cannot be created") {
+          $(".error-log-registration").text(data.message);
+          return;
+        }
         this.props.setUser({
           status: true,
           username: data.object.username,
           userID: data.object.id
         });
         bake_cookie("userCookie", this.props.userState);
+        document.querySelector(".registration-wrapper").style.display = "none";
       });
-    document.querySelector(".registration-wrapper").style.display = "none";
   };
 
   render() {
@@ -98,6 +102,7 @@ class UserRegistration extends Component {
         >
           Register
         </button>
+        <div className="error-log-registration" />
       </div>
     );
   }

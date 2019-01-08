@@ -51,6 +51,7 @@ h2 {
   margin: 10px;
   text-align: left;
 }
+
 .avatar {
   width: 100px;
   height: 100px;
@@ -80,6 +81,7 @@ h2 {
   color: #fff;
   font-size: 16px;
 }
+
 .submitBtn {
   border: none;
   outline: none;
@@ -89,6 +91,7 @@ h2 {
   font-size: 18px;
   border-radius: 20px;
 }
+
 .submitBtn:hover {
   cursor: pointer;
   background: #ffc107;
@@ -103,7 +106,15 @@ h2 {
   color: #333;
   transform: rotate(45deg);
   cursor: pointer;
+
   &:hover {
     color: #666;
   }
+
+}
+
+.error-log {
+  color: #fb2525;
+  font-size: 18px;
+  padding: 2rem;
 }
