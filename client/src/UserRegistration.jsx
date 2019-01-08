@@ -31,6 +31,9 @@ class UserRegistration extends Component {
         console.log("user data from backend", data);
         if (data.status == "User cannot be created") {
           $(".error-log-registration").text(data.message);
+          setTimeout(function() {
+            $(".error-log-registration").text("");
+          }, 3000);
           return;
         }
         this.props.setUser({

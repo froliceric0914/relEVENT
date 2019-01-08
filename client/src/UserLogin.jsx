@@ -1,5 +1,7 @@
 import React, { Component } from "react";
+import { bake_cookie, read_cookie } from "sfcookies";
 import PasswordMask from "react-password-mask";
+
 class UserLogin extends Component {
   constructor(props) {
     super(props);
@@ -50,6 +52,9 @@ class UserLogin extends Component {
         console.log("user_login data from backend", data);
         if (data.status == 500) {
           $(".error-log").text("email or password is incorrect");
+          setTimeout(function() {
+            $(".error-log").text("");
+          }, 3000);
           return;
         }
         this.props.setUser({
