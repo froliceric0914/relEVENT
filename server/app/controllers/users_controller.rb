@@ -19,7 +19,7 @@ class UsersController < ApplicationController
     else
       render :json =>
       {
-        :status => 'error',
+        :status => 'User cannot be created',
         :message => @user.errors.full_messages.to_sentence,
         :object => @user
       }.to_json

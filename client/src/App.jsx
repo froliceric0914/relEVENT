@@ -6,11 +6,13 @@ import Message from "./Message.jsx";
 // import MessageList from "./MessageList.jsx";
 import UserRegistration from "./UserRegistration.jsx";
 import UserLogin from "./UserLogin.jsx";
-import { bake_cookie, read_cookie, delete_cookie } from "sfcookies";
+import { read_cookie, delete_cookie } from "sfcookies";
 import MyList from "./MyList.jsx";
 import Scroll from "./Scroll.jsx";
 import ReactDOM from "react-dom";
 import * as ReactBootstrap from "react-bootstrap";
+
+// import { Button, Icon } from "react-materialize";
 
 //TODO: styling
 //TODO: need sanitize for user input
@@ -46,16 +48,11 @@ class App extends Component {
     this.handleXIconOnEventClick = this.handleXIconOnEventClick.bind(this);
   }
 
-  // logout() {
-  //   delete_cookie("userCookie");
-  //   this.setState({
-  //     user: {
-  //       status: false,
-  //       username: null,
-  //       userID: null
-  //     }
-  //   });
-  // }
+  generateUserColor = user_id => {
+    // console.log("id is", user_id);
+    let hue = (user_id * 70) % 360;
+    return `hsl(${hue}, 90%, 50%)`;
+  };
 
   getAllEventInDB = () => {
     fetch(`http://localhost:8080/events`)
@@ -102,7 +99,7 @@ class App extends Component {
         });
     }
     const url = fetch(
-      `https://www.eventbriteapi.com/v3/events/search/?q=&sort_by=date&location.address=toronto&start_date.keyword=today&expand=organizer,venue&token=${
+      `https://www.eventbriteapi.com/v3/events/search/?q=&sort_by=date&location.address=toronto&expand=organizer,venue&token=${
         process.env.TOKEN
       }`
     )
@@ -147,7 +144,6 @@ class App extends Component {
       process.env.TOKEN
     }`;
     console.log("url", getURL);
-
     const url = fetch(getURL)
       .then(res => {
         return res.json();
@@ -221,128 +217,51 @@ class App extends Component {
     });
   }
 
+  newMessageFn(event) {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      this.chats.create(
+        this.state.currentChatMessage,
+        this.state.user.userID,
+        this.state.eventId,
+        this.state.event_name,
+        this.state.img_url
+      );
+      this.setState({
+        currentChatMessage: ""
+      });
+    }
+  }
+
   handleIconClick(event) {
+
     let selectedIcon = event.target.getAttribute("data-name");
-
-    // Selecting other icon. Be careful if you change layout
-    let otherIcon = $(event.target).siblings(".icon")[0];
-
+    let tmp = selectedIcon;
+     if(selectedIcon === "bookmark"){
+       tmp = "add list"
+     }
+    let selectedEventId = event.target.getAttribute("data-id");
+    // user was not logged_in
     if (!this.state.user.userID) {
       // request log-in
-      $(".iconSideError").text(
-        `You need log-in or register to use ${selectedIcon} function`
+      $(`.${selectedEventId}`).text(
+        
+        `You need log-in or register to use ${tmp} function`
       );
       setTimeout(function() {
-        $(".iconSideError").text("");
+        $(`.${selectedEventId}`).text("");
       }, 3000);
 
       return;
     }
 
-    let currentIconStatus = event.target.getAttribute("data-on");
-    let otherIconStatus = otherIcon.getAttribute("data-on");
-
-    let selectedEventId = event.target.getAttribute("data-id");
+   
     let eventName = event.target.getAttribute("data-event-name");
     let imgUrl = event.target.getAttribute("data-img-url");
 
     let liked = false;
     let bookmarked = false;
-
-    // if current icon was on
-    if (currentIconStatus === "true") {
-      $(event.target).removeClass("fas");
-      $(event.target).addClass("far");
-      event.target.setAttribute("data-on", "false");
-
-      // if both icons became off :remove
-      if (otherIconStatus === "false") {
-        console.log("remove");
-
-        fetch(
-          `http://localhost:8080/users/${
-            this.state.user.userID
-          }/user_events/${selectedEventId}`,
-          {
-            headers: {
-              Accept: "application/json",
-              "Content-Type": "application/json"
-            },
-            method: "PUT",
-            body: JSON.stringify({
-              event_id: selectedEventId,
-              liked: liked,
-              bookmarked: bookmarked
-            })
-          }
-        )
-          .then(res => {
-            return res.json();
-          })
-          .then(data => {
-            if (data) {
-              this.setState({ listItems: data });
-              this.getAllEventInDB();
-            }
-          });
-      }
-
-      // if current icon was off
-    } else {
-      $(event.target).removeClass("far");
-      $(event.target).addClass("fas");
-      event.target.setAttribute("data-on", "true");
-
-      // other one was off :create
-      if (otherIconStatus === "false") {
-        console.log("create");
-
-        //create users_events
-        selectedIcon === "like" ? (liked = true) : (bookmarked = true);
-
-        fetch(
-          `http://localhost:8080/users/${this.state.user.userID}/user_events`,
-          {
-            headers: {
-              Accept: "application/json",
-              "Content-Type": "application/json"
-            },
-            method: "POST",
-            body: JSON.stringify({
-              event_id: selectedEventId,
-              liked: liked,
-              bookmarked: bookmarked,
-              event_name: eventName,
-              img_url: imgUrl
-            })
-          }
-        )
-          .then(res => {
-            return res.json();
-          })
-          .then(data => {
-            if (data) {
-              this.setState({ listItems: data });
-              this.getAllEventInDB();
-            }
-          });
-
-        return;
-      }
-    }
-
-    // other one was on :put
-    console.log("update");
-
-    if (selectedIcon === "like") {
-      //  liked = !currentIconStatus  if you can set boolean. need refactor
-      liked = currentIconStatus === "true" ? "false" : "true";
-      bookmarked = otherIconStatus;
-    } else {
-      //  bookmarked = !currentIconStatus  if you can set boolean. need refactor
-      bookmarked = currentIconStatus === "true" ? "false" : "true";
-      liked = otherIconStatus;
-    }
+    selectedIcon === "like" ? (liked = true) : (bookmarked = true);
 
     fetch(
       `http://localhost:8080/users/${
@@ -357,12 +276,17 @@ class App extends Component {
         body: JSON.stringify({
           event_id: selectedEventId,
           liked: liked,
-          bookmarked: bookmarked
+          bookmarked: bookmarked,
+          event_name: eventName,
+          img_url: imgUrl,
+          selected: selectedIcon
         })
       }
     )
       .then(res => {
-        return res.json();
+        if (res.status === 200) {
+          return res.json();
+        }
       })
       .then(data => {
         if (data) {
@@ -418,11 +342,8 @@ class App extends Component {
         }
       });
 
-    if ($(".chatSpace").is(":visible")) {
-      $("body .card-text .chatButton").css("background-color", "#ff9933");
-      $("body .card-text .chatButton").text("Close Chat");
-    }
     this.scrollToBottom();
+    this.openChatFromList();
   }
 
   // when x Icon on an event from myList was clicked
@@ -434,19 +355,32 @@ class App extends Component {
 
   // Open user's MyList
   openMyList(event) {
-    // $(".myList").animate({
-    //   width: "toggle"
-    // });
     $(".myList").is(":visible")
-      ? $(".myList").slideUp()
-      : $(".myList").slideDown();
+      ? // close list
+        $(".myList").slideUp() &&
+        $(".btn-mylist").removeClass("mylist-on") &&
+        $(".btn-mylist").text("MyList")
+      : // open list
+        $(".myList").slideDown() &&
+        $(".btn-mylist").addClass("mylist-on") &&
+        $(".btn-mylist").text("Close");
   }
 
-  // Open Chat space
+  openChatFromList = () => {
+    //open chat space
+    $(".chatSpace").show();
+    $(".chatButton").css("background-color", "#ff9933");
+    $(".chatButton").text("Close");
+  };
+
+  // Open Chat space from search
   openChat(event) {
+
+    let eventId = event.target.name;
+
     if (!this.state.user.userID) {
       // request log-in
-      $(".iconSideError").text(
+      $(`.${eventId}`).text(
         "You need log-in or register to use chat function"
       );
       setTimeout(function() {
@@ -456,7 +390,7 @@ class App extends Component {
       return;
     }
 
-    let eventId = event.target.name;
+
     let eventName = event.target.getAttribute("data-event-name");
     let imgUrl = event.target.getAttribute("data-img-url");
 
@@ -464,7 +398,9 @@ class App extends Component {
       width: "toggle"
     });
 
-    var target = $(event.target.parentElement.parentElement.parentElement);
+    var target = $(
+      event.target.parentElement.parentElement.parentElement.parentElement
+    );
 
     target.siblings().toggle();
 
@@ -473,7 +409,7 @@ class App extends Component {
     // When a chat space was not open
     if (!$(check).is(":visible")) {
       $(event.target).css("background-color", "#ff9933");
-      $(event.target).text("Close Chat");
+      $(event.target).text("Close");
 
       // retrieve messages that belong to an event requested
       fetch(`http://localhost:8080/events/${event.target.name}/messages`)
@@ -505,10 +441,12 @@ class App extends Component {
       $(".chatSpace").animate({
         width: "toggle"
       });
-      $(".card-text .chatButton").css("background-color", "#dc3545");
-      $(".card-text .chatButton").text("Chat");
+      $(".chatButton").css("background-color", "#dc3545");
+      $(".chatButton").text("Chat");
       $(".card").show();
     }
+    this.setState({ listItemSelected: false });
+    this.setState({ events: this.state.eventsTmp });
   }
 
   render() {
@@ -518,142 +456,185 @@ class App extends Component {
       );
     });
 
+    ///////////// nav bar before log-in ///////////////
+    let outside = (
+      <div className="nav-right flexR enter">
+        <div
+          onClick={e => {
+            document.querySelector(".registration-wrapper").style.display =
+              "flex";
+              $("body").addClass("stop-scrolling");
+            console.log("click me");
+          }}
+        >
+          register
+        </div>
+        &nbsp;/&nbsp;
+        <div
+          onClick={e => {
+            // console.log("click login", $(".login-wrapper"));
+            // $(".login-wrapper").style.display = "none";
+            document.querySelector(".login-wrapper").style.display = "flex";
+            $("body").addClass("stop-scrolling");
+          }}
+        >
+          log-in
+        </div>
+      </div>
+    );
+
+    ///////////// nav bar before log-in ///////////////
+    let inside = (
+      <div className="nav-right flexR">
+        <div
+          className="user_icon_nav"
+          style={{
+            backgroundColor: this.generateUserColor(this.state.user.userID)
+          }}
+          onClick={this.openLogOut}
+        />
+
+        <div className="userName" onClick={this.openLogOut}>
+          {this.state.user.username}
+        </div>
+
+        <div
+          className="log-out"
+          onClick={e => {
+            delete_cookie("userCookie");
+            this.closeChat();
+            $(".myList").hide();
+            this.setState({
+              events: this.state.eventsTmp,
+              user: {
+                status: false,
+                username: null,
+                userID: null
+              },
+              listItems: [],
+              listItemSelected: false,
+              currentChatMessage: "",
+              eventId: "0"
+            });
+          }}
+        >
+          log-out
+        </div>
+
+        {/* <div className="logOutPopUp">
+        log-out
+      </div> */}
+
+        <button
+          className="btn-mylist"
+          style={{ visibility: this.state.user.status ? "block" : "hidden" }}
+          onClick={this.openMyList}
+        >
+          Mylist
+        </button>
+      </div>
+    );
+
+    ////////////////////////////////////
+
+    //     // cache the element you intend to target
+    // const navBar = document.querySelector('.navbar');
+
+    // // cache styles of sidebarElement inside cssStyles
+    // const cssStyles = getComputedStyle(navBar);
+
+    // // retrieve the value of the --left-pos CSS variable
+    // const cssVal = String(cssStyles.getPropertyValue('height')).trim();
+
+    ///////////// return ///////////////
     return (
       <div>
         <nav className="navbar">
-          <a href="/" className="navbar-brand">
-            relEVENT
-          </a>
-          {this.state.user.username}
-          <button
-            style={{ display: this.state.user.status ? "none" : "block" }}
-            onClick={e => {
-              $(".userRegistration").toggle();
-            }}
-          >
-            register
-          </button>
-          &nbsp;
-          <button
-            style={{ display: this.state.user.status ? "none" : "block" }}
-            onClick={e => {
-              $(".userLogin").toggle();
-            }}
-          >
-            login
-          </button>
-          &nbsp;
-          <button
-            style={{ display: this.state.user.status ? "block" : "none" }}
-            onClick={e => {
-              delete_cookie("userCookie");
-              this.closeChat();
-              $(".myList").hide();
-              this.setState({
-                events: this.state.eventsTmp,
-                user: {
-                  status: false,
-                  username: null,
-                  userID: null
-                },
-                listItems: [],
-                listItemSelected: false,
-                currentChatMessage: "",
-                eventId: "0"
-              });
-            }}
-          >
-            logout
-          </button>
-          &nbsp;
-          <button>search</button>&nbsp;
-          <button
-            style={{ display: this.state.user.status ? "block" : "none" }}
-            onClick={this.openMyList}
-          >
-            Mylist
-          </button>
-          <div className="searchPanel">
-            <SearchPanel
-              searchEvent={this.searchEvent}
-              categories={this.state.categories}
-            />
+          <div className="navbar-content flexR">
+            <a className="title">relEVENT</a>
+            {/* {cssVal} */}
+
+            {this.state.user.status ? inside : outside}
           </div>
+          <SearchPanel
+            searchEvent={this.searchEvent}
+            categories={this.state.categories}
+          />
         </nav>
 
         <main>
-          <div className="column">
-            <div className="userRegistration">
-              <UserRegistration
-                setUser={user => this.setState({ user })}
-                userState={this.state.user}
+          <div className="registration-wrapper">
+            <UserRegistration
+              setUser={user => this.setState({ user })}
+              userState={this.state.user}
+            />
+          </div>
+
+          <div className="login-wrapper">
+            <UserLogin
+              setUser={user => this.setState({ user })}
+              setList={listItems => this.setState(listItems)}
+              userState={this.state.user} // render it in the nav
+            />
+          </div>
+
+          <div className="mainContent">
+            <Scroll width="100%" height="700px">
+              <EventList
+                events={this.state.events}
+                searchEvent={this.searchEvent}
+                openChat={this.openChat}
+                handleIconClick={this.handleIconClick}
+                listItems={this.state.listItems}
+                listItemSelected={this.state.listItemSelected}
+                handleXIconOnEventClick={this.handleXIconOnEventClick}
+                allEvents={this.state.allEvents}
               />
-            </div>
+            </Scroll>
 
-            <div className="userLogin">
-              <UserLogin
-                setUser={user => this.setState({ user })}
-                setList={listItems => this.setState(listItems)}
-                userState={this.state.user} // render it in the nav
-              />
-            </div>
-
-            <div className="mainContent">
-              <Scroll width="100%" height="700px">
-                <EventList
-                  events={this.state.events}
-                  searchEvent={this.searchEvent}
-                  openChat={this.openChat}
-                  handleIconClick={this.handleIconClick}
-                  listItems={this.state.listItems}
-                  listItemSelected={this.state.listItemSelected}
-                  handleXIconOnEventClick={this.handleXIconOnEventClick}
-                  allEvents={this.state.allEvents}
-                />
-              </Scroll>
-
-              <div className="chatSpace">
-                <div className="stage">
-                  <Scroll width="100%" height="500px" idName="messageList">
-                    {/* <div id="messageList"> */}
-                    <div className="chatHeaderContainer">
-                      <div className="chatSpaceHeader">
-                        <h1>Chat</h1>
-                      </div>
+            <div className="chatSpace">
+              <div className="stage">
+                <Scroll width="100%" height="500px" idName="messageList">
+                  {/* <div id="messageList"> */}
+                  <div className="chatHeaderContainer">
+                    <div className="chatSpaceHeader">
+                      {/* <h1>Event Chat</h1> */}
                     </div>
-                    {/* <i id="closeX" className="fas fa-times fa-2x" onClick={this.closeChat}></i> */}
-                    <div className="chat-logs">{messages}</div>
-                    {/* </div> */}
-                  </Scroll>
+                  </div>
+                  {/* <i id="closeX" className="fas fa-times fa-2x" onClick={this.closeChat}></i> */}
+                  <div className="chat-logs">{messages}</div>
+                  {/* </div> */}
+                </Scroll>
 
-                  <div className="inputContainer">
-                    <input
-                      value={this.state.currentChatMessage}
-                      onChange={e => this.updateCurrentChatMessage(e)}
-                      type="text"
-                      placeholder="Type a message"
-                      className="chat-input"
+                <div className="inputContainer">
+                  <input
+                    value={this.state.currentChatMessage}
+                    onChange={e => this.updateCurrentChatMessage(e)}
+                    onKeyPress={e => this.newMessageFn(e)}
+                    type="text"
+                    placeholder="Type a message"
+                    className="input"
+                  />
+                  <button
+                    onClick={e => this.handleSendEvent(e)}
+                    className="send"
+                  >
+                    {" "}
+                    Send
+                    <img
+                      src="./images/send-message.png"
+                      className="send-logo"
                     />
-                    <button
-                      onClick={e => this.handleSendEvent(e)}
-                      className="send"
-                    >
-                      {" "}
-                      Send
-                      <img
-                        src="./images/send-message.png"
-                        className="send-logo"
-                      />
-                    </button>
-                  </div>
-
-                  <div className="closeX" onClick={this.closeChat}>
-                    close chat
-                  </div>
+                  </button>
                 </div>
+
+                {/* <div className="closeX" onClick={this.closeChat}>
+                  close chat
+                </div> */}
               </div>
             </div>
           </div>
+
           <MyList
             listItems={this.state.listItems}
             handleListItemClick={this.handleListItemClick}

@@ -1,24 +1,21 @@
 import React from "react";
 import * as ReactBootstrap from "react-bootstrap";
+// import { Button, Icon } from "react-materialize";
 
 //This is an event info pane for an event.
 //TODO: add other values. img, description, venue, cost etc...
 //TODO: add onclick to chat button. show chat component
 //TODO: add styling
 const _clickHandler = e => {
-  // console.log("thiddddd", e.target.parentElement.parentElement.parentElement);
-
-  // $(e.target.parentElement.parentElement.parentElement).toggleClass("test");
-  $(e.target.parentElement.parentElement.parentElement).toggleClass("test");
-
-  // ***** come back to dry this
-  // $(this)
-  //   .parentsUntil($(".flip-card-inner"))
-  //   .toggleClass("test");
-
+  $(e.target.parentElement.parentElement.parentElement).toggleClass(
+    "flip-action"
+  );
   console.log("clicked");
-  //   .closest("card m-5 flip-card")
-  //   .addClass(".flip-card .flip-card-inner");
+};
+
+const _clickHandler2 = e => {
+  $(e.target.parentElement.parentElement).toggleClass("flip-action");
+  console.log("click", e.target.parentElement.parentElement.parentElement);
 };
 
 const Event = ({
@@ -36,21 +33,32 @@ const Event = ({
   if (event.logo && event.logo.url) {
     img = (
       <img
-        classNameName="img-fluid mb-2"
+        className="img-fluid"
         src={event.logo.url}
         style={{ borderTopLeftRadius: "10px", borderTopRightRadius: "10px" }}
       />
     );
     img_url = event.logo.url;
   } else {
-    img = <div />;
-    img_url = "";
+    img = (
+      <img
+        className="img-fluid"
+        style={{
+          backgroundColor: "#ddd",
+          width: "600px",
+          height: "200px",
+          borderTopLeftRadius: "10px",
+          borderTopRightRadius: "10px"
+        }}
+      />
+    );
+    // img_url = "";
   }
 
   let likeIcon = "false";
   let bookmarkIcon = "false";
   let likeclassName = "far fa-heart icon";
-  let bookmarkclassName = "far fa-bookmark icon";
+  let bookmarkclassName = "fas fa-plus-circle icon";
   let likeCount = 0;
 
   allEvents.forEach(item => {
@@ -67,39 +75,40 @@ const Event = ({
         likeclassName = "fas fa-heart icon";
       }
       if (bookmarkIcon === true) {
-        bookmarkclassName = "fas fa-bookmark icon";
+        bookmarkclassName = "fas fa-plus-circle icon red-plus";
       }
     }
   });
 
-  // if item was selected from a list, show close icon to back to search
-  let xIcon;
-  if (listItemSelected) {
-    xIcon = (
-      <div
-        className="closeX right"
-        name="back to search result"
-        onClick={handleXIconOnEventClick}
-      >
-        x
-      </div>
-    );
-    {
-      /* <i id="closeX" classNameName="fas fa-times fa-2x" onClick={this.closeChat}></i> */
-    }
+  let date;
+  let longDate;
+  let properDate;
+  if(event.start.local){
+    date = event.start.local.toString();
+    longDate = new Date(date);
+    properDate = longDate.toString().substring(0, 10);
   }
 
+  let errorMessage = `iconSideError ${event.id}`
+  // let img_style;
+
+  // if (event.logo.url != null) {
+  //   img_style = { backgroundImage: `url(${event.logo.url})` };
+  //   console.log("iii", img_style);
+  // }
+
+  let chatButtonText = !listItemSelected? "Chat": "Close"
   return (
-    // <div className="event-card col-6">
+    // <div className="event-card col-4">
     <div
       className="card m-5 flip-card"
-      style={{ width: "40rem", height: "45rem" }}
+      style={{ width: "40rem", height: "32rem" }}
     >
-      <div className="flip-card-inner">
+      <div className="flip-card-inner hoverable">
         <div className="flip-card-front">
           <div
             className="card-img-top"
-            className="event-card-body"
+            className="event-card-body pb-10"
             style={{ overflow: "hidden" }}
             alt="Card image cap"
             onClick={_clickHandler}
@@ -107,21 +116,32 @@ const Event = ({
             {img}
           </div>
           <div className="card-body">
-            <h3 className="card-title">
-              {event.name.text.substring(35)
-                ? event.name.text.substring(0, 35) + "..."
-                : event.name.text}
-            </h3>
-            <span className="badge badge-secondary">
-              Date & Time: {event.start.local}{" "}
-            </span>
-            <br />{" "}
-            <span className="badge badge-secondary">
-              Location: {event.venue.address.address_1}{" "}
-            </span>
-            <p className="card-text" />
-            <a href="#" className="btn btn-primary" onClick={_clickHandler}>
-              Description
+            <div className="title-date-location">
+              <h2
+                className="card-title text-left"
+                style={{
+                  fontWeight: "600",
+                  height: "4.8rem",
+                  overflow: "hidden"
+                }}
+              >
+                {!event.name.text? "":event.name.text.substring(40)
+                  ? event.name.text.substring(0, 40) + " ..."
+                  : event.name.text}
+              </h2>
+              <h3 className="card-text text-left">{properDate}</h3>
+              <h3 className="card-text text-left">
+                {event.venue.address.address_1
+                  ? event.venue.address.address_1.substring(0, 25)
+                  : ""}
+              </h3>
+            </div>
+
+            <a
+              className="btn btn-primary detailsButton text-white"
+              onClick={_clickHandler}
+            >
+              Details
             </a>
             <div className="icons">
               <i
@@ -133,7 +153,7 @@ const Event = ({
                 className={likeclassName}
                 onClick={handleIconClick}
               />
-              <span>{likeCount}</span>
+              <span className="like-counter">{likeCount}</span>
               &nbsp;
               <i
                 data-on={bookmarkIcon}
@@ -144,47 +164,66 @@ const Event = ({
                 className={bookmarkclassName}
                 onClick={handleIconClick}
               />
+              {/* <i className="fas fa-plus-circle icon whiteBookmark " /> */}
             </div>
-            <div className="iconSideError" />
-            <div className="iconSideMessage" />
-            <a
-              href={event.url}
-              target="_blank"
-              className="btn btn-primary btn-block mt-4"
-            />
+            <div className={errorMessage} />
             <button
               className="chatButton btn btn-danger btn-block mt-4"
               name={event.id}
               data-event-name={event.name.text}
               data-img-url={img_url}
-              onClick={openChat}
+              onClick={listItemSelected? handleXIconOnEventClick:openChat}
               target="_blank"
+              style={{backgroundColor:listItemSelected?"#ff9933":""}}
             >
-              Chat
+             {chatButtonText}
             </button>
+            
           </div>
         </div>
-        <div className="flip-card-back">
+        <div
+          className="flip-card-back"
+          // style={{
+          //   background: `url(${img_url})`,
+          //   backgroundSize: "cover",
+          //   backgroundRepeat: "no-repeat",
+          //   backgroundColor: "rgba(245, 245, 245, 0.6)",
+          //   backgroundBlendMode: "screen"
+          // }}
+        >
           <div
             className="card-img-top"
             className="event-card-body"
+            style={{ overflow: "hidden", zIndex: "2", height: "10rem" }}
             onClick={_clickHandler}
             alt="Card image cap"
           >
             {img}
           </div>
-          <p className="lead text-info">Event Information:</p>
-          <p>
-            {event.description.text.substring(300)
-              ? event.description.text.substring(0, 300) + "..."
+          <p className="event-description shadow-sm p-3 rounded">
+            {!event.description.text? "" :event.description.text.substring(290)
+              ? event.description.text.substring(0, 290) + "..."
               : event.description.text}
           </p>
-          <a href="#" className="btn btn-primary" onClick={_clickHandler}>
-            flip!
+          <a
+            href={event.url}
+            target="_blank"
+            className="btn btn-primary btn-block mt-4 more-button"
+          >
+            {" "}
+            More
           </a>
+     
+          <button
+            className="btn btn-primary backButton"
+            onClick={_clickHandler2}
+          >
+            Back
+          </button>
         </div>
       </div>
     </div>
+    // </div>
   );
 };
 

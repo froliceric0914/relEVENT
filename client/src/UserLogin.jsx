@@ -1,14 +1,14 @@
 import React, { Component } from "react";
 import { bake_cookie, read_cookie, delete_cookie } from "sfcookies";
-//submit a form of the user name&password
-//TODO: import the api function(route. method,callback)
+import PasswordMask from "react-password-mask";
+
 class UserLogin extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      email: "eric11111@eric.com",
-      password: "1234567"
+      email: "",
+      password: ""
     };
     // this._handleSubmit = this._handleSubmit.bind(this);
   }
@@ -33,7 +33,7 @@ class UserLogin extends Component {
 
     // this.props.setComponentLogin({ showCompoenent: false });
     // console.log("showComponent:", this.props.setComponentLogin);
-    alert("Submit Login");
+    // alert("Submit Login");
 
     // console.log("userLoginInfo", { email, password });
     const user = fetch("http://localhost:8080/login", {
@@ -50,6 +50,13 @@ class UserLogin extends Component {
       })
       .then(data => {
         console.log("user_login data from backend", data);
+        if (data.status == 500) {
+          $(".error-log").text("email or password is incorrect");
+          setTimeout(function() {
+            $(".error-log").text("");
+          }, 3000);
+          return;
+        }
         this.props.setUser({
           status: true,
           username: data.object.username,
@@ -58,55 +65,56 @@ class UserLogin extends Component {
         this._list(this.props.userState.userID);
         bake_cookie("userCookie", this.props.userState);
         console.log("login-user: ", read_cookie("userCookie"));
+        document.querySelector(".login-wrapper").style.display = "none";
+        $("body").removeClass("stop-scrolling");
       });
-    //call the props and change the state of user in app.js
-    // this.props.UserLogin(email, username, password);
-    $(".userLogin").slideUp();
   };
 
   render() {
     return (
-      <div claseName="container login-wrappers">
-        <div className="login-form">
-          <label for="user-email">Email</label>
-          <input
-            type="email"
-            id="login-rmail"
-            className="form-user"
-            onChange={e => {
-              this.setState({
-                email: e.target.value
-              });
-            }}
-            value={this.state.email}
-          />
+      <div className="loginbox">
+        <h1>User Login</h1>
+        <img src="../images/avatar-login.png" className="avatar" />
+        <div
+          className="close"
+          onClick={e => {
+            document.querySelector(".login-wrapper").style.display = "none";
+            $("body").removeClass("stop-scrolling");
+          }}
+        >
+          +
         </div>
-
-        <div className="login-form">
-          <label for="user-password">Password</label>
-          <input
-            type="text"
-            id="login-username"
-            className="form-user"
-            onChange={e => {
-              this.setState({
-                password: e.target.value
-              });
-            }}
-            value={this.state.password}
-          />
-        </div>
-
-        <div className="form-group">
-          <button
-            onClick={this._handleSubmit}
-            type="submit"
-            className="mt-5 form-control btn btn-success"
-            id="submitBtn"
-          >
-            Login in
-          </button>
-        </div>
+        <h2 for="user-email">Email</h2>
+        <input
+          type="email"
+          // id="login-rmail"
+          className="form-user-login"
+          onChange={e => {
+            this.setState({
+              email: e.target.value
+            });
+          }}
+          value={this.state.email}
+        />
+        <h2>Password</h2>
+        <PasswordMask
+          type="text"
+          onChange={e => {
+            this.setState({
+              password: e.target.value
+            });
+          }}
+          value={this.state.password}
+        />
+        <button
+          onClick={this._handleSubmit}
+          type="submit"
+          className="submitBtn"
+          id="submitBtn"
+        >
+          Login
+        </button>
+        <div className="error-log" />
       </div>
     );
   }
