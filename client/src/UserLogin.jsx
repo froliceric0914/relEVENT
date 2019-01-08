@@ -51,6 +51,10 @@ class UserLogin extends Component {
       })
       .then(data => {
         console.log("user_login data from backend", data);
+        if (data.status == 500) {
+          $(".error-log").text("email or password is incorrect");
+          return;
+        }
         this.props.setUser({
           status: true,
           username: data.object.username,
@@ -59,8 +63,8 @@ class UserLogin extends Component {
         this._list(this.props.userState.userID);
         bake_cookie("userCookie", this.props.userState);
         console.log("login-user: ", read_cookie("userCookie"));
+        document.querySelector(".login-wrapper").style.display = "none";
       });
-    document.querySelector(".login-wrapper").style.display = "none";
   };
 
   render() {
@@ -107,6 +111,7 @@ class UserLogin extends Component {
         >
           Login
         </button>
+        <div className="error-log" />
       </div>
     );
   }
