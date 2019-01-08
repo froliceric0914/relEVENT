@@ -80,10 +80,15 @@ const Event = ({
     }
   });
 
+  let date;
+  let longDate;
+  let properDate;
+  if(event.start.local){
+    date = event.start.local.toString();
+    longDate = new Date(date);
+    properDate = longDate.toString().substring(0, 10);
+  }
 
-  let date = event.start.local.toString();
-  let longDate = new Date(date);
-  let properDate = longDate.toString().substring(0, 10);
 
   // let img_style;
 

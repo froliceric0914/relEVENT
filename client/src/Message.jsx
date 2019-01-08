@@ -37,9 +37,13 @@ class Message extends Component {
             <span className='message-content' ><div className="content-wrapper">{newContent}</div></span>
           </div>;
 
-
-    let date = new Date(this.props.message.created_at);
-    let stringDate = date.toString().substring(0, 25);
+    let date;
+    let stringDate;
+    if(this.props.message.created_at){
+       date = new Date(this.props.message.created_at);
+       stringDate = date.toString().substring(0, 25);
+    }
+    
 
     let isCurrentUser = this.props.user_id === this.props.message.user.id
     return (
@@ -54,7 +58,7 @@ class Message extends Component {
           {isCurrentUser ? "  (You)" : ""}
         </div>
            &nbsp;
-          <p className="messageContent">{message}</p>
+          {message}
           <p className="messageTime">{stringDate}</p>
       </div>
     );

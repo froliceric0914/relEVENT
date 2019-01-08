@@ -436,8 +436,8 @@ class App extends Component {
       $(".chatSpace").animate({
         width: "toggle"
       });
-      $(".card-text .chatButton").css("background-color", "#dc3545");
-      $(".card-text .chatButton").text("Chat");
+      $(".chatButton").css("background-color", "#dc3545");
+      $(".chatButton").text("Chat");
       $(".card").show();
     }
     this.setState({ listItemSelected: false });
