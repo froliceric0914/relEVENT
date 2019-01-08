@@ -137,7 +137,7 @@ class App extends Component {
   searchEvent(keyword, category, location, localWithin) {
     this.setState({ listItemSelected: false });
     this.closeChat();
-    
+
     const getURL = `https://www.eventbriteapi.com/v3/events/search/?q=${keyword}&expand=organizer,venue&sort_by=${
       this.state.orderby
     }&categories=${category}&location.address=${location}&location.within=${localWithin}&token=${
@@ -303,8 +303,6 @@ class App extends Component {
     this.setState({ listItemSelected: true });
     this.setState({ eventId: selectedEventId });
 
-
-
     console.log("retrieve user list");
     // retrieve user_event data
     fetch(`http://localhost:8080/users/${this.state.user.userID}/events`)
@@ -341,7 +339,7 @@ class App extends Component {
           this.setState({ messages: data });
         }
       });
-   
+
     this.scrollToBottom();
     this.openChatFromList();
   }
@@ -366,12 +364,12 @@ class App extends Component {
         $(".btn-mylist").text("Close");
   }
 
-  openChatFromList = () =>{
+  openChatFromList = () => {
     //open chat space
-      $(".chatSpace").show();
-      $(".chatButton").css("background-color", "#ff9933");
-      $(".chatButton").text("Close"); 
-  }
+    $(".chatSpace").show();
+    $(".chatButton").css("background-color", "#ff9933");
+    $(".chatButton").text("Close");
+  };
 
   // Open Chat space from search
   openChat(event) {
@@ -395,7 +393,9 @@ class App extends Component {
       width: "toggle"
     });
 
-    var target = $(event.target.parentElement.parentElement.parentElement.parentElement);
+    var target = $(
+      event.target.parentElement.parentElement.parentElement.parentElement
+    );
 
     target.siblings().toggle();
 
@@ -549,10 +549,10 @@ class App extends Component {
 
             {this.state.user.status ? inside : outside}
           </div>
-            <SearchPanel
-              searchEvent={this.searchEvent}
-              categories={this.state.categories}
-            />
+          <SearchPanel
+            searchEvent={this.searchEvent}
+            categories={this.state.categories}
+          />
         </nav>
 
         <main>
@@ -571,55 +571,54 @@ class App extends Component {
             />
           </div>
 
-            <div className="mainContent">
-              <Scroll width="100%" height="700px">
-                <EventList
-                  events={this.state.events}
-                  searchEvent={this.searchEvent}
-                  openChat={this.openChat}
-                  handleIconClick={this.handleIconClick}
-                  listItems={this.state.listItems}
-                  listItemSelected={this.state.listItemSelected}
-                  handleXIconOnEventClick={this.handleXIconOnEventClick}
-                  allEvents={this.state.allEvents}
-                />
-              </Scroll>
+          <div className="mainContent">
+            <Scroll width="100%" height="700px">
+              <EventList
+                events={this.state.events}
+                searchEvent={this.searchEvent}
+                openChat={this.openChat}
+                handleIconClick={this.handleIconClick}
+                listItems={this.state.listItems}
+                listItemSelected={this.state.listItemSelected}
+                handleXIconOnEventClick={this.handleXIconOnEventClick}
+                allEvents={this.state.allEvents}
+              />
+            </Scroll>
 
-              <div className="chatSpace">
-                <div className="stage">
-                  <Scroll width="100%" height="500px" idName="messageList">
+            <div className="chatSpace">
+              <div className="stage">
+                <Scroll width="100%" height="500px" idName="messageList">
                   {/* <div id="messageList"> */}
                   <div className="chatHeaderContainer">
                     <div className="chatSpaceHeader">
                       {/* <h1>Event Chat</h1> */}
                     </div>
-                </div>
+                  </div>
                   {/* <i id="closeX" className="fas fa-times fa-2x" onClick={this.closeChat}></i> */}
-                      <div className="chat-logs">{messages}</div>
+                  <div className="chat-logs">{messages}</div>
                   {/* </div> */}
                 </Scroll>
 
-                    <div className="inputContainer">
-
-                      <input
-                        value={this.state.currentChatMessage}
-                        onChange={e => this.updateCurrentChatMessage(e)}
-                        onKeyPress={e => this.newMessageFn(e)}
-                        type="text"
-                        placeholder="Type a message"
-                        className="input"
-                      />
-                                          <button
-                      onClick={e => this.handleSendEvent(e)}
-                      className="send"
-                    >
-                      {" "}
-                      Send
-                      <img
-                        src="./images/send-message.png"
-                        className="send-logo"></img>
-                    </button>
-
+                <div className="inputContainer">
+                  <input
+                    value={this.state.currentChatMessage}
+                    onChange={e => this.updateCurrentChatMessage(e)}
+                    onKeyPress={e => this.newMessageFn(e)}
+                    type="text"
+                    placeholder="Type a message"
+                    className="input"
+                  />
+                  <button
+                    onClick={e => this.handleSendEvent(e)}
+                    className="send"
+                  >
+                    {" "}
+                    Send
+                    <img
+                      src="./images/send-message.png"
+                      className="send-logo"
+                    />
+                  </button>
                 </div>
 
                 {/* <div className="closeX" onClick={this.closeChat}>

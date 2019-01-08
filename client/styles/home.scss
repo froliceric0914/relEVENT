@@ -722,13 +722,16 @@ input:focus::-webkit-input-placeholder {
   width: 25%;
   right: 1rem;
   top: 3.5rem;
-  max-height: 70%;
+  max-height: 60%;
   overflow-y: auto;
   overflow-x: hidden;
   z-index: 1;
   border-radius: 0.3rem;
   padding-right: 1rem;
   font-size: 0.9rem; //for making list gaps
+  // padding-right: 17px;
+  // box-sizing: content-box;
+  // overflow-y: scroll;
 
   // text-align: center;
   h3 {
