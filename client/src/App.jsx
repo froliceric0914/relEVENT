@@ -3,7 +3,7 @@ import React, { Component } from "react";
 import SearchPanel from "./SearchPanel.jsx";
 import EventList from "./EventList.jsx";
 import Message from "./Message.jsx";
-// import MessageList from "./MessageList.jsx";
+import MessageList from "./MessageList.jsx";
 import UserRegistration from "./UserRegistration.jsx";
 import UserLogin from "./UserLogin.jsx";
 import { read_cookie, delete_cookie } from "sfcookies";
@@ -171,13 +171,6 @@ class App extends Component {
       {
         connected: () => {},
         received: data => {
-          // if you don't connect with back-end =========
-          // // this.setState({ messages: [...this.state.messages, data ] });
-          // console.log(this.state.messages);
-          // // concat to message list
-          //===============================================
-
-          // retrieve updated message list from db TODO: it's repeated. need refactor
           fetch(`http://localhost:8080/events/${this.state.eventId}/messages`)
             .then(res => {
               return res.json();
