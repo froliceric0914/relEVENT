@@ -41,11 +41,11 @@ button:focus {
 
 .navbar {
   // background: url("../images/torontoSkyline+.jpg") no-repeat;
-  background: url("../images/toronto5.png") no-repeat;
+  background: url("../images/toronto8.png") no-repeat;
   background-size: cover;
   background-position: center;
   background-origin: border-box;
-  background-position: right 0 bottom 5px;
+  background-position: right 0 bottom -3rem;
   height: 150px;
   width: 100%;
   left: 0;
@@ -90,7 +90,7 @@ button:focus {
   }
 
   .userName {
-    margin: 0.3rem;
+    margin: 0.4rem;
     font-size: 1.6rem;
   }
 }
@@ -208,10 +208,11 @@ main {
   .form-wrap {
     padding: 1rem;
     padding-top: 0;
+    margin: 1.3rem 0 1rem 0 ;
   }
 
   label {
-    font-size: 1.1rem;
+    font-size: 1.3rem;
     font-family: "Open Sans", sans-serif;
     font-weight: 400;
     margin-bottom: 0.1rem;
@@ -219,6 +220,10 @@ main {
 
   .input-field {
     margin: 1rem;
+  }
+
+  .form-control {
+    margin-bottom: 0;
   }
 
   .form-control::placeholder {
@@ -267,6 +272,8 @@ main {
   min-width: 40%;
   display: flex;
   justify-content: center;
+  // padding-left: 4rem;
+  // padding-right: 4rem;
 }
 
 //***************** event Card *****************//
