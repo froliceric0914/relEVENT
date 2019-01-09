@@ -11,8 +11,7 @@ class SearchPanel extends Component {
       category: "",
       location: "toronto",
       localWithin: "",
-      startDate: "",
-      endDate: ""
+      startDate: ""
       // `${this.props.categories}`
     };
 
@@ -21,24 +20,10 @@ class SearchPanel extends Component {
 
   _handleSubmit(e) {
     e.preventDefault();
-    const {
-      keyword,
-      category,
-      location,
-      localWithin,
-      startDate,
-      endDate
-    } = this.state;
+    const { keyword, category, location, localWithin, startDate } = this.state;
     // console.log("categorty: ", this.state);
     // alert("click the search");
-    this.props.searchEvent(
-      keyword,
-      category,
-      location,
-      localWithin,
-      startDate,
-      endDate
-    );
+    this.props.searchEvent(keyword, category, location, localWithin, startDate);
     //call this.props.searchEvent(e)
   }
 
@@ -67,7 +52,7 @@ class SearchPanel extends Component {
             <label>Start Date</label>
             <input
               type="text"
-              id="event-name"
+              id="start-date"
               className="form-control"
               onChange={e => {
                 this.setState({
@@ -75,24 +60,9 @@ class SearchPanel extends Component {
                 });
               }}
               value={this.state.startDate}
-              placeholder="year-month-date"
+              placeholder="yyyy-mm-dd"
+              // pattern="^\d{4}\-(0?[1-9]|1[012])\-(0?[1-9]|[12][0-9]|3[01])$"
               // placeholder="all the fantastic starts from here"
-            />
-          </div>
-
-          <div className="form-wrap">
-            <label>End Date</label>
-            <input
-              type="text"
-              id="event-name"
-              className="form-control"
-              onChange={e => {
-                this.setState({
-                  endDate: e.target.value
-                });
-              }}
-              value={this.state.endDate}
-              placeholder="year-month-date" // placeholder="all the fantastic starts from here"
             />
           </div>
 

@@ -133,7 +133,7 @@ class App extends Component {
     this.scrollToBottom();
   }
 
-  searchEvent(keyword, category, location, localWithin, startDate, endDate) {
+  searchEvent(keyword, category, location, localWithin, startDate) {
     this.setState({ listItemSelected: false });
     this.closeChat();
     let trueStartDate = "";
@@ -141,12 +141,10 @@ class App extends Component {
     if (startDate) {
       trueStartDate = startDate + "T00%3A00%3A00";
     }
-    if (endDate) {
-      trueDndDate = endDate + "T23%3A59%3A59";
-    }
+
     const getURL = `https://www.eventbriteapi.com/v3/events/search/?q=${keyword}&expand=organizer,venue&sort_by=${
       this.state.orderby
-    }&categories=${category}&location.address=${location}&location.within=${localWithin}&start_date.range_start=${trueStartDate}&start_date.range_end=${trueDndDate}&token=${
+    }&categories=${category}&location.address=${location}&location.within=${localWithin}&start_date.range_start=${trueStartDate}&token=${
       process.env.TOKEN
     }`;
     console.log("url", getURL);
