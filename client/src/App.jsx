@@ -49,7 +49,6 @@ class App extends Component {
   }
 
   generateUserColor = user_id => {
-    // console.log("id is", user_id);
     let hue = (user_id * 70) % 360;
     return `hsl(${hue}, 90%, 50%)`;
   };
@@ -83,7 +82,6 @@ class App extends Component {
     this.getAllEventInDB();
     //retrieve initial events before first render(default events)
     this.state.user = read_cookie("userCookie");
-    console.log("this should be the user", this.state.user);
 
     if (this.state.user.status) {
       console.log("retrieve user list");
@@ -107,7 +105,6 @@ class App extends Component {
         return res.json();
       })
       .then(events => {
-        // console.log("APIdata", events.events);
         let data = events.events.filter(event => {
           if (event.description.text) return true;
         });
@@ -134,13 +131,18 @@ class App extends Component {
     this.scrollToBottom();
   }
 
-  searchEvent(keyword, category, location, localWithin) {
+  searchEvent(keyword, category, location, localWithin, startDate) {
     this.setState({ listItemSelected: false });
     this.closeChat();
+    let trueStartDate = "";
+    let trueDndDate = "";
+    if (startDate) {
+      trueStartDate = startDate + "T00%3A00%3A00";
+    }
 
     const getURL = `https://www.eventbriteapi.com/v3/events/search/?q=${keyword}&expand=organizer,venue&sort_by=${
       this.state.orderby
-    }&categories=${category}&location.address=${location}&location.within=${localWithin}&token=${
+    }&categories=${category}&location.address=${location}&location.within=${localWithin}&start_date.range_start=${trueStartDate}&token=${
       process.env.TOKEN
     }`;
     console.log("url", getURL);
@@ -149,7 +151,7 @@ class App extends Component {
         return res.json();
       })
       .then(data => {
-        // console.log("queryEvents", data.events);
+        console.log("queryEvents", data.events);
         const results = data.events;
         //filter events with valid decription
         this.setState({ events: results.slice(0) });
@@ -234,18 +236,16 @@ class App extends Component {
   }
 
   handleIconClick(event) {
-
     let selectedIcon = event.target.getAttribute("data-name");
     let tmp = selectedIcon;
-     if(selectedIcon === "bookmark"){
-       tmp = "add list"
-     }
+    if (selectedIcon === "bookmark") {
+      tmp = "add list";
+    }
     let selectedEventId = event.target.getAttribute("data-id");
     // user was not logged_in
     if (!this.state.user.userID) {
       // request log-in
       $(`.${selectedEventId}`).text(
-        
         `You need log-in or register to use ${tmp} function`
       );
       setTimeout(function() {
@@ -255,7 +255,6 @@ class App extends Component {
       return;
     }
 
-   
     let eventName = event.target.getAttribute("data-event-name");
     let imgUrl = event.target.getAttribute("data-img-url");
 
@@ -375,21 +374,17 @@ class App extends Component {
 
   // Open Chat space from search
   openChat(event) {
-
     let eventId = event.target.name;
 
     if (!this.state.user.userID) {
       // request log-in
-      $(`.${eventId}`).text(
-        "You need log-in or register to use chat function"
-      );
+      $(`.${eventId}`).text("You need log-in or register to use chat function");
       setTimeout(function() {
         $(".iconSideError").text("");
       }, 3500);
 
       return;
     }
-
 
     let eventName = event.target.getAttribute("data-event-name");
     let imgUrl = event.target.getAttribute("data-img-url");
@@ -463,7 +458,7 @@ class App extends Component {
           onClick={e => {
             document.querySelector(".registration-wrapper").style.display =
               "flex";
-              $("body").addClass("stop-scrolling");
+            $("body").addClass("stop-scrolling");
             console.log("click me");
           }}
         >

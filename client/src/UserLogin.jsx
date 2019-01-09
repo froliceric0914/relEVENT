@@ -10,9 +10,7 @@ class UserLogin extends Component {
       email: "",
       password: ""
     };
-    // this._handleSubmit = this._handleSubmit.bind(this);
   }
-  //
 
   _list = id => {
     fetch(`http://localhost:8080/users/${id}/events`)
@@ -30,12 +28,6 @@ class UserLogin extends Component {
 
   _handleSubmit = e => {
     const { email, password } = this.state;
-
-    // this.props.setComponentLogin({ showCompoenent: false });
-    // console.log("showComponent:", this.props.setComponentLogin);
-    // alert("Submit Login");
-
-    // console.log("userLoginInfo", { email, password });
     const user = fetch("http://localhost:8080/login", {
       headers: {
         Accept: "application/json",
@@ -45,7 +37,6 @@ class UserLogin extends Component {
       body: JSON.stringify({ user: { email, password } })
     })
       .then(res => {
-        // console.log("ress", res);
         return res.json();
       })
       .then(data => {
@@ -64,7 +55,6 @@ class UserLogin extends Component {
         });
         this._list(this.props.userState.userID);
         bake_cookie("userCookie", this.props.userState);
-        console.log("login-user: ", read_cookie("userCookie"));
         document.querySelector(".login-wrapper").style.display = "none";
         $("body").removeClass("stop-scrolling");
       });
