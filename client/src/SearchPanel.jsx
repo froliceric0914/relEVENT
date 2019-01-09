@@ -119,7 +119,7 @@ class SearchPanel extends Component {
 
           <div className=" form-wrap">
             <button onClick={this._handleSubmit} className="btn-search">
-              SEARC
+              SEARCH
             </button>
           </div>
         </form>
