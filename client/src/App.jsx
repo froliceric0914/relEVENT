@@ -82,7 +82,6 @@ class App extends Component {
     this.getAllEventInDB();
     //retrieve initial events before first render(default events)
     this.state.user = read_cookie("userCookie");
-    console.log("this should be the user", this.state.user);
 
     if (this.state.user.status) {
       console.log("retrieve user list");
@@ -106,7 +105,6 @@ class App extends Component {
         return res.json();
       })
       .then(events => {
-        // console.log("APIdata", events.events);
         let data = events.events.filter(event => {
           if (event.description.text) return true;
         });

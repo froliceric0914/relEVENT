@@ -5,13 +5,12 @@
 
 @import url("https://fonts.googleapis.com/css?family=Amaranth:400i|Kalam|News+Cycle|Source+Sans+Pro:400,400i");
 
-
 /////////////////// universal ///////////////////
 
 .stop-scrolling {
   height: 100%;
   overflow: hidden;
- }
+}
 
 body {
   background: white;
@@ -80,7 +79,7 @@ button:focus {
     border-radius: 0.3rem;
     margin: 0.5rem;
     height: 2.2rem;
-    font-size: 1.2rem;
+    font-size: 1.4rem;
   }
 
   .mylist-on {
@@ -90,8 +89,11 @@ button:focus {
   }
 
   .userName {
-    margin: 0.4rem;
-    font-size: 1.6rem;
+    margin: 0rem;
+    margin-left: 0.5rem;
+    margin-right: 0.2rem;
+    line-height: 2.8rem;
+    font-size: 2rem;
   }
 }
 
@@ -129,7 +131,9 @@ button:focus {
 }
 
 .enter {
-  margin: 0.5rem;
+  margin: 0.3rem;
+  font-size: 2rem;
+  line-height: 2.5rem;
 
   div {
     text-decoration: underline;
@@ -142,7 +146,8 @@ button:focus {
 
 .log-out {
   text-decoration: underline;
-  margin: 0.5rem 1rem;
+  margin: 0rem 1rem 0 1rem;
+  font-size: 2rem;
 }
 
 .log-out:hover {
@@ -156,17 +161,6 @@ button:focus {
   margin: 0.8rem 0rem;
 }
 
-// .logOutPopUp {
-//   position: fixed;
-//   background-color: white;
-//   right: 100px;
-//   top: 50px;
-//   z-index: 1;
-//   border-radius: 0.3rem;
-//   padding: 0.5rem 0.8rem;
-//   color: black;
-// }
-
 @media only screen and (max-width: 600px) {
   .navbar {
     padding: 0 1rem 0.7rem 1rem;
@@ -179,9 +173,6 @@ button:focus {
   // display: none;
   flex-direction: column;
 }
-
-///!!!!!! will be removed
-/////////////////// user registration /////////////
 
 /////////////////// main ///////////////////
 main {
@@ -197,22 +188,25 @@ main {
   background-color: rgba(0, 0, 0, 0.3);
   border-radius: 0.5rem;
 
+  #category {
+    width: 19rem;
+  }
+
   form {
     width: 100%;
     display: flex;
     justify-content: center;
-    // align-items: flex-end; // this puts the category dropdown out of alignment
     padding: 0 1rem;
   }
 
   .form-wrap {
     padding: 1rem;
     padding-top: 0;
-    margin: 1.3rem 0 1rem 0 ;
+    margin: 1.3rem 0.5rem 1rem 0.5rem;
   }
 
   label {
-    font-size: 1.3rem;
+    font-size: 1.5rem;
     font-family: "Open Sans", sans-serif;
     font-weight: 400;
     margin-bottom: 0.1rem;
@@ -224,9 +218,11 @@ main {
 
   .form-control {
     margin-bottom: 0;
+    font-size: 1.2rem;
   }
 
   .form-control::placeholder {
+    font-size: 1.2rem;
     color: #aaa;
   }
 
@@ -414,19 +410,16 @@ main {
   .red-plus {
     color: red;
   }
-
 }
 
 .iconSideError {
   color: red;
   position: absolute;
   top: 0.5rem;
-  right:1.3rem;
-  text-shadow:
-  -0.8px -0.8px 0 rgba(255, 255, 255, 1),  
-   0.8px -0.8px 0  rgba(255, 255, 255, 1), 
-   -0.8px 0.8px 0  rgba(255, 255, 255, 1), 
-    0.8px 0.8px 0  rgba(255, 255, 255, 1), 
+  right: 1.3rem;
+  text-shadow: -0.8px -0.8px 0 rgba(255, 255, 255, 1),
+    0.8px -0.8px 0 rgba(255, 255, 255, 1), -0.8px 0.8px 0 rgba(255, 255, 255, 1),
+    0.8px 0.8px 0 rgba(255, 255, 255, 1);
 }
 
 // .event-card {
@@ -531,7 +524,6 @@ main {
   margin-top: 2rem;
 
   #messageList {
-    // margin-top: 7rem;
     height: 100%;
   }
 }
@@ -630,7 +622,7 @@ input:focus::-webkit-input-placeholder {
   font-family: "Ubuntu", sans-serif;
 }
 
-.input:focus+.underline {
+.input:focus + .underline {
   transform: scale(1);
 }
 

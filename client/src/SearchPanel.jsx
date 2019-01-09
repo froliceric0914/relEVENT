@@ -61,8 +61,6 @@ class SearchPanel extends Component {
               }}
               value={this.state.startDate}
               placeholder="yyyy-mm-dd"
-              // pattern="^\d{4}\-(0?[1-9]|1[012])\-(0?[1-9]|[12][0-9]|3[01])$"
-              // placeholder="all the fantastic starts from here"
             />
           </div>
 
@@ -77,44 +75,15 @@ class SearchPanel extends Component {
             >
               <option value="">-</option>
               {this.props.categories.map(categoryOption => {
+                console.log("category", categoryOption);
                 return (
                   <option value={categoryOption.id} key={categoryOption.id}>
                     {categoryOption.name}
-                    {/* selected={} */}
                   </option>
                 );
               })}
             </select>
           </div>
-
-          {/* <div className="form-wrap">
-              <label>start-date</label>
-              <input
-                type="text"
-                id="start-date"
-                className="form-control"
-                onChange={e => {
-                  this.setState({
-                    keyword: e.target.value
-                  });
-                }}
-                value={this.state.start_date}
-              />
-            </div>
-            <div className="form-wrap">
-              <label>end-date</label>
-              <input
-                type="text"
-                id="end-date"
-                className="form-control"
-                onChange={e => {
-                  this.setState({
-                    keyword: e.target.value
-                  });
-                }}
-                value={this.state.end_date}
-              />
-            </div> */}
 
           <div className=" form-wrap">
             <label>Location</label>
@@ -149,13 +118,8 @@ class SearchPanel extends Component {
           </div>
 
           <div className=" form-wrap">
-            <button
-              onClick={this._handleSubmit}
-              // type="submit"
-              className="btn-search"
-              // id="submitBtn"
-            >
-              Search
+            <button onClick={this._handleSubmit} className="btn-search">
+              SEARC
             </button>
           </div>
         </form>
