@@ -2,10 +2,6 @@ import React from "react";
 import * as ReactBootstrap from "react-bootstrap";
 // import { Button, Icon } from "react-materialize";
 
-//This is an event info pane for an event.
-//TODO: add other values. img, description, venue, cost etc...
-//TODO: add onclick to chat button. show chat component
-//TODO: add styling
 const _clickHandler = e => {
   $(e.target.parentElement.parentElement.parentElement).toggleClass(
     "flip-action"
@@ -52,7 +48,6 @@ const Event = ({
         }}
       />
     );
-    // img_url = "";
   }
 
   let likeIcon = "false";
@@ -83,13 +78,13 @@ const Event = ({
   let date;
   let longDate;
   let properDate;
-  if(event.start.local){
+  if (event.start.local) {
     date = event.start.local.toString();
     longDate = new Date(date);
     properDate = longDate.toString().substring(0, 10);
   }
 
-  let errorMessage = `iconSideError ${event.id}`
+  let errorMessage = `iconSideError ${event.id}`;
   // let img_style;
 
   // if (event.logo.url != null) {
@@ -97,7 +92,7 @@ const Event = ({
   //   console.log("iii", img_style);
   // }
 
-  let chatButtonText = !listItemSelected? "Chat": "Close"
+  let chatButtonText = !listItemSelected ? "Chat" : "Close";
   return (
     // <div className="event-card col-4">
     <div
@@ -125,7 +120,9 @@ const Event = ({
                   overflow: "hidden"
                 }}
               >
-                {!event.name.text? "":event.name.text.substring(40)
+                {!event.name.text
+                  ? ""
+                  : event.name.text.substring(40)
                   ? event.name.text.substring(0, 40) + " ..."
                   : event.name.text}
               </h2>
@@ -172,13 +169,12 @@ const Event = ({
               name={event.id}
               data-event-name={event.name.text}
               data-img-url={img_url}
-              onClick={listItemSelected? handleXIconOnEventClick:openChat}
+              onClick={listItemSelected ? handleXIconOnEventClick : openChat}
               target="_blank"
-              style={{backgroundColor:listItemSelected?"#ff9933":""}}
+              style={{ backgroundColor: listItemSelected ? "#ff9933" : "" }}
             >
-             {chatButtonText}
+              {chatButtonText}
             </button>
-            
           </div>
         </div>
         <div
@@ -201,7 +197,9 @@ const Event = ({
             {img}
           </div>
           <p className="event-description shadow-sm p-3 rounded">
-            {!event.description.text? "" :event.description.text.substring(290)
+            {!event.description.text
+              ? ""
+              : event.description.text.substring(290)
               ? event.description.text.substring(0, 290) + "..."
               : event.description.text}
           </p>
@@ -213,7 +211,7 @@ const Event = ({
             {" "}
             More
           </a>
-     
+
           <button
             className="btn btn-primary backButton"
             onClick={_clickHandler2}

@@ -576,7 +576,7 @@ class App extends Component {
           </div>
 
           <div className="mainContent">
-            <Scroll width="100%" height="100%">
+            <Scroll width="100%" height="110%">
               <EventList
                 events={this.state.events}
                 searchEvent={this.searchEvent}
