@@ -456,6 +456,7 @@ class App extends Component {
       <div className="nav-right flexR enter">
         <div
           onClick={e => {
+            window.scrollTo(0, 0);
             document.querySelector(".registration-wrapper").style.display =
               "flex";
             $("body").addClass("stop-scrolling");
@@ -469,6 +470,7 @@ class App extends Component {
           onClick={e => {
             // console.log("click login", $(".login-wrapper"));
             // $(".login-wrapper").style.display = "none";
+            window.scrollTo(0, 0);
             document.querySelector(".login-wrapper").style.display = "flex";
             $("body").addClass("stop-scrolling");
           }}
@@ -574,7 +576,7 @@ class App extends Component {
           </div>
 
           <div className="mainContent">
-            <Scroll width="100%" height="700px">
+            <Scroll width="100%" height="100%">
               <EventList
                 events={this.state.events}
                 searchEvent={this.searchEvent}
