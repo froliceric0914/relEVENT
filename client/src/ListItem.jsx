@@ -1,19 +1,6 @@
 import React from "react";
 
 const ListItem = ({ listItem, handleListItemClick }) => {
-  // expensive way??
-  // test(){
-  //   return fetch(
-  //   `https://www.eventbriteapi.com/v3/events/51666654354/?token=${process.env.TOKEN}`
-  //   )
-  //   .then(res => {
-  //     return res.json();
-  //   })
-  //   .then(data => {
-  //        return  data;
-  //   });
-  // }
-
   let eventId = listItem.event.external_event_id;
   let likeClass = "far fa-heart";
   if (listItem.liked) {

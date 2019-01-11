@@ -303,6 +303,9 @@ class App extends Component {
     }
     this.setState({ listItemSelected: true });
     this.setState({ eventId: selectedEventId });
+    // $(".myList").slideUp() &&
+    //   $(".btn-mylist").removeClass("mylist-on") &&
+    //   $(".btn-mylist").text("MyList");
 
     console.log("retrieve user list");
     // retrieve user_event data
@@ -468,8 +471,7 @@ class App extends Component {
         &nbsp;/&nbsp;
         <div
           onClick={e => {
-            // console.log("click login", $(".login-wrapper"));
-            // $(".login-wrapper").style.display = "none";
+            //relocate the iniative postion of pop-up window
             window.scrollTo(0, 0);
             document.querySelector(".login-wrapper").style.display = "flex";
             $("body").addClass("stop-scrolling");
@@ -534,7 +536,7 @@ class App extends Component {
 
     ////////////////////////////////////
 
-    //     // cache the element you intend to target
+    // cache the element you intend to target
     // const navBar = document.querySelector('.navbar');
 
     // // cache styles of sidebarElement inside cssStyles
