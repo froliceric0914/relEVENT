@@ -8,8 +8,6 @@ class User < ApplicationRecord
   validates :email, presence: true, format: { with: URI::MailTo::EMAIL_REGEXP, message: "only allows valid emails" }, uniqueness: { case_sensitive: false }
   validates :password, length: { minimum: 7 }, confirmation: true
 
-
-
   def self.authenticate_with_credentials(email, password)
       user = User.find_by_email(email)
       # puts user

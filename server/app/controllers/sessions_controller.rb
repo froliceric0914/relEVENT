@@ -9,7 +9,6 @@ class SessionsController < ApplicationController
   puts "email from front-ent", params[:user][:email]
   puts "user from front-end", params
   if @user = User.authenticate_with_credentials(params[:user][:email], params[:user][:password])
-      # session[:user_id] = @user.id
       render :json =>
       {
         :status => 'ok',
@@ -20,8 +19,7 @@ class SessionsController < ApplicationController
         render :json =>
         {
           :status => 500,
-          :message => 'Unsuccessful Login' # @user.errors.full_messages.to_sentence,
-          # :object => @user
+          :message => 'Unsuccessful Login'
         }.to_json
     end
   end
@@ -34,19 +32,5 @@ class SessionsController < ApplicationController
 end
 
 
-
-
-# def create
-#   if user = User.authenticate_with_credentials(params[:email], params[:password])
-#       session[:user_id] = user.id
-#       render json: user
-#     else
-#       puts "User login was unsuccessful"
-#       head :forbidden
-#     end
-#   end
-
-#   def destroy
-#     session[:user_id] = nil
-#     redirect_to '/login'
-#   end
+# Can use the following to return the full error is the login is unsuccessful
+# @user.errors.full_messages.to_sentence
