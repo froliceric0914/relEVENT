@@ -155,9 +155,10 @@ button:focus {
   margin: 0.8rem 0rem;
 }
 
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 700px) {
   .navbar {
     padding: 0 1rem 0.7rem 1rem;
+    background-position: right 0 bottom 0;
   }
 }
 
@@ -246,13 +247,21 @@ main {
   margin-top: 2rem;
 }
 
+@media only screen and (max-width: 800px) {
+  #txt-date {
+    display: none;
+  }
+}
+
 @media only screen and (max-width: 600px) {
   .searchPanel {
+
     .form-wrap {
-      padding: 0.5rem;
+      padding: 0.15rem;
       padding-top: 0;
     }
   }
+
 }
 
 //***************** event List *****************//

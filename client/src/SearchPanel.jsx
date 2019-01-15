@@ -47,7 +47,7 @@ class SearchPanel extends Component {
             />
           </div>
           <div className="form-wrap">
-            <label>Start Date</label>
+            <label>Start<span id="txt-date"> Date</span></label>
             <input
               type="text"
               id="start-date"
