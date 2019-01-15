@@ -1,8 +1,5 @@
 import React, { Component } from "react";
 
-// This is an Search window
-// TODO: add styling
-
 class SearchPanel extends Component {
   constructor(props) {
     super(props);
