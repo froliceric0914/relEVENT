@@ -11,7 +11,7 @@
 .stop-scrolling {
   height: 100%;
   overflow: hidden;
- }
+}
 
 body {
   background: white;
@@ -110,15 +110,9 @@ button:focus {
   color: inherit;
   display: block;
   float: left;
-  // font-weight: 700;
   font-size: 35px;
-
   padding: 0 10px;
-  text-decoration: none;
-
-  // font-family: 'Source Sans Pro', sans-serif;
-  // font-family: 'News Cycle', sans-serif;
-  // font-family: 'Kalam', cursive;
+  text-shadow: 2px 2px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
   font-family: "Amaranth", sans-serif;
   letter-spacing: 0.1rem;
 }
@@ -267,6 +261,8 @@ main {
   min-width: 40%;
   display: flex;
   justify-content: center;
+  padding-left: 5rem;
+  padding-right: 5rem;
 }
 
 //***************** event Card *****************//
@@ -414,12 +410,12 @@ main {
   color: red;
   position: absolute;
   top: 0.5rem;
-  right:1.3rem;
+  right: 1.3rem;
   text-shadow:
-  -0.8px -0.8px 0 rgba(255, 255, 255, 1),  
-   0.8px -0.8px 0  rgba(255, 255, 255, 1), 
-   -0.8px 0.8px 0  rgba(255, 255, 255, 1), 
-    0.8px 0.8px 0  rgba(255, 255, 255, 1), 
+    -0.8px -0.8px 0 rgba(255, 255, 255, 1),
+    0.8px -0.8px 0 rgba(255, 255, 255, 1),
+    -0.8px 0.8px 0 rgba(255, 255, 255, 1),
+    0.8px 0.8px 0 rgba(255, 255, 255, 1),
 }
 
 // .event-card {

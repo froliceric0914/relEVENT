@@ -9,7 +9,6 @@ class SessionsController < ApplicationController
   puts "email from front-ent", params[:user][:email]
   puts "user from front-end", params
   if @user = User.authenticate_with_credentials(params[:user][:email], params[:user][:password])
-      # session[:user_id] = @user.id
       render :json =>
       {
         :status => 'ok',

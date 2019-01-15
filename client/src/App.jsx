@@ -234,18 +234,16 @@ class App extends Component {
   }
 
   handleIconClick(event) {
-
     let selectedIcon = event.target.getAttribute("data-name");
     let tmp = selectedIcon;
-     if(selectedIcon === "bookmark"){
-       tmp = "add list"
-     }
+    if (selectedIcon === "bookmark") {
+      tmp = "add list";
+    }
     let selectedEventId = event.target.getAttribute("data-id");
     // user was not logged_in
     if (!this.state.user.userID) {
       // request log-in
       $(`.${selectedEventId}`).text(
-        
         `You need log-in or register to use ${tmp} function`
       );
       setTimeout(function() {
@@ -255,7 +253,6 @@ class App extends Component {
       return;
     }
 
-   
     let eventName = event.target.getAttribute("data-event-name");
     let imgUrl = event.target.getAttribute("data-img-url");
 
@@ -375,21 +372,17 @@ class App extends Component {
 
   // Open Chat space from search
   openChat(event) {
-
     let eventId = event.target.name;
 
     if (!this.state.user.userID) {
       // request log-in
-      $(`.${eventId}`).text(
-        "You need log-in or register to use chat function"
-      );
+      $(`.${eventId}`).text("You need log-in or register to use chat function");
       setTimeout(function() {
         $(".iconSideError").text("");
       }, 3500);
 
       return;
     }
-
 
     let eventName = event.target.getAttribute("data-event-name");
     let imgUrl = event.target.getAttribute("data-img-url");
@@ -463,7 +456,7 @@ class App extends Component {
           onClick={e => {
             document.querySelector(".registration-wrapper").style.display =
               "flex";
-              $("body").addClass("stop-scrolling");
+            $("body").addClass("stop-scrolling");
             console.log("click me");
           }}
         >
@@ -551,8 +544,7 @@ class App extends Component {
       <div>
         <nav className="navbar">
           <div className="navbar-content flexR">
-            <a className="title">relEVENT</a>
-            {/* {cssVal} */}
+            <a className="title">relEVENT</a> 
 
             {this.state.user.status ? inside : outside}
           </div>
