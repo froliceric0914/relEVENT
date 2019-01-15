@@ -4,8 +4,6 @@ import { read_cookie, delete_cookie } from "sfcookies";
 
 const NavBar = ({ user, categories, closeChat, resetState, searchEvent }) => {
 
-  console.log("ppp", user);
-
   let generateUserColor = user_id => {
     let hue = (user_id * 70) % 360;
     return `hsl(${hue}, 90%, 50%)`;
@@ -69,9 +67,6 @@ const NavBar = ({ user, categories, closeChat, resetState, searchEvent }) => {
       <div
         className="log-out"
         onClick={e => {
-          delete_cookie("userCookie");
-          closeChat();
-          $(".myList").hide();
           resetState();
         }}
       >

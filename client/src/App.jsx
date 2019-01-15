@@ -43,9 +43,7 @@ class App extends Component {
 
     // retrieve user_event data for mylist
     if (this.state.user.status) {
-      fetch(`http://localhost:8080/users/${this.state.user.userID}/events`)
-        .then(res => res.json())
-        .then(data => data ? this.setState({ listItems: data }) : null);
+      this.getUserEventListInDB(this.state.user.userID);
     }
 
     //retrieve initial events before first render(default events)
@@ -96,11 +94,10 @@ class App extends Component {
     });
   }
 
+  // get all event for like count
   getAllEventInDB = () => {
     fetch(`http://localhost:8080/events`)
-      .then(res => {
-        return res.json();
-      })
+      .then(res => res.json())
       .then(data => {
         if (data) {
           this.setState({
@@ -109,6 +106,21 @@ class App extends Component {
         }
       });
   };
+
+  // get messages that belong to an event requested
+  getMessagesOfAnEventInDB = (event_id) => {
+    fetch(`http://localhost:8080/events/${event_id}/messages`)
+      .then(res => res.json())
+      .then(data => data ? this.setState({ messages: data }) : null);
+
+  }
+
+  // get my-list info
+  getUserEventListInDB = (user_id) => {
+    fetch(`http://localhost:8080/users/${user_id}/events`)
+      .then(res => res.json())
+      .then(data => data ? this.setState({ listItems: data }) : null);
+  }
 
   scrollToBottom = () => {
     let messageList = document.getElementById("messageList");
@@ -128,14 +140,19 @@ class App extends Component {
       trueStartDate = startDate + "T00%3A00%3A00";
     }
 
-    const getURL = `https://www.eventbriteapi.com/v3/events/search/?q=${keyword}&expand=organizer,venue&sort_by=${
+    fetch(`https://www.eventbriteapi.com/v3/events/search/?q=${keyword}&expand=organizer,venue&sort_by=${
       this.state.orderby
       }&categories=${category}&location.address=${location}&location.within=${localWithin}&start_date.range_start=${trueStartDate}&token=${
       process.env.TOKEN
-      }`;
-    fetch(getURL)
+      }`)
       .then(res => res.json())
-      .then(data => this.setState({ events: data.events }));
+      .then(events => {
+        let data = events.events.filter(event => {
+          if (event.description.text) return true;
+        });
+        this.setState({ events: data });
+        this.setState({ eventsTmp: data });
+      });
   }
 
   // socket
@@ -149,21 +166,13 @@ class App extends Component {
         connected: () => { },
         received: data => {
 
+          this.getMessagesOfAnEventInDB(this.state.eventId);
+
           // // ============= if you don't use back-end ==============
           // //concat to message list
           // this.setState({ messages: [...this.state.messages, data ] });
           // //=======================================================
 
-          // retrieve updated message list from db TODO: it's repeated. need refactor
-          fetch(`http://localhost:8080/events/${this.state.eventId}/messages`)
-            .then(res => {
-              return res.json();
-            })
-            .then(data => {
-              if (data) {
-                this.setState({ messages: data });
-              }
-            });
         },
         create: function (chatContent, user_id, event_id, event_name, img_url) {
           this.perform("create", {
@@ -288,9 +297,7 @@ class App extends Component {
     this.setState({ eventId: selectedEventId });
 
     // retrieve user_event data
-    fetch(`http://localhost:8080/users/${this.state.user.userID}/events`)
-      .then(res => res.json())
-      .then(data => data ? this.setState({ listItems: data }) : null);
+    this.getUserEventListInDB(this.state.user.userID);
 
     // retrieve one event from api
     fetch(
@@ -321,6 +328,8 @@ class App extends Component {
   // Open Chat space from search
   openChat = (event) => {
     let eventId = event.target.name;
+    let eventName = event.target.getAttribute("data-event-name");
+    let imgUrl = event.target.getAttribute("data-img-url");
 
     if (!this.state.user.userID) {
       // request log-in
@@ -332,42 +341,31 @@ class App extends Component {
       return;
     }
 
-    let eventName = event.target.getAttribute("data-event-name");
-    let imgUrl = event.target.getAttribute("data-img-url");
-
     $(".chatSpace").animate({
       width: "toggle"
     });
 
+    // hide other event cards
     var target = $(
       event.target.parentElement.parentElement.parentElement.parentElement
     );
-
-    // hide other event cards
     target.siblings().toggle();
 
-    var check = target.next();
-
     // When a chat space was not open
+    var check = target.next();
     if (!$(check).is(":visible")) {
       $(event.target).css("background-color", "#ff9933");
       $(event.target).text("Close");
 
       // retrieve messages that belong to an event requested
-      fetch(`http://localhost:8080/events/${event.target.name}/messages`)
-        .then(res => {
-          return res.json();
-        })
-        .then(data => {
-          if (data) {
-            this.setState({
-              eventId: eventId,
-              event_name: eventName,
-              img_url: imgUrl,
-              messages: data
-            });
-          }
-        });
+      this.getMessagesOfAnEventInDB(event.target.name);
+
+      this.setState({
+        eventId: eventId,
+        event_name: eventName,
+        img_url: imgUrl,
+      });
+
       return;
     }
 
@@ -378,8 +376,7 @@ class App extends Component {
 
   //close chat space
   closeChat = () => {
-    console.log("close");
-    //close chat space
+
     if ($(".chatSpace").is(":visible")) {
       $(".chatSpace").animate({
         width: "toggle"
