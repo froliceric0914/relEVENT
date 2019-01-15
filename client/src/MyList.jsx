@@ -12,7 +12,7 @@ const MyList = ({ listItems, handleListItemClick }) => {
     <div className="myList">
       {/* <Scroll> */}
       {/* <h3>Your event list</h3> */}
-      {listItems.length ? (
+      {listItems.length && listItems.some(listItem => listItem.bookmarked) ? (
         listItems.map(listItem => {
           if (listItem.bookmarked) {
             return (
@@ -25,11 +25,10 @@ const MyList = ({ listItems, handleListItemClick }) => {
           }
         })
       ) : (
-        <div className="img-thumbnail listItem notify">
-          {" "}
-          You don't have any items yet.
+          <div className="img-thumbnail listItem notify">
+            You don't have any items yet.
         </div>
-      )}
+        )}
 
       {/* </Scroll> */}
     </div>
