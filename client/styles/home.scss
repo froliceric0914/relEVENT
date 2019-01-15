@@ -183,7 +183,7 @@ main {
   border-radius: 0.5rem;
 
   #category {
-    width: 19rem;
+    // width: 19rem;
   }
 
   form {
@@ -616,7 +616,7 @@ input:focus::-webkit-input-placeholder {
   font-family: "Ubuntu", sans-serif;
 }
 
-.input:focus + .underline {
+.input:focus+.underline {
   transform: scale(1);
 }
 

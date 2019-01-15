@@ -43,7 +43,7 @@ class SearchPanel extends Component {
               }}
               value={this.state.keyword}
               placeholder="ex.festival"
-              // placeholder="all the fantastic starts from here"
+            // placeholder="all the fantastic starts from here"
             />
           </div>
           <div className="form-wrap">
