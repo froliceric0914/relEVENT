@@ -17,16 +17,16 @@ class App extends Component {
     super(props);
     this.state = {
       orderby: "date",
+      categories: [],
+      eventId: "0",
       events: [],
       eventsTmp: [],
-      messages: [],
-      cookie: [],
-      categories: [],
-      currentChatMessage: "",
-      eventId: "0",
+      allEvents: [],
       listItems: [],
       listItemSelected: false,
-      allEvents: [],
+      messages: [],
+      currentChatMessage: "",
+      cookie: [],
       user: {
         status: false,
         username: null,
@@ -35,59 +35,48 @@ class App extends Component {
     };
   }
 
+  ///////// life cycle /////////
   componentWillMount() {
     this.state.user = read_cookie("userCookie");
     this.createSocket();
     this.getAllEventInDB();
-    //retrieve initial events before first render(default events)
-    this.state.user = read_cookie("userCookie");
 
+    // retrieve user_event data for mylist
     if (this.state.user.status) {
-      console.log("retrieve user list");
-      // retrieve user_event data
       fetch(`http://localhost:8080/users/${this.state.user.userID}/events`)
-        .then(res => {
-          return res.json();
-        })
-        .then(data => {
-          if (data) {
-            this.setState({ listItems: data });
-          }
-        });
+        .then(res => res.json())
+        .then(data => data ? this.setState({ listItems: data }) : null);
     }
 
+    //retrieve initial events before first render(default events)
     fetch(
       `https://www.eventbriteapi.com/v3/events/search/?q=&sort_by=date&location.address=toronto&expand=organizer,venue&token=${
       process.env.TOKEN
       }`
     )
-      .then(res => {
-        return res.json();
-      })
+      .then(res => res.json())
       .then(events => {
         let data = events.events.filter(event => {
           if (event.description.text) return true;
         });
-        this.setState({ events: data.slice(0) });
-        this.setState({ eventsTmp: data.slice(0) });
+        this.setState({ events: data });
+        this.setState({ eventsTmp: data });
       });
 
     // Query the API for category list
     fetch(
       `https://www.eventbriteapi.com/v3/categories/?token=${process.env.TOKEN}`
     )
-      .then(res => {
-        return res.json();
-      })
-      .then(data => {
-        const option = data.categories;
-        this.setState({ categories: option });
-      });
+      .then(res => res.json())
+      .then(data => { this.setState({ categories: data.categories }) });
   }
 
   componentDidUpdate() {
     this.scrollToBottom();
   }
+
+  //////////////////////////
+
 
   resetState = () => {
     delete_cookie("userCookie");
@@ -95,15 +84,15 @@ class App extends Component {
     $(".myList").hide();
     this.setState({
       events: this.state.eventsTmp,
+      listItems: [],
+      listItemSelected: false,
+      currentChatMessage: "",
+      eventId: "0",
       user: {
         status: false,
         username: null,
         userID: null
-      },
-      listItems: [],
-      listItemSelected: false,
-      currentChatMessage: "",
-      eventId: "0"
+      }
     });
   }
 
@@ -144,17 +133,9 @@ class App extends Component {
       }&categories=${category}&location.address=${location}&location.within=${localWithin}&start_date.range_start=${trueStartDate}&token=${
       process.env.TOKEN
       }`;
-    // console.log("url", getURL);
-    const url = fetch(getURL)
-      .then(res => {
-        return res.json();
-      })
-      .then(data => {
-        // console.log("queryEvents", data.events);
-        const results = data.events;
-        //filter events with valid decription
-        this.setState({ events: results.slice(0) });
-      });
+    fetch(getURL)
+      .then(res => res.json())
+      .then(data => this.setState({ events: data.events }));
   }
 
   // socket
@@ -167,11 +148,11 @@ class App extends Component {
       {
         connected: () => { },
         received: data => {
-          // if you don't connect with back-end =========
-          // // this.setState({ messages: [...this.state.messages, data ] });
-          // console.log(this.state.messages);
-          // // concat to message list
-          //===============================================
+
+          // // ============= if you don't use back-end ==============
+          // //concat to message list
+          // this.setState({ messages: [...this.state.messages, data ] });
+          // //=======================================================
 
           // retrieve updated message list from db TODO: it's repeated. need refactor
           fetch(`http://localhost:8080/events/${this.state.eventId}/messages`)
@@ -241,6 +222,7 @@ class App extends Component {
       tmp = "add list";
     }
     let selectedEventId = event.target.getAttribute("data-id");
+
     // user was not logged_in
     if (!this.state.user.userID) {
       // request log-in
@@ -261,6 +243,7 @@ class App extends Component {
     let bookmarked = false;
     selectedIcon === "like" ? (liked = true) : (bookmarked = true);
 
+    // handle create, edit, destroy of user_event in back-end
     fetch(
       `http://localhost:8080/users/${
       this.state.user.userID
@@ -296,6 +279,7 @@ class App extends Component {
 
   handleListItemClick = (event) => {
     let selectedEventId = event.target.getAttribute("data-id");
+
     // move current search result in tmp
     if (this.state.listItemSelected === false) {
       this.setState({ eventsTmp: this.state.events });
@@ -303,48 +287,29 @@ class App extends Component {
     this.setState({ listItemSelected: true });
     this.setState({ eventId: selectedEventId });
 
-    console.log("retrieve user list");
     // retrieve user_event data
     fetch(`http://localhost:8080/users/${this.state.user.userID}/events`)
-      .then(res => {
-        return res.json();
-      })
-      .then(data => {
-        if (data) {
-          this.setState({ listItems: data });
-        }
-      });
+      .then(res => res.json())
+      .then(data => data ? this.setState({ listItems: data }) : null);
 
+    // retrieve one event from api
     fetch(
       `https://www.eventbriteapi.com/v3/events/${selectedEventId}/?token=${
       process.env.TOKEN
       }&expand=organizer,venue`
     )
-      .then(res => {
-        return res.json();
-      })
-      .then(data => {
-        this.setState({ events: [data] });
-      });
+      .then(res => res.json())
+      .then(data =>
+        this.setState({ events: [data] }));
 
     // retrieve messages that belong to an event requested
     fetch(`http://localhost:8080/events/${selectedEventId}/messages`)
-      .then(res => {
-        return res.json();
-      })
-      .then(data => {
-        if (data) {
-          console.log("message!", data);
-          //  this.listUpdater(data);
-          this.setState({ messages: data });
-        }
-      });
+      .then(res => res.json())
+      .then(data => { data ? this.setState({ messages: data }) : null });
 
     this.scrollToBottom();
     this.openChatFromList();
   }
-
-
 
   openChatFromList = () => {
     //open chat space
@@ -378,6 +343,7 @@ class App extends Component {
       event.target.parentElement.parentElement.parentElement.parentElement
     );
 
+    // hide other event cards
     target.siblings().toggle();
 
     var check = target.next();
@@ -440,8 +406,6 @@ class App extends Component {
       );
     });
 
-
-
     return (
       <div>
         <NavBar
@@ -451,17 +415,6 @@ class App extends Component {
           resetState={this.resetState}
           searchEvent={this.searchEvent}
         />
-        {/* <nav className="navbar">
-          <div className="navbar-content flexR">
-            <a className="title">relEVENT</a>
-
-            {this.state.user.status ? inside : outside}
-          </div>
-          <SearchPanel
-            searchEvent={this.searchEvent}
-            categories={this.state.categories}
-          />
-        </nav> */}
 
         <main>
           <div className="registration-wrapper">
@@ -516,7 +469,6 @@ class App extends Component {
                     onClick={e => this.handleSendEvent(e)}
                     className="send"
                   >
-                    {" "}
                     Send
                     <img
                       src="./images/send-message.png"

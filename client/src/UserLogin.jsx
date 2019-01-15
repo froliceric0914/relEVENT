@@ -43,7 +43,7 @@ class UserLogin extends Component {
         console.log("user_login data from backend", data);
         if (data.status == 500) {
           $(".error-log").text("email or password is incorrect");
-          setTimeout(function() {
+          setTimeout(function () {
             $(".error-log").text("");
           }, 3000);
           return;
