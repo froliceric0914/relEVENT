@@ -33,11 +33,60 @@ class App extends Component {
         userID: 0
       }
     };
-    this.searchEvent = this.searchEvent.bind(this);
-    this.openChat = this.openChat.bind(this);
-    this.closeChat = this.closeChat.bind(this);
-    this.handleIconClick = this.handleIconClick.bind(this);
-    this.handleListItemClick = this.handleListItemClick.bind(this);
+  }
+
+  componentWillMount() {
+    this.state.user = read_cookie("userCookie");
+    this.createSocket();
+    this.getAllEventInDB();
+    //retrieve initial events before first render(default events)
+    this.state.user = read_cookie("userCookie");
+
+    if (this.state.user.status) {
+      console.log("retrieve user list");
+      // retrieve user_event data
+      fetch(`http://localhost:8080/users/${this.state.user.userID}/events`)
+        .then(res => {
+          return res.json();
+        })
+        .then(data => {
+          if (data) {
+            this.setState({ listItems: data });
+          }
+        });
+    }
+
+    fetch(
+      `https://www.eventbriteapi.com/v3/events/search/?q=&sort_by=date&location.address=toronto&expand=organizer,venue&token=${
+      process.env.TOKEN
+      }`
+    )
+      .then(res => {
+        return res.json();
+      })
+      .then(events => {
+        let data = events.events.filter(event => {
+          if (event.description.text) return true;
+        });
+        this.setState({ events: data.slice(0) });
+        this.setState({ eventsTmp: data.slice(0) });
+      });
+
+    // Query the API for category list
+    fetch(
+      `https://www.eventbriteapi.com/v3/categories/?token=${process.env.TOKEN}`
+    )
+      .then(res => {
+        return res.json();
+      })
+      .then(data => {
+        const option = data.categories;
+        this.setState({ categories: option });
+      });
+  }
+
+  componentDidUpdate() {
+    this.scrollToBottom();
   }
 
   resetState = () => {
@@ -81,62 +130,7 @@ class App extends Component {
       maxScrollTop > 0 ? maxScrollTop : 0;
   };
 
-  componentWillMount() {
-    this.state.user = read_cookie("userCookie");
-    this.createSocket();
-    this.getAllEventInDB();
-    //retrieve initial events before first render(default events)
-    this.state.user = read_cookie("userCookie");
-
-    if (this.state.user.status) {
-      console.log("retrieve user list");
-      // retrieve user_event data
-      fetch(`http://localhost:8080/users/${this.state.user.userID}/events`)
-        .then(res => {
-          return res.json();
-        })
-        .then(data => {
-          if (data) {
-            this.setState({ listItems: data });
-          }
-        });
-    }
-    const url = fetch(
-      `https://www.eventbriteapi.com/v3/events/search/?q=&sort_by=date&location.address=toronto&expand=organizer,venue&token=${
-      process.env.TOKEN
-      }`
-    )
-      .then(res => {
-        return res.json();
-      })
-      .then(events => {
-        let data = events.events.filter(event => {
-          if (event.description.text) return true;
-        });
-        this.setState({ events: data.slice(0) });
-        this.setState({ eventsTmp: data.slice(0) });
-      });
-
-    // Query the API for category list
-    const categoriesResponse = fetch(
-      `https://www.eventbriteapi.com/v3/categories/?token=${process.env.TOKEN}`
-    )
-      .then(res => {
-        return res.json();
-      })
-      .then(data => {
-        const option = data.categories;
-        this.setState({ categories: option });
-      });
-  }
-
-  componentDidMount() { }
-
-  componentDidUpdate() {
-    this.scrollToBottom();
-  }
-
-  searchEvent(keyword, category, location, localWithin, startDate) {
+  searchEvent = (keyword, category, location, localWithin, startDate) => {
     this.setState({ listItemSelected: false });
     this.closeChat();
     let trueStartDate = "";
@@ -150,13 +144,13 @@ class App extends Component {
       }&categories=${category}&location.address=${location}&location.within=${localWithin}&start_date.range_start=${trueStartDate}&token=${
       process.env.TOKEN
       }`;
-    console.log("url", getURL);
+    // console.log("url", getURL);
     const url = fetch(getURL)
       .then(res => {
         return res.json();
       })
       .then(data => {
-        console.log("queryEvents", data.events);
+        // console.log("queryEvents", data.events);
         const results = data.events;
         //filter events with valid decription
         this.setState({ events: results.slice(0) });
@@ -240,7 +234,7 @@ class App extends Component {
     }
   }
 
-  handleIconClick(event) {
+  handleIconClick = (event) => {
     let selectedIcon = event.target.getAttribute("data-name");
     let tmp = selectedIcon;
     if (selectedIcon === "bookmark") {
@@ -300,7 +294,7 @@ class App extends Component {
       });
   }
 
-  handleListItemClick(event) {
+  handleListItemClick = (event) => {
     let selectedEventId = event.target.getAttribute("data-id");
     // move current search result in tmp
     if (this.state.listItemSelected === false) {
@@ -350,6 +344,8 @@ class App extends Component {
     this.openChatFromList();
   }
 
+
+
   openChatFromList = () => {
     //open chat space
     $(".chatSpace").show();
@@ -358,7 +354,7 @@ class App extends Component {
   };
 
   // Open Chat space from search
-  openChat(event) {
+  openChat = (event) => {
     let eventId = event.target.name;
 
     if (!this.state.user.userID) {
@@ -415,7 +411,8 @@ class App extends Component {
   }
 
   //close chat space
-  closeChat(e) {
+  closeChat = () => {
+    console.log("close");
     //close chat space
     if ($(".chatSpace").is(":visible")) {
       $(".chatSpace").animate({
@@ -425,6 +422,13 @@ class App extends Component {
       $(".chatButton").text("Chat");
       $(".card").show();
     }
+    this.setState({ listItemSelected: false });
+    this.setState({ events: this.state.eventsTmp });
+  }
+
+  // when x Icon on an event from myList was clicked
+  handleXIconOnEventClick = (event) => {
+    this.closeChat();
     this.setState({ listItemSelected: false });
     this.setState({ events: this.state.eventsTmp });
   }

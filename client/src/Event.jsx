@@ -67,7 +67,6 @@ const Event = ({
       likeCount = item.like_count;
       break;
     }
-
   }
 
   listItems.forEach(item => {
