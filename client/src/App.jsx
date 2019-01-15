@@ -1,6 +1,5 @@
 import Cable from "actioncable";
 import React, { Component } from "react";
-import SearchPanel from "./SearchPanel.jsx";
 import EventList from "./EventList.jsx";
 import Message from "./Message.jsx";
 import UserRegistration from "./UserRegistration.jsx";
@@ -54,9 +53,7 @@ class App extends Component {
     )
       .then(res => res.json())
       .then(events => {
-        let data = events.events.filter(event => {
-          if (event.description.text) return true;
-        });
+        let data = events.events.filter(event => event.description.text);
         this.setState({ events: data });
         this.setState({ eventsTmp: data });
       });
@@ -147,9 +144,7 @@ class App extends Component {
       }`)
       .then(res => res.json())
       .then(events => {
-        let data = events.events.filter(event => {
-          if (event.description.text) return true;
-        });
+        let data = events.events.filter(event => event.description.text);
         this.setState({ events: data });
         this.setState({ eventsTmp: data });
       });
@@ -225,16 +220,19 @@ class App extends Component {
   }
 
   handleIconClick = (event) => {
+
+    let selectedEventId = event.target.getAttribute("data-id");
     let selectedIcon = event.target.getAttribute("data-name");
     let tmp = selectedIcon;
+
+    //just for rename
     if (selectedIcon === "bookmark") {
       tmp = "add list";
     }
-    let selectedEventId = event.target.getAttribute("data-id");
 
-    // user was not logged_in
+    // if user not logged_in, show error message
     if (!this.state.user.userID) {
-      // request log-in
+
       $(`.${selectedEventId}`).text(
         `You need log-in or register to use ${tmp} function`
       );
@@ -289,15 +287,8 @@ class App extends Component {
   handleListItemClick = (event) => {
     let selectedEventId = event.target.getAttribute("data-id");
 
-    // move current search result in tmp
-    if (this.state.listItemSelected === false) {
-      this.setState({ eventsTmp: this.state.events });
-    }
     this.setState({ listItemSelected: true });
     this.setState({ eventId: selectedEventId });
-
-    // retrieve user_event data
-    this.getUserEventListInDB(this.state.user.userID);
 
     // retrieve one event from api
     fetch(
@@ -306,13 +297,10 @@ class App extends Component {
       }&expand=organizer,venue`
     )
       .then(res => res.json())
-      .then(data =>
-        this.setState({ events: [data] }));
+      .then(data => this.setState({ events: [data] }));
 
     // retrieve messages that belong to an event requested
-    fetch(`http://localhost:8080/events/${selectedEventId}/messages`)
-      .then(res => res.json())
-      .then(data => { data ? this.setState({ messages: data }) : null });
+    this.getMessagesOfAnEventInDB(selectedEventId);
 
     this.scrollToBottom();
     this.openChatFromList();
