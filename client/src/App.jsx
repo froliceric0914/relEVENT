@@ -3,7 +3,6 @@ import React, { Component } from "react";
 import SearchPanel from "./SearchPanel.jsx";
 import EventList from "./EventList.jsx";
 import Message from "./Message.jsx";
-// import MessageList from "./MessageList.jsx";
 import UserRegistration from "./UserRegistration.jsx";
 import UserLogin from "./UserLogin.jsx";
 import { read_cookie, delete_cookie } from "sfcookies";
@@ -11,47 +10,53 @@ import MyList from "./MyList.jsx";
 import Scroll from "./Scroll.jsx";
 import ReactDOM from "react-dom";
 import * as ReactBootstrap from "react-bootstrap";
+import NavBar from "./NavBar.jsx";
 
-// import { Button, Icon } from "react-materialize";
-
-//TODO: styling
-//TODO: need sanitize for user input
 class App extends Component {
   constructor(props) {
     super(props);
-    //add an option of oderby distance
     this.state = {
       orderby: "date",
       events: [],
       eventsTmp: [],
-      conditions: [], //maybe no need
-      messages: [], //will be array of object
+      messages: [],
       cookie: [],
       categories: [],
       currentChatMessage: "",
       eventId: "0",
+      listItems: [],
+      listItemSelected: false,
+      allEvents: [],
       user: {
         status: false,
         username: null,
         userID: 0
-      },
-      listItems: [],
-      listItemSelected: false,
-      allEvents: []
+      }
     };
     this.searchEvent = this.searchEvent.bind(this);
     this.openChat = this.openChat.bind(this);
     this.closeChat = this.closeChat.bind(this);
     this.handleIconClick = this.handleIconClick.bind(this);
-    this.openMyList = this.openMyList.bind(this);
     this.handleListItemClick = this.handleListItemClick.bind(this);
-    this.handleXIconOnEventClick = this.handleXIconOnEventClick.bind(this);
   }
 
-  generateUserColor = user_id => {
-    let hue = (user_id * 70) % 360;
-    return `hsl(${hue}, 90%, 50%)`;
-  };
+  resetState = () => {
+    delete_cookie("userCookie");
+    this.closeChat();
+    $(".myList").hide();
+    this.setState({
+      events: this.state.eventsTmp,
+      user: {
+        status: false,
+        username: null,
+        userID: null
+      },
+      listItems: [],
+      listItemSelected: false,
+      currentChatMessage: "",
+      eventId: "0"
+    });
+  }
 
   getAllEventInDB = () => {
     fetch(`http://localhost:8080/events`)
@@ -98,7 +103,7 @@ class App extends Component {
     }
     const url = fetch(
       `https://www.eventbriteapi.com/v3/events/search/?q=&sort_by=date&location.address=toronto&expand=organizer,venue&token=${
-        process.env.TOKEN
+      process.env.TOKEN
       }`
     )
       .then(res => {
@@ -125,7 +130,7 @@ class App extends Component {
       });
   }
 
-  componentDidMount() {}
+  componentDidMount() { }
 
   componentDidUpdate() {
     this.scrollToBottom();
@@ -142,9 +147,9 @@ class App extends Component {
 
     const getURL = `https://www.eventbriteapi.com/v3/events/search/?q=${keyword}&expand=organizer,venue&sort_by=${
       this.state.orderby
-    }&categories=${category}&location.address=${location}&location.within=${localWithin}&start_date.range_start=${trueStartDate}&token=${
+      }&categories=${category}&location.address=${location}&location.within=${localWithin}&start_date.range_start=${trueStartDate}&token=${
       process.env.TOKEN
-    }`;
+      }`;
     console.log("url", getURL);
     const url = fetch(getURL)
       .then(res => {
@@ -166,7 +171,7 @@ class App extends Component {
         channel: "ChatChannel"
       },
       {
-        connected: () => {},
+        connected: () => { },
         received: data => {
           // if you don't connect with back-end =========
           // // this.setState({ messages: [...this.state.messages, data ] });
@@ -185,7 +190,7 @@ class App extends Component {
               }
             });
         },
-        create: function(chatContent, user_id, event_id, event_name, img_url) {
+        create: function (chatContent, user_id, event_id, event_name, img_url) {
           this.perform("create", {
             content: chatContent,
             user_id: user_id,
@@ -248,7 +253,7 @@ class App extends Component {
       $(`.${selectedEventId}`).text(
         `You need log-in or register to use ${tmp} function`
       );
-      setTimeout(function() {
+      setTimeout(function () {
         $(`.${selectedEventId}`).text("");
       }, 3000);
 
@@ -264,7 +269,7 @@ class App extends Component {
 
     fetch(
       `http://localhost:8080/users/${
-        this.state.user.userID
+      this.state.user.userID
       }/user_events/${selectedEventId}`,
       {
         headers: {
@@ -303,9 +308,6 @@ class App extends Component {
     }
     this.setState({ listItemSelected: true });
     this.setState({ eventId: selectedEventId });
-    // $(".myList").slideUp() &&
-    //   $(".btn-mylist").removeClass("mylist-on") &&
-    //   $(".btn-mylist").text("MyList");
 
     console.log("retrieve user list");
     // retrieve user_event data
@@ -321,7 +323,7 @@ class App extends Component {
 
     fetch(
       `https://www.eventbriteapi.com/v3/events/${selectedEventId}/?token=${
-        process.env.TOKEN
+      process.env.TOKEN
       }&expand=organizer,venue`
     )
       .then(res => {
@@ -348,26 +350,6 @@ class App extends Component {
     this.openChatFromList();
   }
 
-  // when x Icon on an event from myList was clicked
-  handleXIconOnEventClick(event) {
-    this.closeChat();
-    this.setState({ listItemSelected: false });
-    this.setState({ events: this.state.eventsTmp });
-  }
-
-  // Open user's MyList
-  openMyList(event) {
-    $(".myList").is(":visible")
-      ? // close list
-        $(".myList").slideUp() &&
-        $(".btn-mylist").removeClass("mylist-on") &&
-        $(".btn-mylist").text("MyList")
-      : // open list
-        $(".myList").slideDown() &&
-        $(".btn-mylist").addClass("mylist-on") &&
-        $(".btn-mylist").text("Close");
-  }
-
   openChatFromList = () => {
     //open chat space
     $(".chatSpace").show();
@@ -382,7 +364,7 @@ class App extends Component {
     if (!this.state.user.userID) {
       // request log-in
       $(`.${eventId}`).text("You need log-in or register to use chat function");
-      setTimeout(function() {
+      setTimeout(function () {
         $(".iconSideError").text("");
       }, 3500);
 
@@ -454,104 +436,20 @@ class App extends Component {
       );
     });
 
-    ///////////// nav bar before log-in ///////////////
-    let outside = (
-      <div className="nav-right flexR enter">
-        <div
-          onClick={e => {
-            window.scrollTo(0, 0);
-            document.querySelector(".registration-wrapper").style.display =
-              "flex";
-            $("body").addClass("stop-scrolling");
-            console.log("click me");
-          }}
-        >
-          register
-        </div>
-        &nbsp;/&nbsp;
-        <div
-          onClick={e => {
-            //relocate the iniative postion of pop-up window
-            window.scrollTo(0, 0);
-            document.querySelector(".login-wrapper").style.display = "flex";
-            $("body").addClass("stop-scrolling");
-          }}
-        >
-          log-in
-        </div>
-      </div>
-    );
 
-    ///////////// nav bar before log-in ///////////////
-    let inside = (
-      <div className="nav-right flexR">
-        <div
-          className="user_icon_nav"
-          style={{
-            backgroundColor: this.generateUserColor(this.state.user.userID)
-          }}
-          onClick={this.openLogOut}
-        />
 
-        <div className="userName" onClick={this.openLogOut}>
-          {this.state.user.username}
-        </div>
-
-        <div
-          className="log-out"
-          onClick={e => {
-            delete_cookie("userCookie");
-            this.closeChat();
-            $(".myList").hide();
-            this.setState({
-              events: this.state.eventsTmp,
-              user: {
-                status: false,
-                username: null,
-                userID: null
-              },
-              listItems: [],
-              listItemSelected: false,
-              currentChatMessage: "",
-              eventId: "0"
-            });
-          }}
-        >
-          log-out
-        </div>
-
-        {/* <div className="logOutPopUp">
-        log-out
-      </div> */}
-
-        <button
-          className="btn-mylist"
-          style={{ visibility: this.state.user.status ? "block" : "hidden" }}
-          onClick={this.openMyList}
-        >
-          Mylist
-        </button>
-      </div>
-    );
-
-    ////////////////////////////////////
-
-    // cache the element you intend to target
-    // const navBar = document.querySelector('.navbar');
-
-    // // cache styles of sidebarElement inside cssStyles
-    // const cssStyles = getComputedStyle(navBar);
-
-    // // retrieve the value of the --left-pos CSS variable
-    // const cssVal = String(cssStyles.getPropertyValue('height')).trim();
-
-    ///////////// return ///////////////
     return (
       <div>
-        <nav className="navbar">
+        <NavBar
+          user={this.state.user}
+          categories={this.state.categories}
+          closeChat={this.closeChat}
+          resetState={this.resetState}
+          searchEvent={this.searchEvent}
+        />
+        {/* <nav className="navbar">
           <div className="navbar-content flexR">
             <a className="title">relEVENT</a>
-            {/* {cssVal} */}
 
             {this.state.user.status ? inside : outside}
           </div>
@@ -559,7 +457,7 @@ class App extends Component {
             searchEvent={this.searchEvent}
             categories={this.state.categories}
           />
-        </nav>
+        </nav> */}
 
         <main>
           <div className="registration-wrapper">
@@ -594,15 +492,11 @@ class App extends Component {
             <div className="chatSpace">
               <div className="stage">
                 <Scroll width="100%" height="500px" idName="messageList">
-                  {/* <div id="messageList"> */}
                   <div className="chatHeaderContainer">
                     <div className="chatSpaceHeader">
-                      {/* <h1>Event Chat</h1> */}
                     </div>
                   </div>
-                  {/* <i id="closeX" className="fas fa-times fa-2x" onClick={this.closeChat}></i> */}
                   <div className="chat-logs">{messages}</div>
-                  {/* </div> */}
                 </Scroll>
 
                 <div className="inputContainer">
@@ -626,10 +520,6 @@ class App extends Component {
                     />
                   </button>
                 </div>
-
-                {/* <div className="closeX" onClick={this.closeChat}>
-                  close chat
-                </div> */}
               </div>
             </div>
           </div>

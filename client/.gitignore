@@ -4,6 +4,9 @@ npm-debug.log
 dist
 .env
 
+.eslintrc.json
+.prettierrc
+
 ### PhpStorm ###
 # Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm, CLion, Android Studio and Webstorm
 

@@ -56,11 +56,19 @@ const Event = ({
   let bookmarkclassName = "fas fa-plus-circle icon";
   let likeCount = 0;
 
-  allEvents.forEach(item => {
+  // allEvents.forEach(item => {
+  //   if (event.id === item.external_event_id) {
+  //     likeCount = item.like_count;
+  //   }
+  // });
+
+  for (let item of allEvents) {
     if (event.id === item.external_event_id) {
       likeCount = item.like_count;
+      break;
     }
-  });
+
+  }
 
   listItems.forEach(item => {
     if (event.id === item.event.external_event_id) {
@@ -123,8 +131,8 @@ const Event = ({
                 {!event.name.text
                   ? ""
                   : event.name.text.substring(40)
-                  ? event.name.text.substring(0, 40) + " ..."
-                  : event.name.text}
+                    ? event.name.text.substring(0, 40) + " ..."
+                    : event.name.text}
               </h2>
               <h3 className="card-text text-left">{properDate}</h3>
               <h3 className="card-text text-left">
@@ -179,13 +187,13 @@ const Event = ({
         </div>
         <div
           className="flip-card-back"
-          // style={{
-          //   background: `url(${img_url})`,
-          //   backgroundSize: "cover",
-          //   backgroundRepeat: "no-repeat",
-          //   backgroundColor: "rgba(245, 245, 245, 0.6)",
-          //   backgroundBlendMode: "screen"
-          // }}
+        // style={{
+        //   background: `url(${img_url})`,
+        //   backgroundSize: "cover",
+        //   backgroundRepeat: "no-repeat",
+        //   backgroundColor: "rgba(245, 245, 245, 0.6)",
+        //   backgroundBlendMode: "screen"
+        // }}
         >
           <div
             className="card-img-top"
@@ -200,8 +208,8 @@ const Event = ({
             {!event.description.text
               ? ""
               : event.description.text.substring(290)
-              ? event.description.text.substring(0, 290) + "..."
-              : event.description.text}
+                ? event.description.text.substring(0, 290) + "..."
+                : event.description.text}
           </p>
           <a
             href={event.url}
