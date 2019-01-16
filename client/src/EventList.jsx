@@ -1,6 +1,9 @@
 import React from "react";
 import Event from "./Event.jsx";
 
+//This is an container to show event listing.
+//TODO: add styling
+
 const EventList = ({
   events,
   openChat,
