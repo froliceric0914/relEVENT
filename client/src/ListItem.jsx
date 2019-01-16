@@ -7,26 +7,6 @@ const ListItem = ({ listItem, handleListItemClick }) => {
     likeClass = "fas fa-heart";
   }
 
-  let img;
-  if (listItem.event.logo_url) {
-    img =
-      <img
-        className="img-fluid "
-        src={listItem.event.logo_url}
-        data-id={eventId}
-        onClick={handleListItemClick}
-      />
-  } else {
-    img =
-      <div
-        style={{ with: "600px", height: "200px", backgroundColor: "black" }}
-        className="img-fluid "
-
-        data-id={eventId}
-        onClick={handleListItemClick}
-      ></div>
-  }
-
   return (
     //horizontal layout
     <div
@@ -36,7 +16,13 @@ const ListItem = ({ listItem, handleListItemClick }) => {
     >
       <div className="row">
         <div className="col-md-5 list-img">
-          {img}
+          <img
+            className="img-fluid"
+            src={listItem.event.logo_url}
+            alt="no image"
+            data-id={eventId}
+            onClick={handleListItemClick}
+          />
         </div>
         <div className="col-md-7 list-txt">
           <div

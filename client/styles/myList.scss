@@ -1,7 +1,6 @@
 //***************** myList *****************//
 
 .myList {
-  // box-sizing: border-box;
   margin: 1rem;
   display: none;
   position: fixed;
@@ -15,11 +14,7 @@
   border-radius: 0.3rem;
   padding-right: 1rem;
   font-size: 0.9rem; //for making list gaps
-  // padding-right: 17px;
-  // box-sizing: content-box;
-  // overflow-y: scroll;
 
-  // text-align: center;
   h3 {
     padding: 0.2rem;
     position: sticky;
@@ -32,7 +27,6 @@
 
   .list-txt {
     font-size: 1.2rem;
-    // padding-left: 0;
   }
 
 
@@ -40,11 +34,6 @@
   .event-title {
     text-decoration: underline;
   }
-
-  // img{
-  //   position: cover;
-  //   opacity: 1;
-  // }
 
   img:hover,
   .event-title:hover {
@@ -68,5 +57,25 @@
 
   .notify:hover {
     background-color: whitesmoke;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  .col-md-5 {
+    padding-right: 0;
+  }
+}
+
+@media only screen and (max-width: 420px) {
+  .myList {
+    display: none;
+  }
+
+  .listItem {
+    display: none;
+  }
+
+  .btn-mylist {
+    display: none;
   }
 }

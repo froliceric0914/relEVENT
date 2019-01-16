@@ -113,6 +113,7 @@ class App extends Component {
       .then(data => data ? this.setState({ listItems: data }) : null);
   }
 
+  // scroll to the last chat message
   scrollToBottom = () => {
     let messageList = document.getElementById("messageList");
     const scrollHeight = messageList.scrollHeight;

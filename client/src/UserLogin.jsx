@@ -74,7 +74,7 @@ class UserLogin extends Component {
         >
           +
         </div>
-        <h2 for="user-email">Email</h2>
+        <h2 htmlFor="user-email">Email</h2>
         <input
           type="email"
           // id="login-rmail"
@@ -88,6 +88,7 @@ class UserLogin extends Component {
         />
         <h2>Password</h2>
         <PasswordMask
+          id="password-login"
           type="text"
           onChange={e => {
             this.setState({

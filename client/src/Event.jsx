@@ -95,8 +95,7 @@ const Event = ({
       <div className="flip-card-inner hoverable">
         <div className="flip-card-front">
           <div
-            className="card-img-top"
-            className="event-card-body pb-10"
+            className="card-img-top event-card-body pb-10"
             style={{ overflow: "hidden" }}
             alt="Card image cap"
             onClick={_clickHandler}

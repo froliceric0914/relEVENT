@@ -4,8 +4,6 @@ import { read_cookie, delete_cookie } from "sfcookies";
 
 const NavBar = ({ user, categories, closeChat, resetState, searchEvent }) => {
 
-  console.log("ppp", user);
-
   let generateUserColor = user_id => {
     let hue = (user_id * 70) % 360;
     return `hsl(${hue}, 90%, 50%)`;
@@ -33,7 +31,6 @@ const NavBar = ({ user, categories, closeChat, resetState, searchEvent }) => {
           document.querySelector(".registration-wrapper").style.display =
             "flex";
           $("body").addClass("stop-scrolling");
-          console.log("click me");
         }}
       >
         register

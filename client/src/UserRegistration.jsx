@@ -15,7 +15,7 @@ class UserRegistration extends Component {
 
   _handleSubmit = e => {
     const { email, username, password } = this.state;
-    // send the state info to backend
+    // send the state info to back-end
     const user = fetch("http://localhost:8080/users", {
       headers: {
         Accept: "application/json",
@@ -31,7 +31,7 @@ class UserRegistration extends Component {
         console.log("user data from backend", data);
         if (data.status == "User cannot be created") {
           $(".error-log-registration").text(data.message);
-          setTimeout(function() {
+          setTimeout(function () {
             $(".error-log-registration").text("");
           }, 3000);
           return;
@@ -58,7 +58,7 @@ class UserRegistration extends Component {
           onClick={e => {
             document.querySelector(".registration-wrapper").style.display =
               "none";
-              $("body").removeClass("stop-scrolling");
+            $("body").removeClass("stop-scrolling");
           }}
         >
           +
@@ -90,6 +90,7 @@ class UserRegistration extends Component {
 
         <h2>Password</h2>
         <PasswordMask
+          id="password_register"
           type="text"
           className="form-user-registration-1"
           onChange={e => {
