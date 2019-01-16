@@ -1,8 +1,5 @@
 import React, { Component } from "react";
 
-// This is an Search window
-// TODO: add styling
-
 class SearchPanel extends Component {
   constructor(props) {
     super(props);
@@ -43,11 +40,13 @@ class SearchPanel extends Component {
               }}
               value={this.state.keyword}
               placeholder="ex.festival"
-            // placeholder="all the fantastic starts from here"
+              // placeholder="all the fantastic starts from here"
             />
           </div>
           <div className="form-wrap">
-            <label>Start<span id="txt-date"> Date</span></label>
+            <label>
+              Start<span id="txt-date"> Date</span>
+            </label>
             <input
               type="text"
               id="start-date"
@@ -73,7 +72,6 @@ class SearchPanel extends Component {
             >
               <option value="">-</option>
               {this.props.categories.map(categoryOption => {
-
                 return (
                   <option value={categoryOption.id} key={categoryOption.id}>
                     {categoryOption.name}

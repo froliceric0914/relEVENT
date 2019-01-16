@@ -55,12 +55,6 @@ const Event = ({
   let bookmarkclassName = "fas fa-plus-circle icon";
   let likeCount = 0;
 
-  // allEvents.forEach(item => {
-  //   if (event.id === item.external_event_id) {
-  //     likeCount = item.like_count;
-  //   }
-  // });
-
   for (let item of allEvents) {
     if (event.id === item.external_event_id) {
       likeCount = item.like_count;
@@ -91,16 +85,9 @@ const Event = ({
   }
 
   let errorMessage = `iconSideError ${event.id}`;
-  // let img_style;
-
-  // if (event.logo.url != null) {
-  //   img_style = { backgroundImage: `url(${event.logo.url})` };
-  //   console.log("iii", img_style);
-  // }
 
   let chatButtonText = !listItemSelected ? "Chat" : "Close";
   return (
-    // <div className="event-card col-4">
     <div
       className="card m-5 flip-card"
       style={{ width: "40rem", height: "32rem" }}

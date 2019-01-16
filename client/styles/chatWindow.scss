@@ -1,0 +1,210 @@
+//***************** chat *****************//
+
+.chatSpace {
+  background-color: white;
+  width: 60%;
+  height: 90%;
+  margin-top: 300px;
+  display: none;
+  min-width: 0;
+  border-style: solid;
+  border-width: 2px;
+  border-color: #585859;
+  background-image: linear-gradient(to bottom right, #7da8ed, pink);
+  border-radius: 25px;
+  padding: 20px;
+  margin: 10px;
+  margin-top: 2rem;
+
+  #messageList {
+    height: 100%;
+  }
+}
+
+.chatHeaderContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.chatSpaceHeader {
+  border-radius: 25px;
+  top: 0;
+  width: 50%;
+  margin: 0;
+  font-family: "Ubuntu", sans-serif;
+}
+
+.closeX {
+  font-size: 3rem;
+  width: 100%;
+  font-size: 13px;
+  text-decoration: underline;
+  padding-top: 7px;
+  text-align: right;
+  padding-top: 12px;
+  font-family: "Ubuntu", sans-serif;
+  color: #706f6f;
+}
+
+.closeX:hover {
+  cursor: pointer;
+  opacity: 0.8;
+  font-family: "Ubuntu", sans-serif;
+  color: #706f6f;
+}
+
+.message-content {
+  max-width: 80%;
+
+  .content-wrapper {
+    overflow: hidden;
+    border-radius: 20px;
+    padding: 10px 14px;
+    max-width: 80%;
+  }
+
+  img {
+    max-width: 100%;
+    margin: 0;
+    vertical-align: bottom;
+  }
+}
+
+//**** chatbar ****//
+
+.inputContainer {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.input {
+  background-color: transparent;
+  border: none;
+  border-bottom: 2px solid #919191;
+  color: #706f6f;
+  box-sizing: border-box;
+  font-size: 18px;
+  height: 50px;
+  padding: 10px 0px;
+  position: relative;
+  top: 50%;
+  width: 100%;
+  font-family: "Ubuntu", sans-serif;
+
+  &:focus {
+    outline: none;
+  }
+}
+
+input::-webkit-input-placeholder {
+  color: #585859;
+  font-family: "Ubuntu", sans-serif;
+}
+
+input:focus::-webkit-input-placeholder {
+  color: #585859;
+  font-family: "Ubuntu", sans-serif;
+}
+
+.input:focus+.underline {
+  transform: scale(1);
+}
+
+.underline {
+  background-color: dodgerblue;
+  display: inline-block;
+  height: 3 px;
+  left: 50px;
+  margin-top: -4px;
+  position: absolute;
+  top: 185px;
+  -webkit-transform: scale(0, 1);
+  transform: scale(0, 1);
+  -webkit-transition: all 0.2s linear;
+  transition: all 0.2s linear;
+  width: 202px;
+}
+
+.send {
+  border-radius: 25px;
+  border-style: solid;
+  height: 30px;
+  border-width: 2px;
+  border-color: #585859;
+  margin-left: 15px;
+  width: 100px;
+  background-color: #dce6f7;
+  font-family: "Ubuntu", sans-serif;
+}
+
+.send-logo {
+  height: 15px;
+  width: 15px;
+  padding-left: 4px;
+  padding-bottom: 2px;
+}
+
+.send:hover {
+  border-radius: 25px;
+  border-style: solid;
+  height: 30px;
+  background-color: #7ca8ef;
+  color: white;
+  margin-left: 15px;
+  width: 100px;
+  font-family: "Ubuntu", sans-serif;
+}
+
+.send:focus {
+  outline: none;
+  border-radius: 25px;
+  border-style: solid;
+  height: 30px;
+  background-color: #dce6f7;
+  color: black;
+  margin-left: 15px;
+  width: 100px;
+  font-family: "Ubuntu", sans-serif;
+}
+
+//**** message ****//
+
+.messageInfoContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  font-weight: bolder;
+  font-family: "Ubuntu", sans-serif;
+}
+
+.chat-logs {
+  padding: 15px;
+  background-color: white;
+  border-radius: 15px;
+}
+
+.userMessageContainer {
+  padding: 5px;
+}
+
+.messageContent {
+  overflow-wrap: break-word;
+  padding-left: 38px;
+  font-family: "Ubuntu", sans-serif;
+}
+
+.userImage {
+  height: 30px;
+  width: 36px;
+  padding-right: 6px;
+}
+
+.messageTime {
+  font-size: 9px;
+  float: right;
+  padding-bottom: 10px;
+  font-style: italic;
+  color: #999999;
+}

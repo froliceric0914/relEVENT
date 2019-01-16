@@ -2,11 +2,6 @@ import React from "react";
 import ListItem from "./ListItem.jsx";
 import Scroll from "./Scroll.jsx";
 
-//This is an event info pane for an event.
-//TODO: add other values. img, description, venue, cost etc...
-//TODO: add onclick to chat button. show chat component
-//TODO: add styling
-
 const MyList = ({ listItems, handleListItemClick }) => {
   return (
     <div className="myList">

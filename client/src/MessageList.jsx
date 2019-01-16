@@ -1,10 +1,7 @@
 import React, { Component } from "react";
 import Message from "./Message.jsx";
 
-//This is an message container
-//TODO: replace dummy aaa code to messages
-//TODO: add styling
-//TODO: set height to be full
+//This is the message container
 
 class MessageList extends Component {
   render() {
