@@ -12,20 +12,6 @@ class UserLogin extends Component {
     };
   }
 
-  _list = id => {
-    fetch(`http://localhost:8080/users/${id}/events`)
-      .then(res => {
-        return res.json();
-      })
-      .then(data => {
-        if (data) {
-          this.props.setList({
-            listItems: data
-          });
-        }
-      });
-  };
-
   _handleSubmit = e => {
     const { email, password } = this.state;
     const user = fetch("http://localhost:8080/login", {
@@ -53,7 +39,7 @@ class UserLogin extends Component {
           username: data.object.username,
           userID: data.object.id
         });
-        this._list(this.props.userState.userID);
+        this.props.getUserEventListInDB(this.props.userState.userID);
         bake_cookie("userCookie", this.props.userState);
         document.querySelector(".login-wrapper").style.display = "none";
         $("body").removeClass("stop-scrolling");

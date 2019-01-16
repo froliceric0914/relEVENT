@@ -2,7 +2,7 @@ import React from "react";
 import SearchPanel from "./SearchPanel.jsx";
 import { read_cookie, delete_cookie } from "sfcookies";
 
-const NavBar = ({ user, categories, closeChat, resetState, searchEvent }) => {
+const NavBar = ({ user, categories, resetState, searchEvent }) => {
 
   let generateUserColor = user_id => {
     let hue = (user_id * 70) % 360;
@@ -66,9 +66,6 @@ const NavBar = ({ user, categories, closeChat, resetState, searchEvent }) => {
       <div
         className="log-out"
         onClick={e => {
-          delete_cookie("userCookie");
-          closeChat();
-          $(".myList").hide();
           resetState();
         }}
       >

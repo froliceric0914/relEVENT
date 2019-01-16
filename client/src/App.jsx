@@ -409,6 +409,7 @@ class App extends Component {
               setUser={user => this.setState({ user })}
               setList={listItems => this.setState(listItems)}
               userState={this.state.user} // render it in the nav
+              getUserEventListInDB={this.getUserEventListInDB}
             />
           </div>
 

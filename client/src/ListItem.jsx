@@ -8,7 +8,7 @@ const ListItem = ({ listItem, handleListItemClick }) => {
   }
 
   return (
-    //horizontal layout
+
     <div
       className="listItem img-thumbnail"
       data-id={eventId}

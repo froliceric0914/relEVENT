@@ -9,7 +9,6 @@ class SearchPanel extends Component {
       location: "toronto",
       localWithin: "",
       startDate: ""
-      // `${this.props.categories}`
     };
 
     this._handleSubmit = this._handleSubmit.bind(this);
@@ -19,14 +18,12 @@ class SearchPanel extends Component {
     e.preventDefault();
     const { keyword, category, location, localWithin, startDate } = this.state;
     this.props.searchEvent(keyword, category, location, localWithin, startDate);
-    //call this.props.searchEvent(e)
   }
 
   render() {
     return (
       <div className="searchPanel">
         <form>
-          {/* <div className="inner-form"> */}
           <div className="form-wrap">
             <label>Keyword</label>
             <input
@@ -40,7 +37,6 @@ class SearchPanel extends Component {
               }}
               value={this.state.keyword}
               placeholder="ex.festival"
-            // placeholder="all the fantastic starts from here"
             />
           </div>
           <div className="form-wrap">
@@ -119,8 +115,6 @@ class SearchPanel extends Component {
             </button>
           </div>
         </form>
-
-        {/* <div id="result" className="row mt-5" /> */}
       </div>
     );
   }
