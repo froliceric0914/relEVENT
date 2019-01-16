@@ -1,8 +1,7 @@
 import React from "react";
 import SearchPanel from "./SearchPanel.jsx";
-import { read_cookie, delete_cookie } from "sfcookies";
 
-const NavBar = ({ user, categories, resetState, searchEvent }) => {
+const NavBar = ({ user, categories, resetState, setEvents, setEventsTmp, setListItemSelected, closeChat, orderby }) => {
 
   let generateUserColor = user_id => {
     let hue = (user_id * 70) % 360;
@@ -89,8 +88,12 @@ const NavBar = ({ user, categories, resetState, searchEvent }) => {
         {user.status ? inside : outside}
       </div>
       <SearchPanel
-        searchEvent={searchEvent}
         categories={categories}
+        setEvents={setEvents}
+        setEventsTmp={setEventsTmp}
+        setListItemSelected={setListItemSelected}
+        closeChat={closeChat}
+        orderby={orderby}
       />
     </nav>
 

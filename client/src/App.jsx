@@ -123,27 +123,27 @@ class App extends Component {
       maxScrollTop > 0 ? maxScrollTop : 0;
   };
 
-  searchEvent = (keyword, category, location, localWithin, startDate) => {
-    this.setState({ listItemSelected: false });
-    this.closeChat();
-    let trueStartDate = "";
-    let trueDndDate = "";
-    if (startDate) {
-      trueStartDate = startDate + "T00%3A00%3A00";
-    }
+  // searchEvent = (keyword, category, location, localWithin, startDate) => {
+  //   this.setState({ listItemSelected: false });
+  //   this.closeChat();
+  //   let trueStartDate = "";
+  //   let trueDndDate = "";
+  //   if (startDate) {
+  //     trueStartDate = startDate + "T00%3A00%3A00";
+  //   }
 
-    fetch(`https://www.eventbriteapi.com/v3/events/search/?q=${keyword}&expand=organizer,venue&sort_by=${
-      this.state.orderby
-      }&categories=${category}&location.address=${location}&location.within=${localWithin}&start_date.range_start=${trueStartDate}&token=${
-      process.env.TOKEN
-      }`)
-      .then(res => res.json())
-      .then(events => {
-        let data = events.events.filter(event => event.description.text);
-        this.setState({ events: data });
-        this.setState({ eventsTmp: data });
-      });
-  }
+  //   fetch(`https://www.eventbriteapi.com/v3/events/search/?q=${keyword}&expand=organizer,venue&sort_by=${
+  //     this.state.orderby
+  //     }&categories=${category}&location.address=${location}&location.within=${localWithin}&start_date.range_start=${trueStartDate}&token=${
+  //     process.env.TOKEN
+  //     }`)
+  //     .then(res => res.json())
+  //     .then(events => {
+  //       let data = events.events.filter(event => event.description.text);
+  //       this.setState({ events: data });
+  //       this.setState({ eventsTmp: data });
+  //     });
+  // }
 
   // socket
   createSocket() {
@@ -391,9 +391,15 @@ class App extends Component {
         <NavBar
           user={this.state.user}
           categories={this.state.categories}
-          closeChat={this.closeChat}
+
           resetState={this.resetState}
-          searchEvent={this.searchEvent}
+          // searchEvent={this.searchEvent}
+
+          setEvents={events => this.setState(events)}
+          setEventsTmp={eventsTmp => this.setState(eventsTmp)}
+          setListItemSelected={listItemSelected => this.setState(listItemSelected)}
+          closeChat={this.closeChat}
+          orderby={this.state.orderby}
         />
 
         <main>
@@ -407,7 +413,6 @@ class App extends Component {
           <div className="login-wrapper">
             <UserLogin
               setUser={user => this.setState({ user })}
-              setList={listItems => this.setState(listItems)}
               userState={this.state.user} // render it in the nav
               getUserEventListInDB={this.getUserEventListInDB}
             />

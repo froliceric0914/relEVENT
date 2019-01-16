@@ -14,10 +14,32 @@ class SearchPanel extends Component {
     this._handleSubmit = this._handleSubmit.bind(this);
   }
 
+  _searchEvent = (keyword, category, location, localWithin, startDate) => {
+
+
+    this.props.setListItemSelected({ listItem: false });
+    this.props.closeChat();
+    let trueStartDate = "";
+
+    startDate ? trueStartDate = startDate + "T00%3A00%3A00" : null;
+
+    fetch(`https://www.eventbriteapi.com/v3/events/search/?q=${keyword}&expand=organizer,venue&sort_by=${
+      this.props.orderby
+      }&categories=${category}&location.address=${location}&location.within=${localWithin}&start_date.range_start=${trueStartDate}&token=${
+      process.env.TOKEN
+      }`)
+      .then(res => res.json())
+      .then(events => {
+        let data = events.events.filter(event => event.description.text);
+        this.props.setEvents({ events: data });
+        this.props.setEventsTmp({ eventsTmp: data });
+      });
+  }
+
   _handleSubmit(e) {
     e.preventDefault();
     const { keyword, category, location, localWithin, startDate } = this.state;
-    this.props.searchEvent(keyword, category, location, localWithin, startDate);
+    this._searchEvent(keyword, category, location, localWithin, startDate);
   }
 
   render() {
