@@ -1,8 +1,6 @@
+class UserEventsController < ApplicationController
 
-
-  class UserEventsController < ApplicationController
-
-    # handle create, edit, delete
+    # handle create, edit, destroy in this route
     def update 
       
       @category = Category.first
@@ -21,7 +19,6 @@
 
       if user_event
 
-        # put
         if params[:selected] == "like"
           user_event.update(
           liked: !user_event[:liked])
@@ -30,14 +27,13 @@
           )
         end
 
-        #delete
         if user_event[:bookmarked] == false && user_event[:liked] == false
           UsersEvent.destroy(user_event.id)
         end
 
       else
         
-        # create
+        # create user
         @user = User.find_by!(id: params[:user_id])
 
         user_event = UsersEvent.create!(
@@ -56,7 +52,6 @@
       
     end  
 
-    # this finds the users events
     def events 
 
       user_events = UsersEvent.where(

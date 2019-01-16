@@ -7,6 +7,26 @@ const ListItem = ({ listItem, handleListItemClick }) => {
     likeClass = "fas fa-heart";
   }
 
+  let img;
+  if (listItem.event.logo_url) {
+    img =
+      <img
+        className="img-fluid "
+        src={listItem.event.logo_url}
+        data-id={eventId}
+        onClick={handleListItemClick}
+      />
+  } else {
+    img =
+      <div
+        style={{ with: "600px", height: "200px", backgroundColor: "black" }}
+        className="img-fluid "
+
+        data-id={eventId}
+        onClick={handleListItemClick}
+      ></div>
+  }
+
   return (
     //horizontal layout
     <div
@@ -16,12 +36,7 @@ const ListItem = ({ listItem, handleListItemClick }) => {
     >
       <div className="row">
         <div className="col-md-5 list-img">
-          <img
-            className="img-fluid "
-            src={listItem.event.logo_url}
-            data-id={eventId}
-            onClick={handleListItemClick}
-          />
+          {img}
         </div>
         <div className="col-md-7 list-txt">
           <div
@@ -32,8 +47,8 @@ const ListItem = ({ listItem, handleListItemClick }) => {
             {!listItem.event.name
               ? ""
               : listItem.event.name.substring(25)
-              ? listItem.event.name.substring(0, 25) + "..."
-              : listItem.event.name}
+                ? listItem.event.name.substring(0, 25) + "..."
+                : listItem.event.name}
           </div>
           <i className={likeClass} />
         </div>

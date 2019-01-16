@@ -4,7 +4,4 @@ class UserSerializer < ActiveModel::Serializer
 
   has_many :events
 
-  # def custom_username
-  #   "hi #{object.username}"
-  # end
 end

@@ -95,13 +95,7 @@ class App extends Component {
   getAllEventInDB = () => {
     fetch(`http://localhost:8080/events`)
       .then(res => res.json())
-      .then(data => {
-        if (data) {
-          this.setState({
-            allEvents: data
-          });
-        }
-      });
+      .then(data => data ? this.setState({ allEvents: data }) : null);
   };
 
   // get messages that belong to an event requested

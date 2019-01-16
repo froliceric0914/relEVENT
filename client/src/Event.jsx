@@ -1,6 +1,5 @@
 import React from "react";
 import * as ReactBootstrap from "react-bootstrap";
-// import { Button, Icon } from "react-materialize";
 
 const _clickHandler = e => {
   $(e.target.parentElement.parentElement.parentElement).toggleClass(
@@ -52,15 +51,9 @@ const Event = ({
 
   let likeIcon = "false";
   let bookmarkIcon = "false";
-  let likeclassName = "far fa-heart icon";
-  let bookmarkclassName = "fas fa-plus-circle icon";
+  let likeClassName = "far fa-heart icon";
+  let bookmarkClassName = "fas fa-plus-circle icon";
   let likeCount = 0;
-
-  // allEvents.forEach(item => {
-  //   if (event.id === item.external_event_id) {
-  //     likeCount = item.like_count;
-  //   }
-  // });
 
   for (let item of allEvents) {
     if (event.id === item.external_event_id) {
@@ -74,10 +67,10 @@ const Event = ({
       likeIcon = item.liked;
       bookmarkIcon = item.bookmarked;
       if (likeIcon === true) {
-        likeclassName = "fas fa-heart icon";
+        likeClassName = "fas fa-heart icon";
       }
       if (bookmarkIcon === true) {
-        bookmarkclassName = "fas fa-plus-circle icon red-plus";
+        bookmarkClassName = "fas fa-plus-circle icon red-plus";
       }
     }
   });
@@ -92,16 +85,9 @@ const Event = ({
   }
 
   let errorMessage = `iconSideError ${event.id}`;
-  // let img_style;
-
-  // if (event.logo.url != null) {
-  //   img_style = { backgroundImage: `url(${event.logo.url})` };
-  //   console.log("iii", img_style);
-  // }
 
   let chatButtonText = !listItemSelected ? "Chat" : "Close";
   return (
-    // <div className="event-card col-4">
     <div
       className="card m-5 flip-card"
       style={{ width: "40rem", height: "32rem" }}
@@ -154,7 +140,7 @@ const Event = ({
                 data-name="like"
                 data-event-name={event.name.text}
                 data-img-url={img_url}
-                className={likeclassName}
+                className={likeClassName}
                 onClick={handleIconClick}
               />
               <span className="like-counter">{likeCount}</span>
@@ -165,10 +151,9 @@ const Event = ({
                 data-name="bookmark"
                 data-event-name={event.name.text}
                 data-img-url={img_url}
-                className={bookmarkclassName}
+                className={bookmarkClassName}
                 onClick={handleIconClick}
               />
-              {/* <i className="fas fa-plus-circle icon whiteBookmark " /> */}
             </div>
             <div className={errorMessage} />
             <button
@@ -184,16 +169,7 @@ const Event = ({
             </button>
           </div>
         </div>
-        <div
-          className="flip-card-back"
-        // style={{
-        //   background: `url(${img_url})`,
-        //   backgroundSize: "cover",
-        //   backgroundRepeat: "no-repeat",
-        //   backgroundColor: "rgba(245, 245, 245, 0.6)",
-        //   backgroundBlendMode: "screen"
-        // }}
-        >
+        <div className="flip-card-back">
           <div
             className="card-img-top"
             className="event-card-body"
@@ -228,7 +204,6 @@ const Event = ({
         </div>
       </div>
     </div>
-    // </div>
   );
 };
 

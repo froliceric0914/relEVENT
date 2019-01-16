@@ -44,7 +44,9 @@ class SearchPanel extends Component {
             />
           </div>
           <div className="form-wrap">
-            <label>Start<span id="txt-date"> Date</span></label>
+            <label>
+              Start<span id="txt-date"> Date</span>
+            </label>
             <input
               type="text"
               id="start-date"
@@ -70,7 +72,6 @@ class SearchPanel extends Component {
             >
               <option value="">-</option>
               {this.props.categories.map(categoryOption => {
-
                 return (
                   <option value={categoryOption.id} key={categoryOption.id}>
                     {categoryOption.name}
