@@ -1,6 +1,5 @@
 import React from "react";
 import * as ReactBootstrap from "react-bootstrap";
-// import { Button, Icon } from "react-materialize";
 
 const _clickHandler = e => {
   $(e.target.parentElement.parentElement.parentElement).toggleClass(
@@ -130,8 +129,8 @@ const Event = ({
                 {!event.name.text
                   ? ""
                   : event.name.text.substring(40)
-                    ? event.name.text.substring(0, 40) + " ..."
-                    : event.name.text}
+                  ? event.name.text.substring(0, 40) + " ..."
+                  : event.name.text}
               </h2>
               <h3 className="card-text text-left">{properDate}</h3>
               <h3 className="card-text text-left">
@@ -168,7 +167,6 @@ const Event = ({
                 className={bookmarkclassName}
                 onClick={handleIconClick}
               />
-              {/* <i className="fas fa-plus-circle icon whiteBookmark " /> */}
             </div>
             <div className={errorMessage} />
             <button
@@ -184,16 +182,7 @@ const Event = ({
             </button>
           </div>
         </div>
-        <div
-          className="flip-card-back"
-        // style={{
-        //   background: `url(${img_url})`,
-        //   backgroundSize: "cover",
-        //   backgroundRepeat: "no-repeat",
-        //   backgroundColor: "rgba(245, 245, 245, 0.6)",
-        //   backgroundBlendMode: "screen"
-        // }}
-        >
+        <div className="flip-card-back">
           <div
             className="card-img-top"
             className="event-card-body"
@@ -207,8 +196,8 @@ const Event = ({
             {!event.description.text
               ? ""
               : event.description.text.substring(290)
-                ? event.description.text.substring(0, 290) + "..."
-                : event.description.text}
+              ? event.description.text.substring(0, 290) + "..."
+              : event.description.text}
           </p>
           <a
             href={event.url}
@@ -228,7 +217,6 @@ const Event = ({
         </div>
       </div>
     </div>
-    // </div>
   );
 };
 
